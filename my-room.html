@@ -49,6 +49,23 @@
             box-sizing: border-box;
         }
 
+        /* イラスト表示エリア */
+        .profile-img-container {
+            width: 100%;
+            max-width: 350px; /* スマホで見やすい大きさに制限 */
+            margin: 0 auto 20px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(140, 118, 61, 0.15);
+            border: 2px solid #e6dfc3;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* 自己紹介カード */
         .profile-card {
             background-color: #ffffff;
@@ -130,6 +147,7 @@
 </head>
 <body>
 
+    <!-- ヘッダー -->
     <header>
         <h1>管理者（私）の部屋</h1>
         <div class="subtitle">もふ神runa111 の活動拠点</div>
@@ -137,32 +155,44 @@
 
     <div class="container">
 
+        <!-- 正しいファイル名に修正したイラスト部分 -->
+        <div class="profile-img-container">
+            <img src="8BF4E8F5-0BBF-4F5B-8FCD-0F290EFE5A7E.png" alt="管理者イラスト">
+        </div>
+
+        <!-- プロフィール紹介 -->
         <div class="profile-card">
             <p>創作でつながる、やさしい場所へようこそ。<br>気まぐれ更新ですが、のんびりマイペースに活動中です♪</p>
         </div>
 
         <div class="section-title">リンク一覧</div>
 
+        <!-- X (旧Twitter) -->
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="sns-btn btn-x">
             X (旧Twitter) を見る
         </a>
 
+        <!-- アメブロ -->
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="sns-btn btn-ameblo">
             アメーバブログを見る
         </a>
 
+        <!-- YouTube -->
         <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="sns-btn btn-youtube">
             YouTubeチャンネルを見る
         </a>
 
+        <!-- 小説家になろう -->
         <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-narou">
             小説家になろう を見る
         </a>
 
+        <!-- トップへ戻る -->
         <a href="index.html" class="back-btn">← トップページに戻る</a>
 
     </div>
 
+    <!-- コピーライト -->
     <footer>
         &copy; 2026 RunoraChill All Rights Reserved.
     </footer>
