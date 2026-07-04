@@ -1,370 +1,133 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunoraChill - ゆるやかにつながる場所</title>
+    <style>
+        /* 全体のリセットと背景設定 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #e8ded1;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        /* 画面全体のデザインの器 */
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* 画像の美しさを保つ最大幅 */
+            margin: 0 auto;
+            line-height: 0; /* 画像の下に隙間を作らない魔法 */
+        }
 
-<title>RunoraChill</title>
+        /* ベースとなる美しいイラスト画像 */
+        .base-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-<link rel="stylesheet" href="style.css">
+        /* === 🕒 リアルタイムデジタル時計の配置 === */
+        .clock-container {
+            position: absolute;
+            /* 画像内の時計盤の下のデジタル部分にぴったり重なる位置（％指定） */
+            top: 32.3%;
+            left: 51.5%;
+            transform: translate(-50%, -50%);
+            width: 25%;
+            text-align: center;
+            color: #ffebad; /* 暖かみのある発光文字 */
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.7);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            line-height: 1.2;
+            pointer-events: none; /* 時計の後ろのリンクを邪魔しない */
+        }
 
+        .digital-time {
+            font-size: 4vw; /* 画面サイズに合わせて自動で拡大縮小 */
+        }
+        @media (min-width: 800px) {
+            .digital-time { font-size: 32px; }
+        }
+
+        /* === 🔗 透明なタッチボタンの配置（画像のボタンの上に重ねる） === */
+        .invisible-link {
+            position: absolute;
+            display: block;
+            /* background: rgba(255, 0, 0, 0.3); */ /* 補正するときはここを外すと赤く見えます */
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        /* 管理者（私）の部屋の「部屋に入る」ボタンに重なる透明リンク */
+        .link-my-room {
+            top: 62.2%;
+            left: 6.2%;
+            width: 18%;
+            height: 2.2%;
+        }
+
+        /* フッターのSNSアイコン群（X、アメブロ、YouTube、なろう） */
+        .footer-sns {
+            position: absolute;
+            bottom: 2.3%;
+            width: 6%;
+            height: 2.5%;
+            border-radius: 50%;
+        }
+        .sns-x { left: 40.5%; }
+        .sns-ameblo { left: 46.5%; }
+        .sns-youtube { left: 52.5%; }
+        .sns-narou { left: 58.5%; }
+
+    </style>
 </head>
-
 <body>
 
-<header class="hero">
+    <div class="wrapper">
+        <!-- アップロードした画像を表示 -->
+        <img src="image_2.png" alt="RunoraChill Village" class="base-image">
 
-    <div class="hero-background"></div>
-
-    <div class="clouds">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-        <div class="cloud cloud3"></div>
-    </div>
-
-    <div class="petals"></div>
-
-    <img
-        src="images/emblem.png"
-        alt="RunoraChill"
-        class="logo"
-    >
-
-    <h1>RunoraChill</h1>
-
-    <p class="subtitle">
-        創る人と、応援する人が<br>
-        ゆるやかにつながる場所
-    </p>
-
-    <section class="clock-area">
-
-        <div class="clock-tower">
-
-            <div class="roof"></div>
-
-            <div class="window left"></div>
-
-            <div class="window right"></div>
-
-            <div id="analogClock"></div>
-
-            <div class="door"></div>
-
+        <!-- 🕒 リアルタイムに動く時計の中身 -->
+        <div class="clock-container">
+            <div class="digital-time" id="realtime-clock">00:00:00</div>
         </div>
 
-    </section>
-
-</header>
-
-<main>
-
-<section class="card">
-
-<h2>管理者（私）の部屋</h2>
-
-<p>
-
-SNS・プロフィール・作品一覧はこちら
-
-</p>
-
-<a href="#" class="button">
-
-部屋へ入る
-
-</a>
-
-</section>
-
-<section class="card">
-
-<h2>
-
-メンバー紹介
-
-</h2>
-
-<p>
-
-RunoraChillメンバー紹介
-
-</p>
-
-<a href="#" class="button">
-
-見る
-
-</a>
-
-</section>
-
-<section class="card">
-
-<h2>
-
-最新のお知らせ
-
-</h2>
-
-<p>
-
-更新情報を掲載します。
-
-</p>
-
-</section>
-
-<section class="card">
-
-<h2>
-
-リンク一覧
-
-</h2>
-
-<div class="links">
-
-<a href="#">X</a>
-
-<a href="#">アメブロ</a>
-
-<a href="#">YouTube</a>
-
-<a href="#">小説家になろう</a>
-
-</div>
-
-</section>
-
-</main>
-
-<footer>
-
-© RunoraChill
-
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>RunoraChill</title>
-
-<link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-<header class="hero">
-
-    <div class="hero-background"></div>
-
-    <div class="clouds">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-        <div class="cloud cloud3"></div>
+        <!-- 🔗 画像のボタンの上に重ねた透明なリンクたち -->
+        <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
+        
+        <!-- フッターのSNSリンク -->
+        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x" title="X"></a>
+        <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo" title="アメブロ"></a>
+        <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube" title="YouTube"></a>
+        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou" title="小説家になろう"></a>
     </div>
 
-    <div class="petals"></div>
+    <!-- 🕒 時計をリアルタイムに1秒ずつ動かすプログラム -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
 
-    <img
-        src="images/emblem.png"
-        alt="RunoraChill"
-        class="logo"
-    >
+            // 1桁の数字のときに頭に 0 をつける設定 (例: 5秒 ➔ 05秒)
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
 
-    <h1>RunoraChill</h1>
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('realtime-clock').textContent = timeString;
+        }
 
-    <p class="subtitle">
-        創る人と、応援する人が<br>
-        ゆるやかにつながる場所
-    </p>
-
-    <section class="clock-area">
-
-        <div class="clock-tower">
-
-            <div class="roof"></div>
-
-            <div class="window left"></div>
-
-            <div class="window right"></div>
-
-            <div id="analogClock"></div>
-
-            <div class="door"></div>
-
-        </div>
-
-    </section>
-
-</header>
-
-<main>
-
-<section class="card">
-
-<h2>管理者（私）の部屋</h2>
-
-<p>
-
-SNS・プロフィール・作品一覧はこちら
-
-</p>
-
-<a href="#" class="button">
-
-部屋へ入る
-
-</a>
-
-</section>
-
-<section class="card">
-
-<h2>
-
-メンバー紹介
-
-</h2>
-
-<p>
-
-RunoraChillメンバー紹介
-
-</p>
-
-<a href="#" class="button">
-
-見る
-
-</a>
-
-</section>
-
-<section class="card">
-
-<h2>
-
-最新のお知らせ
-
-</h2>
-
-<p>
-
-更新情報を掲載します。
-
-</p>
-
-</section>
-
-<section class="card">
-
-<h2>
-
-リンク一覧
-
-</h2>
-
-<div class="links">
-
-<a href="#">X</a>
-
-<a href="#">アメブロ</a>
-
-<a href="#">YouTube</a>
-
-<a href="#">小説家になろう</a>
-
-</div>
-
-</section>
-
-</main>
-
-<footer>
-
-© RunoraChill
-
-</footer>
-
-<script src="script.js"></script>
+        // ページを開いた瞬間と、その後1秒ごとに時計を更新する
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 
 </body>
-
 </html>
-const clock = document.getElementById("analogClock");
-
-function createClock(){
-
-    if(!clock) return;
-
-    for(let i=1;i<=12;i++){
-
-        const n=document.createElement("div");
-
-        n.className="number";
-
-        n.innerHTML=`<span>${i}</span>`;
-
-        n.style.transform=`rotate(${i*30}deg)`;
-
-        n.firstChild.style.display="block";
-        n.firstChild.style.transform=`translateY(10px) rotate(-${i*30}deg)`;
-
-        clock.appendChild(n);
-
-    }
-
-    const hour=document.createElement("div");
-    hour.className="hand hour";
-
-    const minute=document.createElement("div");
-    minute.className="hand minute";
-
-    const second=document.createElement("div");
-    second.className="hand second";
-
-    clock.appendChild(hour);
-    clock.appendChild(minute);
-    clock.appendChild(second);
-
-}
-
-function updateClock(){
-
-    const now=new Date();
-
-    const h=now.getHours()%12;
-    const m=now.getMinutes();
-    const s=now.getSeconds();
-
-    document.querySelector(".hour").style.transform=
-        `translateX(-50%) rotate(${h*30+m/2}deg)`;
-
-    document.querySelector(".minute").style.transform=
-        `translateX(-50%) rotate(${m*6}deg)`;
-
-    document.querySelector(".second").style.transform=
-        `translateX(-50%) rotate(${s*6}deg)`;
-
-}
-
-createClock();
-
-updateClock();
-
-setInterval(updateClock,1000);
