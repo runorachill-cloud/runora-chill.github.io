@@ -5,147 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunoraChill 公式ポータル</title>
     <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #fcfaf2;
-            color: #333333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        header {
-            width: 100%;
-            background-color: #ffffff;
-            border-bottom: 3px solid #d4af37;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .emblem-container {
-            max-width: 280px;
-            margin: 0 auto;
-            padding: 10px;
-        }
-        .emblem-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .subtitle {
-            font-size: 14px;
-            color: #8c763d;
-            font-weight: bold;
-            margin-top: 5px;
-            letter-spacing: 0.1em;
-        }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .menu-card {
-            background-color: #ffffff;
-            border: 1px solid #e6dfc3;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(140, 118, 61, 0.06);
-        }
-        .menu-card h2 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 20px;
-            color: #2b2b2b;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-card h2 {
-            color: #8c763d;
-            border-left: 4px solid #d4af37;
-            padding-left: 10px;
-        }
-        .member-card h2 {
-            color: #555555;
-            border-left: 4px solid #cccccc;
-            padding-left: 10px;
-        }
-        .menu-card p {
-            font-size: 14px;
-            color: #666666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            background-color: #3a2d28;
-            color: #ffffff;
-            text-align: center;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 10px;
-            box-sizing: border-box;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .status-badge {
-            display: inline-block;
-            background-color: #eeeeee;
-            color: #777777;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            font-size: 12px;
-            color: #999999;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="emblem-container">
-            <img src="903F62F9-36E7-4A0D-B666-7D9ADEEBC86D.png" alt="RunoraChill Emblem">
-        </div>
-        <div class="subtitle">公式ポータルサイト</div>
-    </header>
-    <div class="container">
-        <div class="menu-card admin-card">
-            <h2>管理者（私）の部屋</h2>
-            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。創作の足跡をまとめています。</p>
-            <a href="my-room.html" class="btn">部屋に入る</a>
-        </div>
-        <div class="menu-card member-card">
-            <h2>メンバー紹介 <span class="status-badge">ただいま準備中</span></h2>
-            <p>RunoraChillで共に活動する、素敵なメンバーの紹介部屋です。随時追加を予定しています。</p>
-        </div>
-    </div>
-    <footer>
-        &copy; 2026 RunoraChill All Rights Reserved.
-    </footer>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunoraChill 公式ポータル</title>
-    <style>
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            background-color: #f5edd7;
+            background-color: #f6eed6;
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
         }
 
@@ -163,19 +27,18 @@
             display: block;
         }
 
-        /* 🕐 アナログ時計の土台（時計の丸い盤面にピッタリ重ねます） */
+        /* 🕒 アナログ時計（イラストの丸い時計盤にぴったり重ねます） */
         .analog-clock {
             position: absolute;
-            top: 23.3%;
-            left: 71.9%;
-            width: 16%;
-            /* 縦横を同じにして綺麗な正円を作る */
+            top: 23.35%;
+            left: 71.95%;
+            width: 16.5%;
             aspect-ratio: 1 / 1;
             transform: translate(-50%, -50%);
             pointer-events: none;
         }
 
-        /* 時計の針の共通設定 */
+        /* 針の共通設定 */
         .hand {
             position: absolute;
             bottom: 50%;
@@ -186,16 +49,16 @@
 
         /* 時針（短くて太い黒い針） */
         .hour-hand {
-            width: 3.5%;
-            height: 30%;
+            width: 4%;
+            height: 28%;
             background-color: #2b2b2b;
             z-index: 3;
         }
 
-        /* 分針（長くて少し細い黒い針） */
+        /* 分針（長くて細い黒い針） */
         .minute-hand {
             width: 2.5%;
-            height: 42%;
+            height: 40%;
             background-color: #333333;
             z-index: 2;
         }
@@ -203,36 +66,36 @@
         /* 秒針（細い金色の針） */
         .second-hand {
             width: 1.5%;
-            height: 45%;
-            background-color: #d4af37;
+            height: 44%;
+            background-color: #cda831;
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（時計台の下の四角い液晶部分） */
+        /* 📱 デジタル時計と日付（時計の下の四角い枠内に重ねます） */
         .digital-container {
             position: absolute;
-            top: 34.6%;
-            left: 71.9%;
+            top: 34.65%;
+            left: 71.95%;
             transform: translate(-50%, -50%);
-            width: 26%;
+            width: 24%;
             text-align: center;
             color: #ffebad;
-            text-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.9);
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             line-height: 1.2;
             pointer-events: none;
         }
 
-        .digital-time { font-size: 3.2vw; }
-        .digital-date { font-size: 1.8vw; margin-top: 2%; color: #e2cfa2; }
+        .digital-time { font-size: 3.1vw; }
+        .digital-date { font-size: 1.6vw; margin-top: 3%; color: #e1cea1; }
         
         @media (min-width: 800px) {
-            .digital-time { font-size: 26px; }
-            .digital-date { font-size: 14px; }
+            .digital-time { font-size: 25px; }
+            .digital-date { font-size: 13px; }
         }
 
-        /* 🔗 透明なタッチリンクボタン */
+        /* 🔗 透明なクリック・タッチ判定ボタン */
         .invisible-link {
             position: absolute;
             display: block;
@@ -241,11 +104,11 @@
             z-index: 10;
         }
 
-        /* 「管理者（私）の部屋」ボタン（ピンクのドアのカードの下部ボタン位置） */
+        /* 「管理者（私）の部屋」の『部屋に入る』ボタン位置 */
         .link-my-room {
-            top: 62.8%;
+            top: 62.9%;
             left: 6.2%;
-            width: 17.5%;
+            width: 17.6%;
             height: 2.8%;
             border-radius: 20px;
         }
@@ -266,10 +129,10 @@
 <body>
 
     <div class="wrapper">
-        <!-- 背景として時計台のイラスト（4B41A8E5...）を読み込みます -->
-        <img src="4B41A8E5-ABB3-4F14-9EB5-2DE9025E0A63.png" alt="RunoraChill ポータル" class="base-image">
+        <!-- 💡 新しいスクショ画像を背景に直接指定しています -->
+        <img src="BC773DFE-417C-46EA-8445-7A3396A641DC.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- 🕐 動くアナログ時計の針 -->
+        <!-- 🕒 リアルタイムで動くアナログ時計の針 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
@@ -282,7 +145,7 @@
             <div class="digital-date" id="digi-date">2026.01.01 Thu</div>
         </div>
 
-        <!-- 🔗 リンクエリア -->
+        <!-- 🔗 透明なリンクボタン -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
@@ -294,7 +157,7 @@
         function updateClock() {
             const now = new Date();
             
-            // 1. アナログ時計の計算
+            // 1. アナログ時計の制御
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
@@ -307,9 +170,9 @@
             document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
             document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
             
-            // 2. デジタル時計の計算 (12時間制 AM/PM)
+            // 2. デジタル時計の制御 (12時間制 AM/PM)
             let displayHours = hours % 12;
-            displayHours = displayHours ? displayHours : 12; // 0時は12時とする
+            displayHours = displayHours ? displayHours : 12; 
             const ampm = hours >= 12 ? 'PM' : 'AM';
             const hStr = String(displayHours).padStart(2, '0');
             const mStr = String(minutes).padStart(2, '0');
@@ -317,7 +180,7 @@
             
             document.getElementById('digi-time').textContent = `${hStr}:${mStr}:${sStr} ${ampm}`;
             
-            // 3. 日付と曜日の計算
+            // 3. 日付と曜日の制御
             const y = now.getFullYear();
             const m = String(now.getMonth() + 1).padStart(2, '0');
             const d = String(now.getDate()).padStart(2, '0');
