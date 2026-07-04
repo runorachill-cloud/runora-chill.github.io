@@ -3,70 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>管理者（私）の部屋 - RunoraChill</title>
+    <title>私の部屋（SNS & ギャラリー）</title>
     <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fcfaf2;
-            color: #333333;
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh;
-        }
-        header {
-            width: 100%; background-color: #ffffff; border-bottom: 3px solid #d4af37;
-            padding: 25px 0 15px 0; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        header h1 { margin: 0; font-size: 20px; color: #3a2d28; }
-        .subtitle { font-size: 12px; color: #8c763d; font-weight: bold; margin-top: 5px; }
-        .container { width: 100%; max-width: 450px; padding: 20px; box-sizing: border-box; }
-        
-        /* 📸 巫女さんイラストの設定 */
-        .profile-img-container {
-            width: 100%; max-width: 350px; margin: 0 auto 20px auto;
-            border-radius: 16px; overflow: hidden;
-            box-shadow: 0 6px 16px rgba(140, 118, 61, 0.15); border: 2px solid #e6dfc3;
-        }
-        .profile-img-container img { width: 100%; height: auto; display: block; }
-
-        .profile-card {
-            background-color: #ffffff; border: 1px solid #e6dfc3;
-            border-radius: 16px; padding: 18px; margin-bottom: 25px; text-align: center;
-        }
-        .profile-card p { font-size: 14px; color: #555555; line-height: 1.6; margin: 0; }
-        .section-title { font-size: 14px; color: #8c763d; font-weight: bold; margin-bottom: 12px; padding-left: 8px; border-left: 3px solid #d4af37; }
-        
-        /* SNSボタン */
-        .sns-btn {
-            display: flex; align-items: center; justify-content: center; width: 100%; color: #ffffff;
-            padding: 14px; font-size: 14px; font-weight: bold; text-decoration: none;
-            border-radius: 12px; box-sizing: border-box; margin-bottom: 12px;
-        }
-        .btn-x { background-color: #111111; }
-        .btn-ameblo { background-color: #2ba717; }
-        .btn-youtube { background-color: #da0000; }
-        .btn-narou { background-color: #333333; }
-        .back-btn { display: block; text-align: center; margin-top: 20px; color: #8c763d; text-decoration: none; font-weight: bold; font-size: 14px; }
+        body { font-family: sans-serif; background-color: #fdfefe; color: #333; margin: 0; padding: 20px; }
+        h1 { color: #e67e22; }
+        .section { margin-bottom: 30px; background: #fdf2e9; padding: 15px; border-radius: 8px; }
+        .sns-links a { display: block; margin: 10px 0; color: #2980b9; font-weight: bold; text-decoration: none; }
+        .gallery-placeholder { background: #ddd; height: 150px; display: flex; align-items: center; justify-content: center; color: #666; border: 2px dashed #999; border-radius: 5px; margin-top: 10px; }
+        .back-btn { display: inline-block; margin-top: 20px; color: #7f8c8d; text-decoration: none; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>管理者（私）の部屋</h1>
-        <div class="subtitle">もふ神runa111 の活動拠点</div>
-    </header>
-    <div class="container">
-        <div class="profile-img-container">
-            <img src="8BF4E8F5-0BBF-4F5B-8FCD-0F290EFE5A7E.png" alt="管理者イラスト">
+
+    <h1>私の部屋へようこそ</h1>
+    
+    <div class="section">
+        <h2>🔗 リンク集（SNS・ブログ）</h2>
+        <div class="sns-links">
+            <a href="https://twitter.com/あなたのユーザー名" target="_blank">▶ X (旧Twitter)</a>
+            <a href="https://instagram.com/あなたのユーザー名" target="_blank">▶ Instagram</a>
         </div>
-        <div class="profile-card">
-            <p>創作でつながる、やさしい場所へようこそ。<br>のんびりマイペースに活動中です♪</p>
-        </div>
-        <div class="section-title">リンク一覧</div>
-        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="sns-btn btn-x">X (旧Twitter) を見る</a>
-        <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="sns-btn btn-ameblo">アメーバブログを見る</a>
-        <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="sns-btn btn-youtube">YouTubeチャンネルを見る</a>
-        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-narou">小説家になろう を見る</a>
-        <a href="index.html" class="back-btn">← トップページに戻る</a>
     </div>
+
+    <div class="section">
+        <h2>🖼️ ブロックアルバム（ギャラリー）</h2>
+        <p>ここに将来、活動の写真やイラストなどを並べていきます。</p>
+        <div class="gallery-placeholder">画像アルバム準備中</div>
+    </div>
+
+    <a href="index.html" class="back-btn">⬅ メインページに戻る</a>
+
 </body>
 </html>
