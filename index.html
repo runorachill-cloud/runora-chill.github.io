@@ -3,126 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunoraChill - ゆるやかにつながる場所</title>
+    <title>RunoraChill 公式ポータル</title>
     <style>
-        /* 全体のリセットと背景設定 */
-        html, body {
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #fcfaf2;
+            color: #333333;
             margin: 0;
             padding: 0;
-            width: 100%;
-            background-color: #e8ded1;
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-
-        /* 画面全体のデザインの器 */
-        .wrapper {
-            position: relative;
+        header {
             width: 100%;
-            max-width: 800px; /* 画像の美しさを保つ最大幅 */
+            background-color: #ffffff;
+            border-bottom: 3px solid #d4af37;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .emblem-container {
+            max-width: 280px;
             margin: 0 auto;
-            line-height: 0;
+            padding: 10px;
         }
-
-        /* ベースとなる美しいイラスト画像 */
-        .base-image {
+        .emblem-container img {
             width: 100%;
             height: auto;
             display: block;
         }
-
-        /* === 🕒 リアルタイムデジタル時計の配置 === */
-        .clock-container {
-            position: absolute;
-            top: 32.3%;
-            left: 51.5%;
-            transform: translate(-50%, -50%);
-            width: 25%;
-            text-align: center;
-            color: #ffebad; /* 暖かみのある発光文字 */
-            text-shadow: 0 0 8px rgba(243, 156, 18, 0.7);
-            font-family: 'Courier New', Courier, monospace;
+        .subtitle {
+            font-size: 14px;
+            color: #8c763d;
             font-weight: bold;
-            line-height: 1.2;
-            pointer-events: none;
+            margin-top: 5px;
+            letter-spacing: 0.1em;
         }
-
-        .digital-time {
-            font-size: 4vw;
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        @media (min-width: 800px) {
-            .digital-time { font-size: 32px; }
+        .menu-card {
+            background-color: #ffffff;
+            border: 1px solid #e6dfc3;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(140, 118, 61, 0.06);
         }
-
-        /* === 🔗 タッチボタンの配置（押しやすいように広めに調整） === */
-        .invisible-link {
-            position: absolute;
-            display: block;
-            /* background: rgba(255, 0, 0, 0.3); */ /* 位置を確認したい時は左のコメントアウトを外してください */
+        .menu-card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #2b2b2b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .admin-card h2 {
+            color: #8c763d;
+            border-left: 4px solid #d4af37;
+            padding-left: 10px;
+        }
+        .member-card h2 {
+            color: #555555;
+            border-left: 4px solid #cccccc;
+            padding-left: 10px;
+        }
+        .menu-card p {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px; /* アイコンと文字の隙間 */
+            width: 100%;
+            background-color: #3a2d28;
+            color: #ffffff;
+            text-align: center;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
             text-decoration: none;
-            border-radius: 12px;
-            cursor: pointer;
-            z-index: 10; /* 他の要素に隠されないように最前面に */
+            border-radius: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        /* 管理者（私）の部屋の「部屋に入る」ボタンの重なり位置 */
-        .link-my-room {
-            top: 45%;      /* カード全体をカバーできるように高さを調整 */
-            left: 4%;
-            width: 18%;
-            height: 20%;   /* 押し間違えないよう、イラストのドアやカード付近まで判定を拡大 */
+        .btn-icon {
+            font-size: 18px; /* アイコンの大きさ */
         }
-
-        /* フッターのSNSアイコン群（X、アメブロ、YouTube、なろう） */
-        .footer-sns {
-            position: absolute;
-            bottom: 2.3%;
-            width: 6%;
-            height: 2.5%;
-            border-radius: 50%;
-            z-index: 10;
+        .status-badge {
+            display: inline-block;
+            background-color: #eeeeee;
+            color: #777777;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
-        .sns-x { left: 40.5%; }
-        .sns-ameblo { left: 46.5%; }
-        .sns-youtube { left: 52.5%; }
-        .sns-narou { left: 58.5%; }
-
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 12px;
+            color: #999999;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-
-    <div class="wrapper">
-        <img src="image_2.png" alt="RunoraChill Village" class="base-image">
-
-        <div class="clock-container">
-            <div class="digital-time" id="realtime-clock">00:00:00</div>
+    <header>
+        <div class="emblem-container">
+            <img src="903F62F9-36E7-4A0D-B666-7D9ADEEBC86D.png" alt="RunoraChill Emblem">
         </div>
-
-        <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
-        
-        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x" title="X"></a>
-        <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo" title="アメブロ"></a>
-        <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube" title="YouTube"></a>
-        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou" title="小説家になろう"></a>
+        <div class="subtitle">公式ポータルサイト</div>
+    </header>
+    <div class="container">
+        <div class="menu-card admin-card">
+            <h2>管理者（私）の部屋</h2>
+            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。創作の足跡をまとめています。</p>
+            <!-- 🔑 アイコン付きのボタンに変更しました -->
+            <a href="my-room.html" class="btn"><span class="btn-icon">🔑</span>部屋に入る</a>
+        </div>
+        <div class="menu-card member-card">
+            <h2>メンバー紹介 <span class="status-badge">ただいま準備中</span></h2>
+            <p>RunoraChillで共に活動する、素敵なメンバーの紹介部屋です。随時追加を予定しています。</p>
+        </div>
     </div>
-
-    <script>
-        function updateClock() {
-            const now = new Date();
-            let hours = now.getHours();
-            let minutes = now.getMinutes();
-            let seconds = now.getSeconds();
-
-            hours = hours < 10 ? '0' + hours : hours;
-            minutes = minutes < 10 ? '0' + minutes : minutes;
-            seconds = seconds < 10 ? '0' + seconds : seconds;
-
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('realtime-clock').textContent = timeString;
-        }
-
-        updateClock();
-        setInterval(updateClock, 1000);
-    </script>
-
+    <footer>
+        &copy; 2026 RunoraChill All Rights Reserved.
+    </footer>
 </body>
 </html>
