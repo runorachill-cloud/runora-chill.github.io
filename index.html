@@ -81,10 +81,7 @@
             margin-bottom: 20px;
         }
         .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px; /* アイコンと文字の隙間 */
+            display: block;
             width: 100%;
             background-color: #3a2d28;
             color: #ffffff;
@@ -96,9 +93,6 @@
             border-radius: 10px;
             box-sizing: border-box;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .btn-icon {
-            font-size: 18px; /* アイコンの大きさ */
         }
         .status-badge {
             display: inline-block;
@@ -128,8 +122,7 @@
         <div class="menu-card admin-card">
             <h2>管理者（私）の部屋</h2>
             <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。創作の足跡をまとめています。</p>
-            <!-- 🔑 アイコン付きのボタンに変更しました -->
-            <a href="my-room.html" class="btn"><span class="btn-icon">🔑</span>部屋に入る</a>
+            <a href="my-room.html" class="btn">部屋に入る</a>
         </div>
         <div class="menu-card member-card">
             <h2>メンバー紹介 <span class="status-badge">ただいま準備中</span></h2>
