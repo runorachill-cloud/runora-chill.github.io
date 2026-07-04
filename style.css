@@ -1,198 +1,62 @@
-/* ------------------------------
-   RunoraChill v1.0
------------------------------- */
+// RunoraChill Clock v1.0
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+const clock = document.getElementById("analogClock");
 
-body{
+function createClock() {
 
-    font-family:
-    "Yu Gothic",
-    sans-serif;
+    for(let i = 1; i <= 12; i++){
 
-    background:
-    linear-gradient(
-    #dff6ff,
-    #fdfdf8);
+        const number = document.createElement("div");
 
-    color:#444;
+        number.className = "number";
 
-}
+        number.style.transform =
+        `rotate(${i*30}deg) translateY(-90px) rotate(-${i*30}deg)`;
 
-/* ------------------------------
-   Header
------------------------------- */
+        number.innerHTML = i;
 
-header{
+        clock.appendChild(number);
 
-    text-align:center;
+    }
 
-    padding:50px 20px;
+    const hour=document.createElement("div");
+    hour.className="hand hour";
 
-}
+    const minute=document.createElement("div");
+    minute.className="hand minute";
 
-.logo{
+    const second=document.createElement("div");
+    second.className="hand second";
 
-    width:160px;
-
-    margin-bottom:20px;
+    clock.appendChild(hour);
+    clock.appendChild(minute);
+    clock.appendChild(second);
 
 }
 
-h1{
+function updateClock(){
 
-    font-size:48px;
+    const now=new Date();
 
-    color:#5f826b;
+    const h=now.getHours()%12;
 
-}
+    const m=now.getMinutes();
 
-.subtitle{
+    const s=now.getSeconds();
 
-    margin-top:15px;
+    document.querySelector(".hour").style.transform =
+    `translateX(-50%) rotate(${h*30+m/2}deg)`;
 
-    font-size:20px;
+    document.querySelector(".minute").style.transform =
+    `translateX(-50%) rotate(${m*6}deg)`;
 
-    color:#666;
-
-    line-height:1.8;
-
-}
-
-/* ------------------------------
-   時計
------------------------------- */
-
-#clock{
-
-    display:flex;
-
-    justify-content:center;
-
-    margin:40px;
+    document.querySelector(".second").style.transform =
+    `translateX(-50%) rotate(${s*6}deg)`;
 
 }
 
-.clock{
+createClock();
 
-    width:220px;
+updateClock();
 
-    height:220px;
-
-    background:white;
-
-    border-radius:50%;
-
-    box-shadow:
-
-    0 10px 30px rgba(0,0,0,.15);
-
-}
-
-/* ------------------------------
-   メニュー
------------------------------- */
-
-nav{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-    margin-bottom:40px;
-
-}
-
-nav a{
-
-    text-decoration:none;
-
-    background:white;
-
-    color:#4e6656;
-
-    padding:
-
-    14px 24px;
-
-    border-radius:30px;
-
-    transition:.3s;
-
-}
-
-nav a:hover{
-
-    transform:translateY(-3px);
-
-}
-
-/* ------------------------------
-   カード
------------------------------- */
-
-main{
-
-    max-width:1000px;
-
-    margin:auto;
-
-    display:grid;
-
-    gap:30px;
-
-    padding:20px;
-
-}
-
-.card{
-
-    background:white;
-
-    border-radius:25px;
-
-    padding:35px;
-
-    box-shadow:
-
-    0 10px 25px rgba(0,0,0,.08);
-
-}
-
-.card h2{
-
-    margin-bottom:20px;
-
-    color:#5f826b;
-
-}
-
-.card p{
-
-    line-height:2;
-
-}
-
-/* ------------------------------
-   Footer
------------------------------- */
-
-footer{
-
-    margin-top:80px;
-
-    padding:40px;
-
-    text-align:center;
-
-    color:#888;
-
-}
+setInterval(updateClock,1000);
