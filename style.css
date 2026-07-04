@@ -182,3 +182,64 @@ updateClock();
 setInterval(updateClock,1000);
     
 }
+
+const clock = document.getElementById("analogClock");
+
+function createClock(){
+
+    clock.innerHTML = "";
+
+    for(let i=1;i<=12;i++){
+
+        const num=document.createElement("div");
+
+        num.className="number";
+
+        num.style.transform=`rotate(${i*30}deg)`;
+
+        num.innerHTML=`<span style="
+            display:block;
+            transform:translateY(8px) rotate(-${i*30}deg);
+        ">${i}</span>`;
+
+        clock.appendChild(num);
+
+    }
+
+    const hour=document.createElement("div");
+    hour.className="hand hour";
+
+    const minute=document.createElement("div");
+    minute.className="hand minute";
+
+    const second=document.createElement("div");
+    second.className="hand second";
+
+    clock.append(hour,minute,second);
+
+}
+
+function updateClock(){
+
+    const now=new Date();
+
+    const h=now.getHours()%12;
+    const m=now.getMinutes();
+    const s=now.getSeconds();
+
+    document.querySelector(".hour").style.transform=
+        `translateX(-50%) rotate(${h*30+m/2}deg)`;
+
+    document.querySelector(".minute").style.transform=
+        `translateX(-50%) rotate(${m*6}deg)`;
+
+    document.querySelector(".second").style.transform=
+        `translateX(-50%) rotate(${s*6}deg)`;
+
+}
+
+createClock();
+
+updateClock();
+
+setInterval(updateClock,1000);
