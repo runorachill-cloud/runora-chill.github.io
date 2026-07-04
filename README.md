@@ -3,32 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>収益グループ 公式ポータル</title>
+    <title>RunoraChill 公式ポータル</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
-        .menu-container { margin-top: 30px; }
-        .menu-card { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .menu-card h2 { margin-top: 0; color: #16a085; }
-        .btn { display: inline-block; background-color: #16a085; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #fcfaf2; /* エンブレムに合わせた優しいアイボリー */
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* ヘッダー部分（ゴールドのアクセント） */
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 3px solid #d4af37; /* 高級感のあるゴールド */
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* エンブレム画像の設定 */
+        .emblem-container {
+            max-width: 280px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        .emblem-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #8c763d; /* 深みのあるゴールド・ブラウン */
+            font-weight: bold;
+            margin-top: 5px;
+            letter-spacing: 0.1em;
+        }
+
+        /* メインコンテンツの外枠 */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 各お部屋カードのスタイル */
+        .menu-card {
+            background-color: #ffffff;
+            border: 1px solid #e6dfc3;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(140, 118, 61, 0.06);
+            transition: transform 0.2s;
+        }
+
+        .menu-card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #2b2b2b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 管理者の部屋用の特別なアクセント */
+        .admin-card h2 {
+            color: #8c763d; /* ゴールド */
+            border-left: 4px solid #d4af37;
+            padding-left: 10px;
+        }
+
+        /* メンバー紹介用のアクセント */
+        .member-card h2 {
+            color: #555555;
+            border-left: 4px solid #cccccc;
+            padding-left: 10px;
+        }
+
+        .menu-card p {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* ボタンのスタイル（エンブレムのリボンに合わせた上品なダークブラウン・ネイビー系） */
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #3a2d28; /* エンブレムの濃いリボンの色 */
+            color: #ffffff;
+            text-align: center;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
+        }
+
+        .btn:active {
+            background-color: #261e1b;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #eeeeee;
+            color: #777777;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: normal;
+        }
+
+        /* フッター */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 12px;
+            color: #999999;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <h1>収益グループ ポータルサイト</h1>
-    
-    <div class="menu-container">
-        <div class="menu-card">
+    <header>
+        <div class="emblem-container">
+            <img src="903F62F9-36E7-4A0D-B666-7D9ADCCBA973.png" alt="RunoraChill Emblem">
+        </div>
+        <div class="subtitle">公式ポータルサイト</div>
+    </header>
+
+    <div class="container">
+
+        <div class="menu-card admin-card">
             <h2>管理者（私）の部屋</h2>
-            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。</p>
+            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。創作の足跡をまとめています。</p>
             <a href="my-room.html" class="btn">部屋に入る</a>
         </div>
-        <div class="menu-card">
-            <h2>メンバー紹介</h2>
-            <p>グループで活動する各メンバーの紹介部屋です（随時追加予定）。</p>
-            <span style="color: #999; display: block; margin-top: 10px;">※ただいま準備中</span>
+
+        <div class="menu-card member-card">
+            <h2>メンバー紹介 <span class="status-badge">ただいま準備中</span></h2>
+            <p>RunoraChillで共に活動する、素敵なメンバーの紹介部屋です。随時追加を予定しています。</p>
         </div>
+
     </div>
+
+    <footer>
+        &copy; 2026 RunoraChill All Rights Reserved.
+    </footer>
 
 </body>
 </html>
