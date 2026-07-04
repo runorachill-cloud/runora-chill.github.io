@@ -134,3 +134,202 @@
     </footer>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunoraChill 公式ポータル</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #f5edd7;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 0;
+        }
+
+        .base-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 🕐 アナログ時計の土台（時計の丸い盤面にピッタリ重ねます） */
+        .analog-clock {
+            position: absolute;
+            top: 23.3%;
+            left: 71.9%;
+            width: 16%;
+            /* 縦横を同じにして綺麗な正円を作る */
+            aspect-ratio: 1 / 1;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* 時計の針の共通設定 */
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+        }
+
+        /* 時針（短くて太い黒い針） */
+        .hour-hand {
+            width: 3.5%;
+            height: 30%;
+            background-color: #2b2b2b;
+            z-index: 3;
+        }
+
+        /* 分針（長くて少し細い黒い針） */
+        .minute-hand {
+            width: 2.5%;
+            height: 42%;
+            background-color: #333333;
+            z-index: 2;
+        }
+
+        /* 秒針（細い金色の針） */
+        .second-hand {
+            width: 1.5%;
+            height: 45%;
+            background-color: #d4af37;
+            z-index: 4;
+        }
+
+        /* 📱 デジタル時計と日付（時計台の下の四角い液晶部分） */
+        .digital-container {
+            position: absolute;
+            top: 34.6%;
+            left: 71.9%;
+            transform: translate(-50%, -50%);
+            width: 26%;
+            text-align: center;
+            color: #ffebad;
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            line-height: 1.2;
+            pointer-events: none;
+        }
+
+        .digital-time { font-size: 3.2vw; }
+        .digital-date { font-size: 1.8vw; margin-top: 2%; color: #e2cfa2; }
+        
+        @media (min-width: 800px) {
+            .digital-time { font-size: 26px; }
+            .digital-date { font-size: 14px; }
+        }
+
+        /* 🔗 透明なタッチリンクボタン */
+        .invisible-link {
+            position: absolute;
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* 「管理者（私）の部屋」ボタン（ピンクのドアのカードの下部ボタン位置） */
+        .link-my-room {
+            top: 62.8%;
+            left: 6.2%;
+            width: 17.5%;
+            height: 2.8%;
+            border-radius: 20px;
+        }
+
+        /* フッターの丸いSNSアイコン群（X、アメブロ、YouTube、なろう） */
+        .footer-sns {
+            bottom: 3.8%;
+            width: 5.5%;
+            height: 2.8%;
+            border-radius: 50%;
+        }
+        .sns-x { left: 40.5%; }
+        .sns-ameblo { left: 45.8%; }
+        .sns-youtube { left: 51.2%; }
+        .sns-narou { left: 56.5%; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- 背景として時計台のイラスト（4B41A8E5...）を読み込みます -->
+        <img src="4B41A8E5-ABB3-4F14-9EB5-2DE9025E0A63.png" alt="RunoraChill ポータル" class="base-image">
+
+        <!-- 🕐 動くアナログ時計の針 -->
+        <div class="analog-clock">
+            <div class="hand hour-hand" id="hour-hand"></div>
+            <div class="hand minute-hand" id="min-hand"></div>
+            <div class="hand second-hand" id="sec-hand"></div>
+        </div>
+
+        <!-- 📱 連動するデジタル時計＆日付 -->
+        <div class="digital-container">
+            <div class="digital-time" id="digi-time">00:00:00 PM</div>
+            <div class="digital-date" id="digi-date">2026.01.01 Thu</div>
+        </div>
+
+        <!-- 🔗 リンクエリア -->
+        <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
+        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
+        <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
+        <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube"></a>
+        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou"></a>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // 1. アナログ時計の計算
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+            const minDeg = minutes * 6 + seconds * 0.1;
+            const secDeg = seconds * 6;
+            
+            document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+            document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+            
+            // 2. デジタル時計の計算 (12時間制 AM/PM)
+            let displayHours = hours % 12;
+            displayHours = displayHours ? displayHours : 12; // 0時は12時とする
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const hStr = String(displayHours).padStart(2, '0');
+            const mStr = String(minutes).padStart(2, '0');
+            const sStr = String(seconds).padStart(2, '0');
+            
+            document.getElementById('digi-time').textContent = `${hStr}:${mStr}:${sStr} ${ampm}`;
+            
+            // 3. 日付と曜日の計算
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const dayName = weekDays[now.getDay()];
+            
+            document.getElementById('digi-date').textContent = `${y}.${m}.${d} ${dayName}`;
+        }
+        
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
