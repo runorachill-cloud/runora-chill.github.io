@@ -60,3 +60,125 @@ createClock();
 updateClock();
 
 setInterval(updateClock,1000);
+/* ===== アナログ時計 ===== */
+
+#analogClock{
+    position:relative;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    background:#fffdf8;
+    border:8px solid #c9b37e;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.15),
+        inset 0 0 20px rgba(255,255,255,.7);
+    margin:auto;
+}
+
+.number{
+    position:absolute;
+    width:100%;
+    height:100%;
+    text-align:center;
+    font-weight:bold;
+    font-size:20px;
+    color:#5f826b;
+}
+
+.hand{
+    position:absolute;
+    left:50%;
+    bottom:50%;
+    transform-origin:bottom;
+    border-radius:10px;
+}
+
+.hour{
+    width:6px;
+    height:55px;
+    background:#444;
+}
+
+.minute{
+    width:4px;
+    height:75px;
+    background:#666;
+}
+
+.second{
+    width:2px;
+    height:90px;
+    background:#d94b4b;
+}
+
+#analogClock::after{
+    content:"";
+    position:absolute;
+    width:14px;
+    height:14px;
+    background:#c9b37e;
+    border-radius:50%;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);const clock = document.getElementById("analogClock");
+
+function createClock(){
+
+    clock.innerHTML = "";
+
+    for(let i=1;i<=12;i++){
+
+        const num=document.createElement("div");
+
+        num.className="number";
+
+        num.style.transform=`rotate(${i*30}deg)`;
+
+        num.innerHTML=`<span style="
+            display:block;
+            transform:translateY(8px) rotate(-${i*30}deg);
+        ">${i}</span>`;
+
+        clock.appendChild(num);
+
+    }
+
+    const hour=document.createElement("div");
+    hour.className="hand hour";
+
+    const minute=document.createElement("div");
+    minute.className="hand minute";
+
+    const second=document.createElement("div");
+    second.className="hand second";
+
+    clock.append(hour,minute,second);
+
+}
+
+function updateClock(){
+
+    const now=new Date();
+
+    const h=now.getHours()%12;
+    const m=now.getMinutes();
+    const s=now.getSeconds();
+
+    document.querySelector(".hour").style.transform=
+        `translateX(-50%) rotate(${h*30+m/2}deg)`;
+
+    document.querySelector(".minute").style.transform=
+        `translateX(-50%) rotate(${m*6}deg)`;
+
+    document.querySelector(".second").style.transform=
+        `translateX(-50%) rotate(${s*6}deg)`;
+
+}
+
+createClock();
+
+updateClock();
+
+setInterval(updateClock,1000);
+    
+}
