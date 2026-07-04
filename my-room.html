@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunoraChill 公式ポータル</title>
+    <title>管理者（私）の部屋 - RunoraChill</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #fcfaf2;
+            background-color: #fcfaf2; /* トップページと統一したアイボリー */
             color: #333333;
             margin: 0;
             padding: 0;
@@ -16,92 +16,109 @@
             align-items: center;
             min-height: 100vh;
         }
+
+        /* ヘッダー部分 */
         header {
             width: 100%;
             background-color: #ffffff;
             border-bottom: 3px solid #d4af37;
-            padding: 20px 0;
+            padding: 30px 0 20px 0;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .emblem-container {
-            max-width: 280px;
-            margin: 0 auto;
-            padding: 10px;
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            color: #3a2d28;
         }
-        .emblem-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+
         .subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: #8c763d;
             font-weight: bold;
             margin-top: 5px;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
         }
+
+        /* メインコンテンツの外枠 */
         .container {
             width: 100%;
             max-width: 500px;
             padding: 20px;
             box-sizing: border-box;
         }
-        .menu-card {
+
+        /* 自己紹介カード */
+        .profile-card {
             background-color: #ffffff;
             border: 1px solid #e6dfc3;
             border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
             box-shadow: 0 4px 12px rgba(140, 118, 61, 0.06);
+            text-align: center;
         }
-        .menu-card h2 {
-            margin-top: 0;
+
+        .profile-card p {
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* リンク一覧のタイトル */
+        .section-title {
+            font-size: 15px;
+            color: #8c763d;
+            font-weight: bold;
             margin-bottom: 12px;
-            font-size: 20px;
-            color: #2b2b2b;
+            padding-left: 8px;
+            border-left: 3px solid #d4af37;
+        }
+
+        /* 各種SNSボタンのスタイル */
+        .sns-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-        .admin-card h2 {
-            color: #8c763d;
-            border-left: 4px solid #d4af37;
-            padding-left: 10px;
-        }
-        .member-card h2 {
-            color: #555555;
-            border-left: 4px solid #cccccc;
-            padding-left: 10px;
-        }
-        .menu-card p {
-            font-size: 14px;
-            color: #666666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .btn {
-            display: block;
+            justify-content: center;
             width: 100%;
-            background-color: #3a2d28;
             color: #ffffff;
             text-align: center;
             padding: 14px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
             box-sizing: border-box;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 14px;
+            transition: opacity 0.2s;
         }
-        .status-badge {
-            display: inline-block;
-            background-color: #eeeeee;
-            color: #777777;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
+
+        .sns-btn:active {
+            opacity: 0.8;
         }
+
+        /* 各ブランドのイメージカラーに合わせた色調整 */
+        .btn-x { background-color: #111111; }        /* X (旧Twitter) */
+        .btn-ameblo { background-color: #2ba717; }   /* アメブロ */
+        .btn-youtube { background-color: #da0000; }  /* YouTube */
+        .btn-narou { background-color: #333333; }    /* 小説家になろう */
+
+        /* 戻るボタン */
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            font-size: 14px;
+            color: #8c763d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* フッター */
         footer {
             margin-top: auto;
             padding: 20px;
@@ -112,25 +129,51 @@
     </style>
 </head>
 <body>
+
+    <!-- ヘッダー -->
     <header>
-        <div class="emblem-container">
-            <img src="903F62F9-36E7-4A0D-B666-7D9ADEEBC86D.png" alt="RunoraChill Emblem">
-        </div>
-        <div class="subtitle">公式ポータルサイト</div>
+        <h1>管理者（私）の部屋</h1>
+        <div class="subtitle">もふ神runa111 の活動拠点</div>
     </header>
+
     <div class="container">
-        <div class="menu-card admin-card">
-            <h2>管理者（私）の部屋</h2>
-            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。創作の足跡をまとめています。</p>
-            <a href="my-room.html" class="btn">部屋に入る</a>
+
+        <!-- プロフィール紹介 -->
+        <div class="profile-card">
+            <p>創作でつながる、やさしい場所へようこそ。<br>気まぐれ更新ですが、のんびりマイペースに活動中です♪</p>
         </div>
-        <div class="menu-card member-card">
-            <h2>メンバー紹介 <span class="status-badge">ただいま準備中</span></h2>
-            <p>RunoraChillで共に活動する、素敵なメンバーの紹介部屋です。随時追加を予定しています。</p>
-        </div>
+
+        <div class="section-title">リンク一覧</div>
+
+        <!-- X (旧Twitter) -->
+        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="sns-btn btn-x">
+            X (旧Twitter) を見る
+        </a>
+
+        <!-- アメブロ -->
+        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-ameblo">
+            アメーバブログを見る
+        </a>
+
+        <!-- YouTube -->
+        <a href="https://youtube.com/@mofugamiruna-" target="_blank" class="sns-btn btn-youtube">
+            YouTubeチャンネルを見る
+        </a>
+
+        <!-- 小説家になろう -->
+        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-narou">
+            小説家になろう を見る
+        </a>
+
+        <!-- トップへ戻る -->
+        <a href="index.html" class="back-btn">← トップページに戻る</a>
+
     </div>
+
+    <!-- コピーライト -->
     <footer>
         &copy; 2026 RunoraChill All Rights Reserved.
     </footer>
+
 </body>
 </html>
