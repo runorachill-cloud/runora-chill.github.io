@@ -3,34 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>収益グループ 公式ポータル</title>
+    <title>RunoraChill - ゆるやかにつながる場所</title>
     <style>
-        body { font-family: sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
-        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
-        .menu-container { margin-top: 30px; }
-        .menu-card { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .menu-card h2 { margin-top: 0; color: #16a085; }
-        .btn { display: inline-block; background-color: #16a085; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
-        .btn:hover { background-color: #117a65; }
+        /* 全体のリセットと背景設定 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #e8ded1;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        }
+
+        /* 画面全体のデザインの器 */
+        .wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* 画像の美しさを保つ最大幅 */
+            margin: 0 auto;
+            line-height: 0;
+        }
+
+        /* ベースとなる美しいイラスト画像 */
+        .base-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* === 🕒 リアルタイムデジタル時計の配置 === */
+        .clock-container {
+            position: absolute;
+            top: 32.3%;
+            left: 51.5%;
+            transform: translate(-50%, -50%);
+            width: 25%;
+            text-align: center;
+            color: #ffebad; /* 暖かみのある発光文字 */
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.7);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            line-height: 1.2;
+            pointer-events: none;
+        }
+
+        .digital-time {
+            font-size: 4vw;
+        }
+        @media (min-width: 800px) {
+            .digital-time { font-size: 32px; }
+        }
+
+        /* === 🔗 タッチボタンの配置（押しやすいように広めに調整） === */
+        .invisible-link {
+            position: absolute;
+            display: block;
+            /* background: rgba(255, 0, 0, 0.3); */ /* 位置を確認したい時は左のコメントアウトを外してください */
+            text-decoration: none;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 10; /* 他の要素に隠されないように最前面に */
+        }
+
+        /* 管理者（私）の部屋の「部屋に入る」ボタンの重なり位置 */
+        .link-my-room {
+            top: 45%;      /* カード全体をカバーできるように高さを調整 */
+            left: 4%;
+            width: 18%;
+            height: 20%;   /* 押し間違えないよう、イラストのドアやカード付近まで判定を拡大 */
+        }
+
+        /* フッターのSNSアイコン群（X、アメブロ、YouTube、なろう） */
+        .footer-sns {
+            position: absolute;
+            bottom: 2.3%;
+            width: 6%;
+            height: 2.5%;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .sns-x { left: 40.5%; }
+        .sns-ameblo { left: 46.5%; }
+        .sns-youtube { left: 52.5%; }
+        .sns-narou { left: 58.5%; }
+
     </style>
 </head>
 <body>
 
-    <h1>収益グループ ポータルサイト</h1>
-    
-    <div class="menu-container">
-        <div class="menu-card">
-            <h2>管理者（私）の部屋</h2>
-            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。</p>
-            <a href="my-room.html" class="btn">部屋に入る</a>
+    <div class="wrapper">
+        <img src="image_2.png" alt="RunoraChill Village" class="base-image">
+
+        <div class="clock-container">
+            <div class="digital-time" id="realtime-clock">00:00:00</div>
         </div>
 
-        <div class="menu-card">
-            <h2>メンバー紹介</h2>
-            <p>グループで活動する各メンバーの紹介部屋です（随時追加予定）。</p>
-            <a href="members.html" class="btn">メンバー一覧を見る</a>
-        </div>
+        <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
+        
+        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x" title="X"></a>
+        <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo" title="アメブロ"></a>
+        <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube" title="YouTube"></a>
+        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou" title="小説家になろう"></a>
     </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('realtime-clock').textContent = timeString;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
 
 </body>
 </html>
