@@ -1,0 +1,198 @@
+/* ------------------------------
+   RunoraChill v1.0
+------------------------------ */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:
+    "Yu Gothic",
+    sans-serif;
+
+    background:
+    linear-gradient(
+    #dff6ff,
+    #fdfdf8);
+
+    color:#444;
+
+}
+
+/* ------------------------------
+   Header
+------------------------------ */
+
+header{
+
+    text-align:center;
+
+    padding:50px 20px;
+
+}
+
+.logo{
+
+    width:160px;
+
+    margin-bottom:20px;
+
+}
+
+h1{
+
+    font-size:48px;
+
+    color:#5f826b;
+
+}
+
+.subtitle{
+
+    margin-top:15px;
+
+    font-size:20px;
+
+    color:#666;
+
+    line-height:1.8;
+
+}
+
+/* ------------------------------
+   時計
+------------------------------ */
+
+#clock{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:40px;
+
+}
+
+.clock{
+
+    width:220px;
+
+    height:220px;
+
+    background:white;
+
+    border-radius:50%;
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.15);
+
+}
+
+/* ------------------------------
+   メニュー
+------------------------------ */
+
+nav{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:40px;
+
+}
+
+nav a{
+
+    text-decoration:none;
+
+    background:white;
+
+    color:#4e6656;
+
+    padding:
+
+    14px 24px;
+
+    border-radius:30px;
+
+    transition:.3s;
+
+}
+
+nav a:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ------------------------------
+   カード
+------------------------------ */
+
+main{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    display:grid;
+
+    gap:30px;
+
+    padding:20px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:25px;
+
+    padding:35px;
+
+    box-shadow:
+
+    0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.card h2{
+
+    margin-bottom:20px;
+
+    color:#5f826b;
+
+}
+
+.card p{
+
+    line-height:2;
+
+}
+
+/* ------------------------------
+   Footer
+------------------------------ */
+
+footer{
+
+    margin-top:80px;
+
+    padding:40px;
+
+    text-align:center;
+
+    color:#888;
+
+}
