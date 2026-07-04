@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #fcfaf2; /* トップページと統一したアイボリー */
+            background-color: #fcfaf2;
             color: #333333;
             margin: 0;
             padding: 0;
@@ -17,7 +17,6 @@
             min-height: 100vh;
         }
 
-        /* ヘッダー部分 */
         header {
             width: 100%;
             background-color: #ffffff;
@@ -41,7 +40,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* メインコンテンツの外枠 */
         .container {
             width: 100%;
             max-width: 500px;
@@ -49,10 +47,10 @@
             box-sizing: border-box;
         }
 
-        /* イラスト表示エリア */
+        /* 📸 アップロードした巫女さんのイラスト表示 */
         .profile-img-container {
             width: 100%;
-            max-width: 350px; /* スマホで見やすい大きさに制限 */
+            max-width: 350px;
             margin: 0 auto 20px auto;
             border-radius: 16px;
             overflow: hidden;
@@ -66,7 +64,6 @@
             display: block;
         }
 
-        /* 自己紹介カード */
         .profile-card {
             background-color: #ffffff;
             border: 1px solid #e6dfc3;
@@ -84,7 +81,6 @@
             margin: 0;
         }
 
-        /* リンク一覧のタイトル */
         .section-title {
             font-size: 15px;
             color: #8c763d;
@@ -94,7 +90,6 @@
             border-left: 3px solid #d4af37;
         }
 
-        /* 各種SNSボタンのスタイル */
         .sns-btn {
             display: flex;
             align-items: center;
@@ -113,17 +108,13 @@
             transition: opacity 0.2s;
         }
 
-        .sns-btn:active {
-            opacity: 0.8;
-        }
+        .sns-btn:active { opacity: 0.8; }
 
-        /* 各ブランドのイメージカラーに合わせた色調整 */
-        .btn-x { background-color: #111111; }        /* X (旧Twitter) */
-        .btn-ameblo { background-color: #2ba717; }   /* アメブロ */
-        .btn-youtube { background-color: #da0000; }  /* YouTube */
-        .btn-narou { background-color: #333333; }    /* 小説家になろう */
+        .btn-x { background-color: #111111; }
+        .btn-ameblo { background-color: #2ba717; }
+        .btn-youtube { background-color: #da0000; }
+        .btn-narou { background-color: #333333; }
 
-        /* 戻るボタン */
         .back-btn {
             display: block;
             text-align: center;
@@ -135,7 +126,6 @@
             font-weight: bold;
         }
 
-        /* フッター */
         footer {
             margin-top: auto;
             padding: 20px;
@@ -147,7 +137,6 @@
 </head>
 <body>
 
-    <!-- ヘッダー -->
     <header>
         <h1>管理者（私）の部屋</h1>
         <div class="subtitle">もふ神runa111 の活動拠点</div>
@@ -155,44 +144,36 @@
 
     <div class="container">
 
-        <!-- 正しいファイル名に修正したイラスト部分 -->
         <div class="profile-img-container">
             <img src="8BF4E8F5-0BBF-4F5B-8FCD-0F290EFE5A7E.png" alt="管理者イラスト">
         </div>
 
-        <!-- プロフィール紹介 -->
         <div class="profile-card">
             <p>創作でつながる、やさしい場所へようこそ。<br>気まぐれ更新ですが、のんびりマイペースに活動中です♪</p>
         </div>
 
         <div class="section-title">リンク一覧</div>
 
-        <!-- X (旧Twitter) -->
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="sns-btn btn-x">
             X (旧Twitter) を見る
         </a>
 
-        <!-- アメブロ -->
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="sns-btn btn-ameblo">
             アメーバブログを見る
         </a>
 
-        <!-- YouTube -->
         <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="sns-btn btn-youtube">
             YouTubeチャンネルを見る
         </a>
 
-        <!-- 小説家になろう -->
         <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-narou">
             小説家になろう を見る
         </a>
 
-        <!-- トップへ戻る -->
         <a href="index.html" class="back-btn">← トップページに戻る</a>
 
     </div>
 
-    <!-- コピーライト -->
     <footer>
         &copy; 2026 RunoraChill All Rights Reserved.
     </footer>
