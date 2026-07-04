@@ -1,1 +1,36 @@
-# runora-chill.github.io
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>収益グループ 公式ポータル</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
+        .menu-container { margin-top: 30px; }
+        .menu-card { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .menu-card h2 { margin-top: 0; color: #16a085; }
+        .btn { display: inline-block; background-color: #16a085; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
+        .btn:hover { background-color: #117a65; }
+    </style>
+</head>
+<body>
+
+    <h1>収益グループ ポータルサイト</h1>
+    
+    <div class="menu-container">
+        <div class="menu-card">
+            <h2>管理者（私）の部屋</h2>
+            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。</p>
+            <a href="my-room.html" class="btn">部屋に入る</a>
+        </div>
+
+        <div class="menu-card">
+            <h2>メンバー紹介</h2>
+            <p>グループで活動する各メンバーの紹介部屋です（随時追加予定）。</p>
+            <span style="color: #999; display: block; margin-top: 10px;">※ただいま準備中</span>
+        </div>
+    </div>
+
+</body>
+</html>
