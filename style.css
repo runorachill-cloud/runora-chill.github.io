@@ -1,420 +1,8 @@
-// RunoraChill Clock v1.0
-
-const clock = document.getElementById("analogClock");
-
-function createClock() {
-
-    for(let i = 1; i <= 12; i++){
-
-        const number = document.createElement("div");
-
-        number.className = "number";
-
-        number.style.transform =
-        `rotate(${i*30}deg) translateY(-90px) rotate(-${i*30}deg)`;
-
-        number.innerHTML = i;
-
-        clock.appendChild(number);
-
-    }
-
-    const hour=document.createElement("div");
-    hour.className="hand hour";
-
-    const minute=document.createElement("div");
-    minute.className="hand minute";
-
-    const second=document.createElement("div");
-    second.className="hand second";
-
-    clock.appendChild(hour);
-    clock.appendChild(minute);
-    clock.appendChild(second);
-
-}
-
-function updateClock(){
-
-    const now=new Date();
-
-    const h=now.getHours()%12;
-
-    const m=now.getMinutes();
-
-    const s=now.getSeconds();
-
-    document.querySelector(".hour").style.transform =
-    `translateX(-50%) rotate(${h*30+m/2}deg)`;
-
-    document.querySelector(".minute").style.transform =
-    `translateX(-50%) rotate(${m*6}deg)`;
-
-    document.querySelector(".second").style.transform =
-    `translateX(-50%) rotate(${s*6}deg)`;
-
-}
-
-createClock();
-
-updateClock();
-
-setInterval(updateClock,1000);
 /* ===== アナログ時計 ===== */
 
 #analogClock{
-    position:relative;
-    width:220px;
-    height:220px;
-    border-radius:50%;
-    background:#fffdf8;
-    border:8px solid #c9b37e;
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.15),
-        inset 0 0 20px rgba(255,255,255,.7);
-    margin:auto;
-}
-
-.number{
-    position:absolute;
-    width:100%;
-    height:100%;
-    text-align:center;
-    font-weight:bold;
-    font-size:20px;
-    color:#5f826b;
-}
-
-.hand{
-    position:absolute;
-    left:50%;
-    bottom:50%;
-    transform-origin:bottom;
-    border-radius:10px;
-}
-
-.hour{
-    width:6px;
-    height:55px;
-    background:#444;
-}
-
-.minute{
-    width:4px;
-    height:75px;
-    background:#666;
-}
-
-.second{
-    width:2px;
-    height:90px;
-    background:#d94b4b;
-}
-
-#analogClock::after{
-    content:"";
-    position:absolute;
-    width:14px;
-    height:14px;
-    background:#c9b37e;
-    border-radius:50%;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);const clock = document.getElementById("analogClock");
-
-function createClock(){
-
-    clock.innerHTML = "";
-
-    for(let i=1;i<=12;i++){
-
-        const num=document.createElement("div");
-
-        num.className="number";
-
-        num.style.transform=`rotate(${i*30}deg)`;
-
-        num.innerHTML=`<span style="
-            display:block;
-            transform:translateY(8px) rotate(-${i*30}deg);
-        ">${i}</span>`;
-
-        clock.appendChild(num);
-
-    }
-
-    const hour=document.createElement("div");
-    hour.className="hand hour";
-
-    const minute=document.createElement("div");
-    minute.className="hand minute";
-
-    const second=document.createElement("div");
-    second.className="hand second";
-
-    clock.append(hour,minute,second);
-
-}
-
-function updateClock(){
-
-    const now=new Date();
-
-    const h=now.getHours()%12;
-    const m=now.getMinutes();
-    const s=now.getSeconds();
-
-    document.querySelector(".hour").style.transform=
-        `translateX(-50%) rotate(${h*30+m/2}deg)`;
-
-    document.querySelector(".minute").style.transform=
-        `translateX(-50%) rotate(${m*6}deg)`;
-
-    document.querySelector(".second").style.transform=
-        `translateX(-50%) rotate(${s*6}deg)`;
-
-}
-
-createClock();
-
-updateClock();
-
-setInterval(updateClock,1000);
-    
-}
-
-const clock = document.getElementById("analogClock");
-
-function createClock(){
-
-    clock.innerHTML = "";
-
-    for(let i=1;i<=12;i++){
-
-        const num=document.createElement("div");
-
-        num.className="number";
-
-        num.style.transform=`rotate(${i*30}deg)`;
-
-        num.innerHTML=`<span style="
-            display:block;
-            transform:translateY(8px) rotate(-${i*30}deg);
-        ">${i}</span>`;
-
-        clock.appendChild(num);
-
-    }
-
-    const hour=document.createElement("div");
-    hour.className="hand hour";
-
-    const minute=document.createElement("div");
-    minute.className="hand minute";
-
-    const second=document.createElement("div");
-    second.className="hand second";
-
-    clock.append(hour,minute,second);
-
-}
-
-function updateClock(){
-
-    const now=new Date();
-
-    const h=now.getHours()%12;
-    const m=now.getMinutes();
-    const s=now.getSeconds();
-
-    document.querySelector(".hour").style.transform=
-        `translateX(-50%) rotate(${h*30+m/2}deg)`;
-
-    document.querySelector(".minute").style.transform=
-        `translateX(-50%) rotate(${m*6}deg)`;
-
-    document.querySelector(".second").style.transform=
-        `translateX(-50%) rotate(${s*6}deg)`;
-
-}
-
-createClock();
-
-updateClock();
-
-setInterval(updateClock,1000);
-const clock = document.getElementById("analogClock");
-
-function createClock(){
-
-    clock.innerHTML = "";
-
-    for(let i=1;i<=12;i++){
-
-        const num=document.createElement("div");
-
-        num.className="number";
-
-        num.style.transform=`rotate(${i*30}deg)`;
-
-        num.innerHTML=`<span style="
-            display:block;
-            transform:translateY(8px) rotate(-${i*30}deg);
-        ">${i}</span>`;
-
-        clock.appendChild(num);
-
-    }
-
-    const hour=document.createElement("div");
-    hour.className="hand hour";
-
-    const minute=document.createElement("div");
-    minute.className="hand minute";
-
-    const second=document.createElement("div");
-    second.className="hand second";
-
-    clock.append(hour,minute,second);
-
-}
-
-function updateClock(){
-
-    const now=new Date();
-
-    const h=now.getHours()%12;
-    const m=now.getMinutes();
-    const s=now.getSeconds();
-
-    document.querySelector(".hour").style.transform=
-        `translateX(-50%) rotate(${h*30+m/2}deg)`;
-
-    document.querySelector(".minute").style.transform=
-        `translateX(-50%) rotate(${m*6}deg)`;
-
-    document.querySelector(".second").style.transform=
-        `translateX(-50%) rotate(${s*6}deg)`;
-
-}
-
-createClock();
-
-updateClock();
-
-setInterval(updateClock,1000);
-/* ==========================
-   時計台
-========================== */
-
-.clock-tower{
 
     position:relative;
-
-    width:300px;
-
-    height:420px;
-
-    margin:40px auto;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:linear-gradient(
-        #d7c29b,
-        #b28b5c
-    );
-
-    border-radius:28px;
-
-    box-shadow:
-        0 20px 40px rgba(0,0,0,.15);
-
-}
-
-/* 屋根 */
-
-.roof{
-
-    position:absolute;
-
-    top:-65px;
-
-    width:0;
-
-    height:0;
-
-    border-left:95px solid transparent;
-
-    border-right:95px solid transparent;
-
-    border-bottom:75px solid #73492d;
-
-}
-
-/* ドア */
-
-.door{
-
-    position:absolute;
-
-    bottom:0;
-
-    width:85px;
-
-    height:120px;
-
-    background:#6c4225;
-
-    border-radius:45px 45px 0 0;
-
-}
-
-.door::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:8px;
-
-    height:8px;
-
-    border-radius:50%;
-
-    background:gold;
-
-    right:15px;
-
-    top:60px;
-
-}
-/* ==========================
-   時計
-========================== */
-
-#analogClock{
-
-    position:relative;
-
-    width:210px;
-
-    height:210px;
-
-    border-radius:50%;
-
-    background:#fffefb;
-
-    border:10px solid #d6b46b;
-
-    box-shadow:
-
-    inset 0 0 15px rgba(0,0,0,.08),
-
-    0 8px 18px rgba(0,0,0,.15);
 
 }
 
@@ -432,11 +20,11 @@ setInterval(updateClock,1000);
 
     align-items:flex-start;
 
-    font-size:20px;
-
     font-weight:bold;
 
-    color:#5b775f;
+    color:#4d6d57;
+
+    font-size:20px;
 
 }
 
@@ -458,7 +46,7 @@ setInterval(updateClock,1000);
 
     width:6px;
 
-    height:55px;
+    height:52px;
 
     background:#444;
 
@@ -468,7 +56,7 @@ setInterval(updateClock,1000);
 
     width:4px;
 
-    height:75px;
+    height:72px;
 
     background:#666;
 
@@ -478,9 +66,9 @@ setInterval(updateClock,1000);
 
     width:2px;
 
-    height:90px;
+    height:88px;
 
-    background:#d95050;
+    background:#d44;
 
 }
 
@@ -490,24 +78,21 @@ setInterval(updateClock,1000);
 
     position:absolute;
 
-    width:16px;
-
-    height:16px;
-
-    background:#d6b46b;
-
-    border-radius:50%;
+    left:50%;
 
     top:50%;
 
-    left:50%;
+    width:14px;
+
+    height:14px;
 
     transform:translate(-50%,-50%);
 
+    border-radius:50%;
+
+    background:#d4b16a;
+
 }
-/* ==========================
-   流れる雲
-========================== */
 
 .clouds{
 
@@ -519,19 +104,15 @@ setInterval(updateClock,1000);
 
     pointer-events:none;
 
-    z-index:-1;
-
 }
 
 .cloud{
 
     position:absolute;
 
-    background:rgba(255,255,255,.75);
+    background:rgba(255,255,255,.7);
 
     border-radius:999px;
-
-    filter:blur(1px);
 
     animation:cloudMove linear infinite;
 
@@ -552,33 +133,33 @@ setInterval(updateClock,1000);
 
 .cloud::before{
 
-    width:45px;
+    width:40px;
 
-    height:45px;
+    height:40px;
+
+    top:-15px;
 
     left:18px;
-
-    top:-18px;
 
 }
 
 .cloud::after{
 
-    width:60px;
+    width:55px;
 
-    height:60px;
+    height:55px;
 
-    right:15px;
+    top:-22px;
 
-    top:-28px;
+    right:18px;
 
 }
 
 .cloud1{
 
-    width:140px;
+    width:130px;
 
-    height:45px;
+    height:42px;
 
     top:70px;
 
@@ -590,188 +171,29 @@ setInterval(updateClock,1000);
 
 .cloud2{
 
-    width:180px;
+    width:170px;
 
-    height:55px;
+    height:50px;
 
     top:180px;
 
-    left:-250px;
+    left:-240px;
 
-    animation-duration:95s;
+    animation-duration:90s;
 
 }
 
 .cloud3{
-    /* ==========================
-   桜の花びら
-========================== */
 
-.petals{
+    width:110px;
 
-    position:absolute;
+    height:38px;
 
-    inset:0;
+    top:320px;
 
-    overflow:hidden;
+    left:-180px;
 
-    pointer-events:none;
-
-    z-index:1;
-
-}
-
-.petal{
-
-    position:absolute;
-
-    top:-60px;
-
-    width:14px;
-
-    height:10px;
-
-    background:#ffd8e8;
-
-    border-radius:70% 70% 70% 0;
-
-    opacity:.85;
-
-    transform:rotate(45deg);
-
-    animation:fall linear infinite;
-
-    box-shadow:0 0 6px rgba(255,255,255,.4);
-
-}
-
-@keyframes fall{
-
-    0%{
-
-        transform:
-            translate(0,-50px)
-            rotate(0deg);
-
-        opacity:0;
-
-    }
-
-    10%{
-
-        opacity:1;
-
-    }
-
-    100%{
-
-        transform:
-            translate(180px,900px)
-            rotate(720deg);
-
-        opacity:0;
-
-    }
-
-}
-
-.petal:nth-child(1){
-
-    left:8%;
-
-    animation-duration:14s;
-
-}
-
-.petal:nth-child(2){
-
-    left:18%;
-
-    animation-duration:17s;
-
-    animation-delay:3s;
-
-}
-
-.petal:nth-child(3){
-
-    left:34%;
-
-    animation-duration:16s;
-
-    animation-delay:5s;
-
-}
-
-.petal:nth-child(4){
-
-    left:50%;
-
-    animation-duration:18s;
-
-    animation-delay:2s;
-
-}
-
-.petal:nth-child(5){
-
-    left:67%;
-
-    animation-duration:15s;
-
-    animation-delay:6s;
-
-}
-
-.petal:nth-child(6){
-
-    left:82%;
-
-    animation-duration:19s;
-
-    animation-delay:4s;
-
-}<div class="petals">
-
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-
-</div>
-    /* ==========================
-   カードホバー
-========================== */
-
-.card{
-
-    transition:
-        transform .35s,
-        box-shadow .35s;
-
-}
-
-.card:hover{
-
-    transform:
-        translateY(-10px);
-
-    box-shadow:
-        0 18px 40px rgba(0,0,0,.18);
-
-}
-
-    width:120px;
-
-    height:40px;
-
-    top:310px;
-
-    left:-200px;
-
-    animation-duration:80s;
+    animation-duration:75s;
 
 }
 
@@ -790,261 +212,3 @@ setInterval(updateClock,1000);
     }
 
 }
-/* ==========================
-   光の粒
-========================== */
-
-.light{
-
-    position:absolute;
-
-    width:8px;
-
-    height:8px;
-
-    border-radius:50%;
-
-    background:white;
-
-    opacity:.6;
-
-    animation:twinkle 4s infinite ease-in-out;
-
-}
-
-@keyframes twinkle{
-
-    0%{
-
-        opacity:.2;
-
-        transform:scale(.7);
-
-    }
-
-    50%{
-
-        opacity:1;
-
-        transform:scale(1.4);
-
-    }
-
-    100%{
-
-        opacity:.2;
-
-        transform:scale(.7);
-
-    }
-
-}
-<div class="clouds">
-
-    <div class="cloud cloud1"></div>
-
-    <div class="cloud cloud2"></div>
-
-    <div class="cloud cloud3"></div>
-
-</div>
-
-<div class="light" style="top:90px;left:18%;"></div>
-<div class="light" style="top:170px;right:20%;animation-delay:1s;"></div>
-<div class="light" style="top:260px;left:72%;animation-delay:2s;"></div>
-<div class="light" style="top:120px;left:55%;animation-delay:3s;"></div>
-/* ==========================
-   ガラス風カード
-========================== */
-
-.card{
-
-    background:rgba(255,255,255,.55);
-
-    backdrop-filter:blur(14px);
-
-    -webkit-backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.55);
-
-    border-radius:28px;
-
-    padding:35px;
-
-    transition:.35s;
-
-}
-
-.card h2{
-
-    color:#4d6d57;
-
-    margin-bottom:18px;
-
-}
-
-.card p{
-
-    line-height:2;
-
-    color:#555;
-
-}
-
-.card:hover{
-
-    transform:translateY(-8px);
-
-    box-shadow:
-
-        0 20px 45px rgba(0,0,0,.18);
-
-}
-/* ==========================
-   木製メニュー
-========================== */
-
-nav{
-
-    display:flex;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:18px;
-
-    margin:45px auto;
-
-}
-
-nav a{
-
-    padding:15px 28px;
-
-    background:linear-gradient(
-
-        #b9854b,
-
-        #8f6235
-
-    );
-
-    color:white;
-
-    text-decoration:none;
-
-    border-radius:40px;
-
-    font-weight:bold;
-
-    box-shadow:
-
-        0 8px 18px rgba(0,0,0,.15);
-
-    transition:.3s;
-
-}
-
-nav a:hover{
-
-    transform:translateY(-5px);
-
-    background:linear-gradient(
-
-        #c99858,
-
-        #a26f3d
-
-    );
-
-}
-/* ==========================
-   時計台の窓
-========================== */
-
-.window{
-
-    position:absolute;
-
-    width:34px;
-
-    height:46px;
-
-    background:#ffe9a8;
-
-    border-radius:18px 18px 6px 6px;
-
-    box-shadow:
-
-        0 0 18px rgba(255,235,140,.8);
-
-}
-
-.window.left{
-
-    top:65px;
-
-    left:42px;
-
-}
-
-.window.right{
-
-    top:65px;
-
-    right:42px;
-
-}
-
-.window::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-
-    top:0;
-
-    width:2px;
-
-    height:100%;
-
-    background:rgba(120,80,40,.35);
-
-    transform:translateX(-50%);
-
-}
-
-.window::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:50%;
-
-    left:0;
-
-    width:100%;
-
-    height:2px;
-
-    background:rgba(120,80,40,.35);
-
-    transform:translateY(-50%);
-
-}<div class="clock-tower">
-
-    <div class="roof"></div>
-
-    <div class="window left"></div>
-
-    <div class="window right"></div>
-
-    <div id="analogClock"></div>
-
-    <div class="door"></div>
-
-</div>
