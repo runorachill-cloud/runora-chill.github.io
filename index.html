@@ -20,7 +20,7 @@
             width: 100%;
             max-width: 800px; /* 画像の美しさを保つ最大幅 */
             margin: 0 auto;
-            line-height: 0; /* 画像の下に隙間を作らない魔法 */
+            line-height: 0;
         }
 
         /* ベースとなる美しいイラスト画像 */
@@ -33,7 +33,6 @@
         /* === 🕒 リアルタイムデジタル時計の配置 === */
         .clock-container {
             position: absolute;
-            /* 画像内の時計盤の下のデジタル部分にぴったり重なる位置（％指定） */
             top: 32.3%;
             left: 51.5%;
             transform: translate(-50%, -50%);
@@ -44,31 +43,33 @@
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             line-height: 1.2;
-            pointer-events: none; /* 時計の後ろのリンクを邪魔しない */
+            pointer-events: none;
         }
 
         .digital-time {
-            font-size: 4vw; /* 画面サイズに合わせて自動で拡大縮小 */
+            font-size: 4vw;
         }
         @media (min-width: 800px) {
             .digital-time { font-size: 32px; }
         }
 
-        /* === 🔗 透明なタッチボタンの配置（画像のボタンの上に重ねる） === */
+        /* === 🔗 タッチボタンの配置（押しやすいように広めに調整） === */
         .invisible-link {
             position: absolute;
             display: block;
-            /* background: rgba(255, 0, 0, 0.3); */ /* 補正するときはここを外すと赤く見えます */
+            /* background: rgba(255, 0, 0, 0.3); */ /* 位置を確認したい時は左のコメントアウトを外してください */
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 10; /* 他の要素に隠されないように最前面に */
         }
 
-        /* 管理者（私）の部屋の「部屋に入る」ボタンに重なる透明リンク */
+        /* 管理者（私）の部屋の「部屋に入る」ボタンの重なり位置 */
         .link-my-room {
-            top: 62.2%;
-            left: 6.2%;
+            top: 45%;      /* カード全体をカバーできるように高さを調整 */
+            left: 4%;
             width: 18%;
-            height: 2.2%;
+            height: 20%;   /* 押し間違えないよう、イラストのドアやカード付近まで判定を拡大 */
         }
 
         /* フッターのSNSアイコン群（X、アメブロ、YouTube、なろう） */
@@ -78,6 +79,7 @@
             width: 6%;
             height: 2.5%;
             border-radius: 50%;
+            z-index: 10;
         }
         .sns-x { left: 40.5%; }
         .sns-ameblo { left: 46.5%; }
@@ -89,25 +91,20 @@
 <body>
 
     <div class="wrapper">
-        <!-- アップロードした画像を表示 -->
         <img src="image_2.png" alt="RunoraChill Village" class="base-image">
 
-        <!-- 🕒 リアルタイムに動く時計の中身 -->
         <div class="clock-container">
             <div class="digital-time" id="realtime-clock">00:00:00</div>
         </div>
 
-        <!-- 🔗 画像のボタンの上に重ねた透明なリンクたち -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- フッターのSNSリンク -->
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x" title="X"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo" title="アメブロ"></a>
         <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube" title="YouTube"></a>
         <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou" title="小説家になろう"></a>
     </div>
 
-    <!-- 🕒 時計をリアルタイムに1秒ずつ動かすプログラム -->
     <script>
         function updateClock() {
             const now = new Date();
@@ -115,7 +112,6 @@
             let minutes = now.getMinutes();
             let seconds = now.getSeconds();
 
-            // 1桁の数字のときに頭に 0 をつける設定 (例: 5秒 ➔ 05秒)
             hours = hours < 10 ? '0' + hours : hours;
             minutes = minutes < 10 ? '0' + minutes : minutes;
             seconds = seconds < 10 ? '0' + seconds : seconds;
@@ -124,7 +120,6 @@
             document.getElementById('realtime-clock').textContent = timeString;
         }
 
-        // ページを開いた瞬間と、その後1秒ごとに時計を更新する
         updateClock();
         setInterval(updateClock, 1000);
     </script>
