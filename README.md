@@ -11,7 +11,6 @@
         .menu-card { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .menu-card h2 { margin-top: 0; color: #16a085; }
         .btn { display: inline-block; background-color: #16a085; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
-        .btn:hover { background-color: #117a65; }
     </style>
 </head>
 <body>
@@ -24,7 +23,6 @@
             <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。</p>
             <a href="my-room.html" class="btn">部屋に入る</a>
         </div>
-
         <div class="menu-card">
             <h2>メンバー紹介</h2>
             <p>グループで活動する各メンバーの紹介部屋です（随時追加予定）。</p>
