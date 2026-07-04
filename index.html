@@ -1,103 +1,60 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunoraChill</title>
+<header class="hero">
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    <div class="hero-background"></div>
 
-<body>
-
-<header>
-
-    <img src="images/emblem.png" class="logo">
+    <img src="images/emblem.png"
+         class="logo"
+         alt="RunoraChill">
 
     <h1>RunoraChill</h1>
 
     <p class="subtitle">
-        創る人と、応援する人が、<br>
+        創る人と、応援する人が<br>
         ゆるやかにつながる場所
     </p>
 
+    <section id="clock">
+
+        <div class="clock-tower">
+
+            <div class="roof"></div>
+
+            <div id="analogClock"></div>
+
+            <div class="door"></div>
+
+        </div>
+
+    </section>
+
 </header>
+/* ===== Hero ===== */
 
-<section id="clock">
+.hero{
 
-    <div class="clock">
-        <div id="analogClock"></div>
-    </div>
+    position:relative;
 
-</section>
+    overflow:hidden;
 
-<nav>
+    text-align:center;
 
-<a href="#">🏡 ホーム</a>
+    padding:80px 20px;
 
-<a href="#">👤 管理人の部屋</a>
+}
 
-<a href="#">🚪 メンバーの部屋</a>
+.hero-background{
 
-<a href="#">📖 新着作品</a>
+    position:absolute;
 
-<a href="#">📢 お知らせ</a>
+    inset:0;
 
-</nav>
+    background:
 
-<main>
+    linear-gradient(
+        #dff7ff,
+        #fdfcf6
+    );
 
-<div class="card">
+    z-index:-3;
 
-<h2>🌿 ようこそ</h2>
-
-<p>
-
-RunoraChillは
-
-クリエイター同士が
-
-ゆったり交流できる場所です。
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>📰 お知らせ</h2>
-
-<p>
-
-現在制作中です。
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>💝 応援</h2>
-
-<p>
-
-お気に入りのクリエイターを
-
-応援しましょう。
-
-</p>
-
-</div>
-
-</main>
-
-<footer>
-
-©2026 RunoraChill
-
-</footer>
-
-<script src="script.js"></script>
-
-</body>
-</html>
+}
