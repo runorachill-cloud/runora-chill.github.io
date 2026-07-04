@@ -3,134 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunoraChill 公式ポータル</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: #fcfaf2;
-            color: #333333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        header {
-            width: 100%;
-            background-color: #ffffff;
-            border-bottom: 3px solid #d4af37;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .emblem-container {
-            max-width: 280px;
-            margin: 0 auto;
-            padding: 10px;
-        }
-        .emblem-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .subtitle {
-            font-size: 14px;
-            color: #8c763d;
-            font-weight: bold;
-            margin-top: 5px;
-            letter-spacing: 0.1em;
-        }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .menu-card {
-            background-color: #ffffff;
-            border: 1px solid #e6dfc3;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(140, 118, 61, 0.06);
-        }
-        .menu-card h2 {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 20px;
-            color: #2b2b2b;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .admin-card h2 {
-            color: #8c763d;
-            border-left: 4px solid #d4af37;
-            padding-left: 10px;
-        }
-        .member-card h2 {
-            color: #555555;
-            border-left: 4px solid #cccccc;
-            padding-left: 10px;
-        }
-        .menu-card p {
-            font-size: 14px;
-            color: #666666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            background-color: #3a2d28;
-            color: #ffffff;
-            text-align: center;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 10px;
-            box-sizing: border-box;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .status-badge {
-            display: inline-block;
-            background-color: #eeeeee;
-            color: #777777;
-            font-size: 12px;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            font-size: 12px;
-            color: #999999;
-            text-align: center;
-        }
-    </style>
+    <title>RunoraChill</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <header>
-        <div class="emblem-container">
-            <img src="903F62F9-36E7-4A0D-B666-7D9ADEEBC86D.png" alt="RunoraChill Emblem">
-        </div>
-        <div class="subtitle">公式ポータルサイト</div>
-    </header>
-    <div class="container">
-        <div class="menu-card admin-card">
-            <h2>管理者（私）の部屋</h2>
-            <p>SNSリンクやフォトアルバム、プロフィールはこちらからご覧いただけます。創作の足跡をまとめています。</p>
-            <a href="my-room.html" class="btn">部屋に入る</a>
-        </div>
-        <div class="menu-card member-card">
-            <h2>メンバー紹介 <span class="status-badge">ただいま準備中</span></h2>
-            <p>RunoraChillで共に活動する、素敵なメンバーの紹介部屋です。随時追加を予定しています。</p>
-        </div>
+
+<header>
+
+    <img src="images/emblem.png" class="logo">
+
+    <h1>RunoraChill</h1>
+
+    <p class="subtitle">
+        創る人と、応援する人が、<br>
+        ゆるやかにつながる場所
+    </p>
+
+</header>
+
+<section id="clock">
+
+    <div class="clock">
+        <div id="analogClock"></div>
     </div>
-    <footer>
-        &copy; 2026 RunoraChill All Rights Reserved.
-    </footer>
+
+</section>
+
+<nav>
+
+<a href="#">🏡 ホーム</a>
+
+<a href="#">👤 管理人の部屋</a>
+
+<a href="#">🚪 メンバーの部屋</a>
+
+<a href="#">📖 新着作品</a>
+
+<a href="#">📢 お知らせ</a>
+
+</nav>
+
+<main>
+
+<div class="card">
+
+<h2>🌿 ようこそ</h2>
+
+<p>
+
+RunoraChillは
+
+クリエイター同士が
+
+ゆったり交流できる場所です。
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>📰 お知らせ</h2>
+
+<p>
+
+現在制作中です。
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>💝 応援</h2>
+
+<p>
+
+お気に入りのクリエイターを
+
+応援しましょう。
+
+</p>
+
+</div>
+
+</main>
+
+<footer>
+
+©2026 RunoraChill
+
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
