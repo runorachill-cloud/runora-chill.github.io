@@ -303,3 +303,205 @@ createClock();
 updateClock();
 
 setInterval(updateClock,1000);
+/* ==========================
+   時計台
+========================== */
+
+.clock-tower{
+
+    position:relative;
+
+    width:300px;
+
+    height:420px;
+
+    margin:40px auto;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        #d7c29b,
+        #b28b5c
+    );
+
+    border-radius:28px;
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.15);
+
+}
+
+/* 屋根 */
+
+.roof{
+
+    position:absolute;
+
+    top:-65px;
+
+    width:0;
+
+    height:0;
+
+    border-left:95px solid transparent;
+
+    border-right:95px solid transparent;
+
+    border-bottom:75px solid #73492d;
+
+}
+
+/* ドア */
+
+.door{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:85px;
+
+    height:120px;
+
+    background:#6c4225;
+
+    border-radius:45px 45px 0 0;
+
+}
+
+.door::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:8px;
+
+    height:8px;
+
+    border-radius:50%;
+
+    background:gold;
+
+    right:15px;
+
+    top:60px;
+
+}
+/* ==========================
+   時計
+========================== */
+
+#analogClock{
+
+    position:relative;
+
+    width:210px;
+
+    height:210px;
+
+    border-radius:50%;
+
+    background:#fffefb;
+
+    border:10px solid #d6b46b;
+
+    box-shadow:
+
+    inset 0 0 15px rgba(0,0,0,.08),
+
+    0 8px 18px rgba(0,0,0,.15);
+
+}
+
+.number{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:#5b775f;
+
+}
+
+.hand{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:50%;
+
+    transform-origin:bottom center;
+
+    border-radius:20px;
+
+}
+
+.hour{
+
+    width:6px;
+
+    height:55px;
+
+    background:#444;
+
+}
+
+.minute{
+
+    width:4px;
+
+    height:75px;
+
+    background:#666;
+
+}
+
+.second{
+
+    width:2px;
+
+    height:90px;
+
+    background:#d95050;
+
+}
+
+#analogClock::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:16px;
+
+    height:16px;
+
+    background:#d6b46b;
+
+    border-radius:50%;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+}
