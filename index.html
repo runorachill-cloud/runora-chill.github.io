@@ -27,16 +27,16 @@
             display: block;
         }
 
-        /* 🕒 時計塔のデジタル時計の位置（中央の時計盤に重ねます） */
+        /* 🕒 デジタル時計の位置 */
         .clock-container {
             position: absolute;
-            top: 32.5%;
+            top: 32.3%;
             left: 51.5%;
             transform: translate(-50%, -50%);
-            width: 30%;
+            width: 25%;
             text-align: center;
             color: #ffebad;
-            text-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.7);
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             line-height: 1.2;
@@ -44,31 +44,31 @@
         }
 
         .digital-time {
-            font-size: 4.5vw;
+            font-size: 4vw;
         }
         @media (min-width: 800px) {
-            .digital-time { font-size: 36px; }
+            .digital-time { font-size: 32px; }
         }
 
-        /* 🔗 透明なタッチリンク（押しやすいように広めに設定） */
+        /* 🔗 透明なタッチリンク */
         .invisible-link {
             position: absolute;
             display: block;
             text-decoration: none;
+            border-radius: 12px;
             cursor: pointer;
             z-index: 10;
         }
 
         /* 「管理者（私）の部屋」ボタン */
         .link-my-room {
-            top: 44%;
+            top: 45%;
             left: 4%;
             width: 18%;
-            height: 21%;
-            border-radius: 16px;
+            height: 20%;
         }
 
-        /* フッターのSNSアイコン群 */
+        /* フッターのSNSアイコン */
         .footer-sns {
             position: absolute;
             bottom: 2.3%;
@@ -86,15 +86,15 @@
 <body>
 
     <div class="wrapper">
-        <!-- 💡 時計塔の画像（4B41A8E5...）を直接指定して、最優先で読み込みます -->
-        <img src="4B41A8E5-ABB3-4F14-9EB5-2DE9025E0A63.png" onerror="this.src='903F62F9-36E7-4A0D-B666-7D9ADEEBC86D.png';" alt="RunoraChill Village" class="base-image">
+        <!-- 1番最初の標準ファイル名に戻します -->
+        <img src="image.png" alt="RunoraChill Village" class="base-image">
 
         <!-- 🕒 リアルタイムデジタル時計 -->
         <div class="clock-container">
             <div class="digital-time" id="realtime-clock">00:00:00</div>
         </div>
 
-        <!-- 🔗 画像のボタンの上に重ねた透明なリンク -->
+        <!-- 🔗 各種リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
@@ -111,7 +111,8 @@
             hours = hours < 10 ? '0' + hours : hours;
             minutes = minutes < 10 ? '0' + minutes : minutes;
             seconds = seconds < 10 ? '0' + seconds : seconds;
-            document.getElementById('realtime-clock').textContent = `${hours}:${minutes}:${seconds}`;
+            const clockEl = document.getElementById('realtime-clock');
+            if(clockEl) clockEl.textContent = `${hours}:${minutes}:${seconds}`;
         }
         updateClock();
         setInterval(updateClock, 1000);
