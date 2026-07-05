@@ -127,7 +127,7 @@
         .log-text { word-break: break-all; }
         .log-time { color: #b8a07c; font-size: 1.1vw; white-space: nowrap; }
 
-        /* ⛩️ もふ神神社エリア（最新情報の右側の空白枠にピッタリ重ねる） */
+        /* ⛩️ もふ神神社エリア */
         .shrine-container {
             position: absolute;
             top: 68.5%;
@@ -138,7 +138,7 @@
             flex-direction: column;
             pointer-events: auto;
             box-sizing: border-box;
-            padding: 2% 3.5% 3.5% 3.5%; /* 元の絵の白い余白の内側に収めるためのクッション */
+            padding: 2% 3.5% 3.5% 3.5%;
         }
 
         .shrine-title {
@@ -151,6 +151,7 @@
         }
 
         .shrine-image-wrap {
+            position: relative; /* 💡 賽銭箱ボタンを重ねる基準 */
             width: 100%;
             flex-grow: 1;
             height: 0;
@@ -165,6 +166,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        /* 🪙 隠しギミック：賽銭箱のクリックエリア */
+        .saisen-trigger {
+            position: absolute;
+            bottom: 5%;
+            left: 35%;
+            width: 30%;
+            height: 25%;
+            cursor: pointer;
+            z-index: 20;
+            /* background: rgba(255,0,0,0.3); */ /* 💡 位置を確認したい時はここを外すと赤く見えます */
         }
 
         @media (min-width: 800px) {
@@ -207,8 +220,8 @@
             z-index: 15;
         }
 
-        /* 浮き出るカウンター・鳴き声テキスト */
-        .floating-counter, .floating-meow {
+        /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
+        .floating-counter, .floating-meow, .floating-saisen {
             position: absolute;
             font-size: 3.2vw;
             font-weight: bold;
@@ -230,6 +243,12 @@
             font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
         }
 
+        /* 🪙 お賽銭の浮き出る文字デザイン */
+        .floating-saisen {
+            color: #e67e22;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(230, 126, 34, 0.4);
+        }
+
         @keyframes floatUpAway {
             0% {
                 transform: translate(-50%, 0) scale(0.7);
@@ -246,7 +265,7 @@
         }
 
         @media (min-width: 800px) {
-            .floating-counter, .floating-meow { font-size: 26px; }
+            .floating-counter, .floating-meow, .floating-saisen { font-size: 26px; }
         }
     </style>
 </head>
@@ -283,11 +302,14 @@
             </div>
         </div>
 
-        <!-- ⛩️ もふ神神社エリア（右側の空白にオーバーレイ配置） -->
+        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
                 <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
+                
+                <!-- 🪙 賽銭箱の透明クリックエリア -->
+                <div class="saisen-trigger" id="saisen-trigger" title="お賽銭を入れる"></div>
             </div>
         </div>
 
@@ -412,6 +434,63 @@
 
             wrapper.appendChild(floatingMeow);
             floatingMeow.addEventListener('animationend', () => floatingMeow.remove());
+        });
+
+
+        // --- 🪙 賽銭箱の処理 ＆ ランダムおみくじ遷移 ---
+        const saisenTrigger = document.getElementById('saisen-trigger');
+        let coinAudio = null;
+        try {
+            // チャリンと鳴るコインの音
+            coinAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav');
+            coinAudio.volume = 0.5;
+        } catch (e) {}
+
+        let saisenCount = 0;
+        try {
+            saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10);
+        } catch (e) {}
+
+        // 🎰 ランダムで飛ぶおみくじ結果のページリスト（作成したファイル名に変更してください）
+        const omikujiPages = [
+            'daikichi.html',  // 大吉
+            'chukichi.html',  // 中吉
+            'shokichi.html',  // 小吉
+            'kichi.html',     // 吉
+            'kyou.html'       // 凶（もしあれば！）
+        ];
+
+        saisenTrigger.addEventListener('click', (e) => {
+            saisenCount++;
+            try { localStorage.setItem('runora_saisen_count', saisenCount); } catch (e) {}
+
+            if (coinAudio) {
+                try {
+                    coinAudio.currentTime = 0;
+                    coinAudio.play().catch(err => console.log(err));
+                } catch (err) {}
+            }
+
+            // 浮き出る「お賽銭 〇回目」
+            const floatingSaisen = document.createElement('div');
+            floatingSaisen.className = 'floating-saisen';
+            floatingSaisen.innerText = `🪙 お賽銭 ${saisenCount}回目`;
+
+            const rect = wrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            floatingSaisen.style.left = `${(clickX / rect.width) * 100}%`;
+            floatingSaisen.style.top = `${(clickY / rect.height) * 100}%`;
+
+            wrapper.appendChild(floatingSaisen);
+            floatingSaisen.addEventListener('animationend', () => floatingSaisen.remove());
+
+            // ⛩️ 1秒後にランダムでおみくじページにジャンプ！
+            setTimeout(() => {
+                const randomPage = omikujiPages[Math.floor(Math.random() * omikujiPages.length)];
+                window.location.href = randomPage;
+            }, 1000);
         });
     </script>
 
