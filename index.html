@@ -27,7 +27,7 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計（新イラストの真っ白な時計盤にピッタリ重ねます） */
+        /* 🕒 アナログ時計 */
         .analog-clock {
             position: absolute;
             top: 23.35%;
@@ -47,7 +47,7 @@
             border-radius: 4px;
         }
 
-        /* 時針（短くて太い黒い針） */
+        /* 時針 */
         .hour-hand {
             width: 4%;
             height: 28%;
@@ -55,7 +55,7 @@
             z-index: 3;
         }
 
-        /* 分針（長くて細い黒い針） */
+        /* 分針 */
         .minute-hand {
             width: 2.5%;
             height: 40%;
@@ -63,7 +63,7 @@
             z-index: 2;
         }
 
-        /* 秒針（細い金色の針） */
+        /* 秒針 */
         .second-hand {
             width: 1.5%;
             height: 44%;
@@ -71,10 +71,10 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（文字が透けなくなったので背景色を透明にしました！） */
+        /* 📱 デジタル時計と日付（位置を上方向に少し持ち上げました：top 34.65% → 33.85%） */
         .digital-container {
             position: absolute;
-            top: 34.65%;
+            top: 33.85%;
             left: 71.95%;
             transform: translate(-50%, -50%);
             width: 24%;
@@ -104,7 +104,7 @@
             z-index: 10;
         }
 
-        /* 「管理者（私）の部屋」ボタン（ピンクの扉） */
+        /* 「管理者（私）の部屋」ボタン */
         .link-my-room {
             top: 62.9%;
             left: 6.2%;
@@ -113,7 +113,7 @@
             border-radius: 20px;
         }
 
-        /* フッターのSNSアイコン群（X、アメブロ、YouTube、なろう） */
+        /* フッターのSNSアイコン群 */
         .footer-sns {
             bottom: 3.8%;
             width: 5.5%;
@@ -153,7 +153,6 @@
         function updateClock() {
             const now = new Date();
             
-            // 1. アナログ時計の制御
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
@@ -166,7 +165,6 @@
             document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
             document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
             
-            // 2. デジタル時計の制御 (12時間制 AM/PM)
             let displayHours = hours % 12;
             displayHours = displayHours ? displayHours : 12; 
             const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -176,7 +174,6 @@
             
             document.getElementById('digi-time').textContent = `${hStr}:${mStr}:${sStr} ${ampm}`;
             
-            // 3. 日付と曜日の制御
             const y = now.getFullYear();
             const m = String(now.getMonth() + 1).padStart(2, '0');
             const d = String(now.getDate()).padStart(2, '0');
