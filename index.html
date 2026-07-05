@@ -219,34 +219,39 @@
             z-index: 15;
         }
 
-        /* 💬 フッターのランダムメッセージ表示エリア 🛠️ */
-        .footer-hint-area {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px 10px 25px 10px; /* 下側の余白に綺麗に収まる位置 */
-            background-color: #f6eed6;
-            text-align: center;
+        /* 💬 背景画像内の「白いメッセージ枠」にぴったり重ねる設定 🛠️ */
+        .white-box-hint {
+            position: absolute;
+            top: 75.3%;  /* 画像の中の白い枠の縦位置に合わせました */
+            left: 29.5%; /* 白い枠の横位置 */
+            width: 41.0%; /* 白い枠の幅に合わせました */
+            height: 4.5%; /* 白い枠の高さ */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none; /* 下の画像へのタッチを邪魔しない */
             box-sizing: border-box;
+            z-index: 5;
         }
 
         .hint-text {
-            font-size: 13px;
+            font-size: 1.5vw; /* 🛠️ スマホでも枠からはみ出ない絶妙なサイズ */
             color: #8c7662;
             font-weight: bold;
-            letter-spacing: 0.5px;
-            line-height: 1.5;
-            opacity: 0.85;
+            text-align: center;
+            letter-spacing: 0.2px;
+            line-height: 1.2;
+            white-space: nowrap; /* 1行でスッキリ見せる */
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
         @keyframes fadeInHint {
-            0% { opacity: 0; transform: translateY(5px); }
-            100% { opacity: 0.85; transform: translateY(0); }
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 0.9; transform: scale(1); }
         }
 
-        @media (max-width: 500px) {
-            .hint-text { font-size: 11px; }
+        @media (min-width: 800px) {
+            .hint-text { font-size: 12px; }
         }
 
         /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
@@ -330,21 +335,21 @@
         <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
-        <div class="secret-cat-trigger" id="cat-trigger" title="猫をつつつく"></div>
-    </div>
+        <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-    <!-- 💬 フッターのメッセージ表示エリア 🛠️ -->
-    <div class="footer-hint-area">
-        <div class="hint-text" id="random-hint">ポータルサイトをのんびりお散歩してみてくださいね🌸</div>
+        <!-- 💬 画像内の白い枠の中に重なるメッセージエリア 🛠️ -->
+        <div class="white-box-hint">
+            <div class="hint-text" id="random-hint">Loading...</div>
+        </div>
     </div>
 
     <script>
-        // 💬 ランダムヒントメッセージの配列 🛠️
+        // 💬 ランダムメッセージ（ご提案を反映して「村」や「タップで撫でよう」に修正！） 🛠️
         const hintMessages = [
             "💡 時計塔のまわりをよーく探すと、何かが聞こえるかも……？🐾",
             "💡 もふ神神社にはお賽銭箱があるようですよ。中に何が入っているのかな？⛩️",
-            "💡 この村のどこかに、つつくと鳴く黒猫が隠れているという噂です……🐈",
-            "💡 ポータルサイトをのんびりお散歩してみてくださいね🌸",
+            "💡 この村のどこかにいる黒猫は、タップで撫でると鳴いてくれるという噂です……🐈",
+            "💡 優しい時間が流れるこの村を、のんびりお散歩してみてくださいね🌸",
             "💡 神社の奥には、1日1回だけ運を占える自動販売機があるとか……？🪙"
         ];
         // ランダムで1つ選んで表示
