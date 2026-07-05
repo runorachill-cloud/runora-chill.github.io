@@ -26,6 +26,8 @@
             width: 100%;
             height: auto;
             display: block;
+            min-height: 300px; /* 画像が読み込まれる前の潰れ防止 */
+            background-color: #f6eed6;
         }
 
         /* 📟 自販機のデジタル液晶風表示 */
@@ -137,8 +139,12 @@
 <body>
 
     <div class="wrapper" id="main-wrapper">
-        <!-- 📷 画像名をシンプルな jihanki.png に統一しました！ -->
-        <img src="jihanki.png" alt="おみくじ自販機" class="base-image">
+        <!-- 📷 読み込みエラーが起きたら別ルートを自動で試す特殊な画像タグです 🛡️ -->
+        <img src="C1F896B4-C794-46E9-9A5B-98FAFB7E6516.png" 
+             id="vending-img"
+             alt="おみくじ自販機" 
+             class="base-image"
+             onerror="tryAlternativePaths(this)">
 
         <!-- 📟 デジタル液晶画面 -->
         <div class="vending-display" id="disp-text">200円</div>
@@ -165,6 +171,24 @@
     </div>
 
     <script>
+        // 🛡️ 画像がエラーになった場合の自動リトライ処理
+        let pathTryCount = 0;
+        function tryAlternativePaths(imgElement) {
+            pathTryCount++;
+            const originalName = "C1F896B4-C794-46E9-9A5B-98FAFB7E6516.png";
+            
+            if (pathTryCount === 1) {
+                // パターン1: アプリ内部の相対パスを考慮してドットを付ける
+                imgElement.src = "./" + originalName;
+            } else if (pathTryCount === 2) {
+                // パターン2: 途中で名前が削れている可能性を考慮した名前
+                imgElement.src = "C794-46E9-9A5B-98FAFB7E6516.png";
+            } else if (pathTryCount === 3) {
+                // パターン3: 大文字小文字のズレを完全に無視する対策 (.PNG)
+                imgElement.src = "C1F896B4-C794-46E9-9A5B-98FAFB7E6516.PNG";
+            }
+        }
+
         const dispText = document.getElementById('disp-text');
         const card = document.getElementById('omikuji-card');
         const cardLucky = document.getElementById('card-lucky');
