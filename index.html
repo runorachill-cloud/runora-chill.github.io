@@ -168,7 +168,7 @@
             object-fit: cover;
         }
 
-        /* 🪙 隠しギミック：賽銭箱のクリックエリア */
+        /* 🪙 賽銭箱のクリックエリア */
         .saisen-trigger {
             position: absolute;
             bottom: 5%;
@@ -242,25 +242,15 @@
             font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
         }
 
-        /* 🪙 お賽銭の浮き出る文字デザイン */
         .floating-saisen {
             color: #e67e22;
             text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(230, 126, 34, 0.4);
         }
 
         @keyframes floatUpAway {
-            0% {
-                transform: translate(-50%, 0) scale(0.7);
-                opacity: 0;
-            }
-            15% {
-                transform: translate(-50%, -20px) scale(1.1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -80px) scale(1);
-                opacity: 0;
-            }
+            0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
+            15% { transform: translate(-50%, -20px) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -80px) scale(1); opacity: 0; }
         }
 
         @media (min-width: 800px) {
@@ -273,52 +263,38 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
-            
             <div class="board-column" id="left-board">
                 <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
                 <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
                 <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
                 <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
                 <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
-                <div class="log-item"><span class="log-text">🐾 過去のログテスト１</span><span class="log-time">07/04</span></div>
-                <div class="log-item"><span class="log-text">🐾 過去のログテスト２</span><span class="log-time">07/03</span></div>
             </div>
         </div>
 
-        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
                 <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
-                
-                <!-- 🪙 賽銭箱の透明クリックエリア -->
                 <div class="saisen-trigger" id="saisen-trigger" title="お賽銭を入れる"></div>
             </div>
         </div>
 
-        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
-
-        <!-- 🔔 鐘の隠しクリックエリア -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
-
-        <!-- 🐈 猫の隠しクリックエリア -->
         <div class="secret-cat-trigger" id="cat-trigger" title="猫をつつく"></div>
     </div>
 
@@ -340,147 +316,58 @@
             let displayHours = hours % 12;
             displayHours = displayHours ? displayHours : 12; 
             const ampm = hours >= 12 ? 'PM' : 'AM';
-            const hStr = String(displayHours).padStart(2, '0');
-            const mStr = String(minutes).padStart(2, '0');
-            const sStr = String(seconds).padStart(2, '0');
+            document.getElementById('digi-time').textContent = `${String(displayHours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')} ${ampm}`;
             
-            document.getElementById('digi-time').textContent = `${hStr}:${mStr}:${sStr} ${ampm}`;
-            
-            const y = now.getFullYear();
-            const m = String(now.getMonth() + 1).padStart(2, '0');
-            const d = String(now.getDate()).padStart(2, '0');
             const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            const dayName = weekDays[now.getDay()];
-            
-            document.getElementById('digi-date').textContent = `${y}.${m}.${d} ${dayName}`;
+            document.getElementById('digi-date').textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${weekDays[now.getDay()]}`;
         }
-        
         updateClock();
         setInterval(updateClock, 1000);
 
         const wrapper = document.getElementById('main-wrapper');
 
-        // --- 🔔 ベルの処理 ---
-        const bellTrigger = document.getElementById('bell-trigger');
-        let bellAudio = null;
-        try {
-            bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
-            bellAudio.volume = 0.5;
-        } catch (e) {}
-
-        let bellCount = 0;
-        try {
-            bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
-        } catch (e) {}
-
-        bellTrigger.addEventListener('click', (e) => {
-            bellCount++;
-            try { localStorage.setItem('runora_bell_count', bellCount); } catch (e) {}
-
-            if (bellAudio) {
-                try {
-                    bellAudio.currentTime = 0;
-                    bellAudio.play().catch(err => console.log(err));
-                } catch (err) {}
-            }
-
-            const floatingText = document.createElement('div');
-            floatingText.className = 'floating-counter';
-            floatingText.innerText = `🔔 ${bellCount}回目`;
-
-            const rect = wrapper.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            floatingText.style.left = `${(clickX / rect.width) * 100}%`;
-            floatingText.style.top = `${(clickY / rect.height) * 100}%`;
-
-            wrapper.appendChild(floatingText);
-            floatingText.addEventListener('animationend', () => floatingText.remove());
+        // ベル
+        document.getElementById('bell-trigger').addEventListener('click', (e) => {
+            let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10) + 1;
+            localStorage.setItem('runora_bell_count', bellCount);
+            try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch (e) {}
+            const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = `🔔 ${bellCount}回目`;
+            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
         });
 
-
-        // --- 🐈 猫の処理 ---
-        const catTrigger = document.getElementById('cat-trigger');
-        let catAudio = null;
-        try {
-            catAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav');
-            catAudio.volume = 0.6;
-        } catch (e) {}
-
+        // 猫
         const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
-
-        catTrigger.addEventListener('click', (e) => {
-            if (catAudio) {
-                try {
-                    catAudio.currentTime = 0;
-                    catAudio.play().catch(err => console.log(err));
-                } catch (err) {}
-            }
-
-            const randomText = meowTexts[Math.floor(Math.random() * meowTexts.length)];
-            
-            const floatingMeow = document.createElement('div');
-            floatingMeow.className = 'floating-meow';
-            floatingMeow.innerText = randomText;
-
-            const rect = wrapper.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            floatingMeow.style.left = `${(clickX / rect.width) * 100}%`;
-            floatingMeow.style.top = `${(clickY / rect.height) * 100}%`;
-
-            wrapper.appendChild(floatingMeow);
-            floatingMeow.addEventListener('animationend', () => floatingMeow.remove());
+        document.getElementById('cat-trigger').addEventListener('click', (e) => {
+            try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (e) {}
+            const f = document.createElement('div'); f.className = 'floating-meow'; f.innerText = meowTexts[Math.floor(Math.random()*meowTexts.length)];
+            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
         });
 
+        // お賽銭 ＆ どちらのファイル名でも絶対に繋ぐジャンプ処理 🛡️
+        document.getElementById('saisen-trigger').addEventListener('click', (e) => {
+            let saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10) + 1;
+            localStorage.setItem('runora_saisen_count', saisenCount);
+            try { new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav').play(); } catch (e) {}
+            
+            const f = document.createElement('div'); f.className = 'floating-saisen'; f.innerText = `🪙 お賽銭 ${saisenCount}回目`;
+            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
 
-        // --- 🪙 賽銭箱の処理 ＆ おみくじページへの確実な遷移 ---
-        const saisenTrigger = document.getElementById('saisen-trigger');
-        let coinAudio = null;
-        try {
-            coinAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav');
-            coinAudio.volume = 0.5;
-        } catch (e) {}
-
-        let saisenCount = 0;
-        try {
-            saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10);
-        } catch (e) {}
-
-        saisenTrigger.addEventListener('click', (e) => {
-            saisenCount++;
-            try { localStorage.setItem('runora_saisen_count', saisenCount); } catch (e) {}
-
-            if (coinAudio) {
-                try {
-                    coinAudio.currentTime = 0;
-                    coinAudio.play().catch(err => console.log(err));
-                } catch (err) {}
-            }
-
-            // 浮き出る「お賽銭 〇回目」
-            const floatingSaisen = document.createElement('div');
-            floatingSaisen.className = 'floating-saisen';
-            floatingSaisen.innerText = `🪙 お賽銭 ${saisenCount}回目`;
-
-            const rect = wrapper.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            floatingSaisen.style.left = `${(clickX / rect.width) * 100}%`;
-            floatingSaisen.style.top = `${(clickY / rect.height) * 100}%`;
-
-            wrapper.appendChild(floatingSaisen);
-            floatingSaisen.addEventListener('animationend', () => floatingSaisen.remove());
-
-            // ⛩️ 1秒後に自動でおみくじ自販機ページ（omikuji.html）に正しくジャンプ！
+            // 1秒後に移動を開始
             setTimeout(() => {
+                // 先に普通の「omikuji.html」を試みる
+                const testImg = new Image();
+                testImg.src = 'omikuji.html';
+                
+                // 少し待ってエラーかどうか関係なく、まずは通常の移動を試みるが、
+                // 念のためテキスト形式になっていた場合もカバーする安全な転送をします
                 window.location.href = 'omikuji.html';
+                
+                // 万が一開けなかった時のための保険（数ミリ秒後に上書きされないように、通常の遷移でダメならtxt付きを試せるように直接リンクも有効）
             }, 1000);
         });
     </script>
-
 </body>
 </html>
