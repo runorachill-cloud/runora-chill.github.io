@@ -142,7 +142,14 @@
         }
 
         .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
-        .footer-sns { bottom: 3.8%; width: 5.5%; height: 2.8%; border-radius: 50%; }
+        
+        /* 📱 最下部フッターのSNSリンク位置を一番下に修正 */
+        .footer-sns { 
+            bottom: 1.0%;   /* 位置が上にズレていたのを一番下に下げました */
+            width: 5.5%; 
+            height: 3.0%; 
+            border-radius: 50%; 
+        }
         .sns-x { left: 40.5%; }
         .sns-ameblo { left: 45.8%; }
         .sns-youtube { left: 51.2%; }
@@ -344,7 +351,7 @@
             catAudio.volume = 0.6;
         } catch (e) {}
 
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃオ？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
 
         catTrigger.addEventListener('click', (e) => {
             if (catAudio) {
