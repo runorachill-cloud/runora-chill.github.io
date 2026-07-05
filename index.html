@@ -162,9 +162,9 @@
         /* 🐈 隠しギミック：時計塔のふもとの黒猫 */
         .secret-cat-trigger {
             position: absolute;
-            top: 38.0%;     /* 黒猫ちゃんの位置 */
+            top: 38.0%;
             left: 86.0%;
-            width: 6.5%;    /* タップしやすいように少し大きめ */
+            width: 6.5%;
             height: 6.5%;
             cursor: pointer;
             z-index: 15;
@@ -187,7 +187,6 @@
             text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(140, 118, 98, 0.5);
         }
 
-        /* 猫の鳴き声用の装飾（ちょっと優しくて可愛いピンクブラウン系） */
         .floating-meow {
             color: #9e7a6b;
             text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 5px rgba(246, 238, 214, 0.8);
@@ -341,16 +340,13 @@
         const catTrigger = document.getElementById('cat-trigger');
         let catAudio = null;
         try {
-            // フリーの可愛い猫の鳴き声SE
             catAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav');
             catAudio.volume = 0.6;
         } catch (e) {}
 
-        // ランダムな鳴き声テキストのリスト
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃオ？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
 
         catTrigger.addEventListener('click', (e) => {
-            // 音声を再生
             if (catAudio) {
                 try {
                     catAudio.currentTime = 0;
@@ -358,7 +354,6 @@
                 } catch (err) {}
             }
 
-            // ランダムでテキストを選択して画面にふわっと出す
             const randomText = meowTexts[Math.floor(Math.random() * meowTexts.length)];
             
             const floatingMeow = document.createElement('div');
