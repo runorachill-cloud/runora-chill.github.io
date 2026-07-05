@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おみくじ結果 - 大吉</title>
+    <style>
+        body {
+            background-color: #f6eed6;
+            color: #4a3b32;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .card {
+            background: white;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #eaddc3;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        h1 { color: #d35400; font-size: 48px; margin: 10px 0; }
+        p { line-height: 1.6; }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #b8a07c;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>⛩️ もふ神神社 おみくじ ⛩️</h2>
+        <hr style="border: 1px dashed #eaddc3;">
+        <h1>✨大吉✨</h1>
+        <p>今日のみんなとの交流は最高に盛り上がる予感！<br>創作活動もサクサク進んじゃうかも🐾</p>
+        <a href="index.html" class="back-btn">ポータルに戻る</a>
+    </div>
+</body>
+</html>
