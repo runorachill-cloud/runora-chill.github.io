@@ -27,18 +27,18 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計（針の軸が円のど真ん中に来るよう位置を微修正） */
+        /* 🕒 アナログ時計（右上のズレを左斜め下へ調整し、円の文字盤の中央へ：top 23.0%→23.35%, left 72.4%→71.95%） */
         .analog-clock {
             position: absolute;
-            top: 23.0%;
-            left: 72.4%;
+            top: 23.35%;
+            left: 71.95%;
             width: 16.5%;
             aspect-ratio: 1 / 1;
             transform: translate(-50%, -50%);
             pointer-events: none;
         }
 
-        /* 針の共通設定（確実に中央を軸に回転させるためのブレ防止設定） */
+        /* 針の共通設定 */
         .hand {
             position: absolute;
             bottom: 50%;
@@ -72,11 +72,11 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（一回り小さくし、位置もバランスよく中央へ調整） */
+        /* 📱 デジタル時計と日付（右上のズレを左斜め下へ移動させ、枠の中央へ：top 33.6%→34.1%, left 72.2%→71.5%） */
         .digital-container {
             position: absolute;
-            top: 33.6%;
-            left: 72.2%;
+            top: 34.1%;
+            left: 71.5%;
             transform: translate(-50%, -50%);
             width: 22%;
             text-align: center;
@@ -88,7 +88,7 @@
             pointer-events: none;
         }
 
-        /* 文字サイズを一回り小さく（2.4vw → 2.1vw） */
+        /* 一回り小さい文字サイズ（2.1vw）を維持 */
         .digital-time { font-size: 2.1vw; }
         .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
         
@@ -133,17 +133,20 @@
     <div class="wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
+        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
+        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
+        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
