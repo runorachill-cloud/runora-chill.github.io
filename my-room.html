@@ -82,11 +82,20 @@
             font-size: 15px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            gap: 8px; /* アイコンと文字の間のすき間 */
         }
 
         .sns-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        /* 💡 ボタン内画像アイコンのサイズ調整 */
+        .btn-icon-img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            border-radius: 4px; /* 必要に応じて角丸に */
         }
 
         /* 各SNSのやさしい限定カラー */
@@ -133,9 +142,12 @@
             <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="sns-btn btn-ameblo">
                 📝 アメーバブログ
             </a>
+            
+            <!-- YouTubeボタンのアイコンを画像に変更 -->
             <a href="https://youtube.com/@mofugamiruna0111?si=8X5W4yfu_Zj2V09T" target="_blank" class="sns-btn btn-youtube">
-                📺 YouTubeチャンネル
+                <img src="IMG_4876.png" alt="YouTube" class="btn-icon-img"> YouTubeチャンネル
             </a>
+            
             <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-narou">
                 📚 小説家になろう マイページ
             </a>
