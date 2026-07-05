@@ -5,198 +5,237 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>もふ神神社 - おみくじ自販機</title>
     <style>
-        body {
-            background-color: #f6eed6;
-            color: #4a3b32;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            text-align: center;
-            padding: 40px 20px;
+        html, body {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: #f6eed6;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        /* 🎰 自販機の見た目 */
-        .vending-machine {
-            background-color: #d35400;
-            border: 4px solid #ba4a00;
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            margin-bottom: 30px;
+        .wrapper {
             position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 0;
         }
 
-        .machine-header {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 10px;
+        .base-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 📟 自販機のデジタル液晶風表示 */
+        .vending-display {
+            position: absolute;
+            top: 37.3%;
+            left: 68.3%;
+            width: 8.5%;
+            height: 4.0%;
+            background-color: #1a0805;
+            color: #ff3b30;
+            font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            color: #d35400;
-            font-size: 20px;
-            margin-bottom: 25px;
-            border: 2px solid #eaddc3;
+            font-size: 1.8vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+            text-shadow: 0 0 4px #ff3b30;
+            pointer-events: none;
+            z-index: 10;
         }
 
-        .display-screen {
-            background-color: #2c3e50;
-            color: #2ecc71;
-            font-family: monospace;
-            padding: 15px;
-            font-size: 18px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-shadow: 0 0 4px #2ecc71;
+        @media (min-width: 800px) {
+            .vending-display { font-size: 14px; }
         }
 
-        /* 👇 タップするボタン */
-        .push-button {
-            background: linear-gradient(135deg, #f1c40f, #f39c12);
-            border: none;
-            border-bottom: 5px solid #d35400;
-            color: #fff;
-            font-size: 22px;
-            font-weight: bold;
-            padding: 20px 40px;
-            border-radius: 50px;
+        /* 🔴 ボタン共通の透明クリックエリア */
+        .vending-btn {
+            position: absolute;
             cursor: pointer;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            transition: all 0.1s ease;
-            width: 80%;
+            z-index: 20;
+            /* background: rgba(255, 0, 0, 0.3); */ /* 💡 位置を確認したい時はコメントアウトを外してください */
         }
 
-        .push-button:active {
-            transform: translateY(3px);
-            border-bottom-width: 2px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
+        /* 上段のボタン5つ (大吉、吉、中吉、小吉、末吉) */
+        .btn-daikichi { top: 44.5%; left: 28.5%; width: 4.8%; height: 2.8%; }
+        .btn-kichi    { top: 44.5%; left: 35.7%; width: 4.8%; height: 2.8%; }
+        .btn-chukichi { top: 44.5%; left: 43.0%; width: 4.8%; height: 2.8%; }
+        .btn-shokichi { top: 44.5%; left: 50.2%; width: 4.8%; height: 2.8%; }
+        .btn-suekichi { top: 44.5%; left: 57.5%; width: 4.8%; height: 2.8%; }
 
-        /* 📜 おみくじ結果カード（最初は隠しておく） */
-        .result-card {
+        /* 下段のボタン3つ (凶、大凶、平) */
+        .btn-kyou     { top: 63.3%; left: 32.2%; width: 4.8%; height: 2.8%; }
+        .btn-daikyou  { top: 63.3%; left: 41.9%; width: 4.8%; height: 2.8%; }
+        .btn-taira    { top: 63.3%; left: 51.5%; width: 4.8%; height: 2.8%; }
+
+
+        /* 📜 取り出し口から飛び出すおみくじカード */
+        .omikuji-card {
             display: none;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
+            position: absolute;
+            top: 86%; /* 自販機の取り出し口付近 */
+            left: 50%;
+            transform: translate(-50%, -20px) scale(0.5);
+            width: 45%;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
             border: 3px solid #eaddc3;
-            box-shadow: 0 6px 16px rgba(184, 160, 124, 0.2);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            text-align: center;
+            line-height: 1.5;
+            z-index: 50;
+            opacity: 0;
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        /* ガタゴトッと下から出てくるアニメーション */
+        .omikuji-card.disp-anime {
+            display: block;
+            animation: emergeCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
         }
 
-        .result-lucky {
-            font-size: 48px;
+        @keyframes emergeCard {
+            0% { transform: translate(-50%, 20px) scale(0.6); opacity: 0; }
+            100% { transform: translate(-50%, -40px) scale(1); opacity: 1; }
+        }
+
+        .card-lucky {
+            font-size: 4.5vw;
             font-weight: bold;
-            margin: 15px 0;
-            color: #e74c3c;
+            margin: 10px 0;
+        }
+        .card-desc {
+            font-size: 1.8vw;
+            color: #5c4a3c;
+            margin-bottom: 15px;
+            padding: 0 10px;
         }
 
         .back-btn {
             display: inline-block;
-            margin-top: 25px;
-            padding: 12px 30px;
+            padding: 6px 18px;
             background-color: #b8a07c;
             color: white;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 8px;
+            font-size: 1.6vw;
             font-weight: bold;
-            transition: background 0.2s;
+            line-height: 1.2;
         }
-        .back-btn:hover { background-color: #9e8665; }
+
+        @media (min-width: 800px) {
+            .card-lucky { font-size: 36px; }
+            .card-desc { font-size: 14px; }
+            .back-btn { font-size: 13px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>⛩️ もふ神神社 おみくじ自販機 ⛩️</h2>
-        <p style="color: #6d5947; margin-bottom: 25px;">お賽銭が届きました！ボタンを押してね🐾</p>
+    <div class="wrapper" id="main-wrapper">
+        <!-- おみくじ自販機背景画像 -->
+        <img src="C1F896B4-C794-46E9-9A5B-98FAFB7E6516.png" alt="おみくじ自販機" class="base-image">
 
-        <!-- 自販機本体 -->
-        <div class="vending-machine">
-            <div class="machine-header">自動御御籤機</div>
-            <div class="display-screen" id="screen-text">【 BUTTON PUSH 】</div>
-            
-            <button class="push-button" id="draw-btn">おみくじを引く！</button>
-        </div>
+        <!-- 📟 デジタル液晶画面（最初は200円表示） -->
+        <div class="vending-display" id="disp-text">200円</div>
 
-        <!-- 結果画面（ボタンを押すとここが浮き出ます） -->
-        <div class="result-card" id="result-card">
-            <h3 style="margin: 0; color: #8c7662;">おみくじ結果</h3>
-            <hr style="border: 1px dashed #eaddc3; margin: 15px 0;">
-            <div class="result-lucky" id="lucky-text">大吉</div>
-            <p id="desc-text">今日のみんなとの交流は最高に盛り上がる予感！🐾</p>
-            
+        <!-- 🔴 透明なボタン判定エリア -->
+        <div class="vending-btn btn-daikichi" data-btn="大吉" title="大吉のボタン"></div>
+        <div class="vending-btn btn-kichi"    data-btn="吉"   title="吉のボタン"></div>
+        <div class="vending-btn btn-chukichi" data-btn="中吉" title="中吉のボタン"></div>
+        <div class="vending-btn btn-shokichi" data-btn="小吉" title="小吉のボタン"></div>
+        <div class="vending-btn btn-suekichi" data-btn="末吉" title="末吉のボタン"></div>
+        
+        <div class="vending-btn btn-kyou"     data-btn="凶"   title="凶のボタン"></div>
+        <div class="vending-btn btn-daikyou"  data-btn="大凶" title="大凶のボタン"></div>
+        <div class="vending-btn btn-taira"    data-btn="平"   title="平のボタン"></div>
+
+        <!-- 📜 取り出し口から飛び出るおみくじカード -->
+        <div class="omikuji-card" id="omikuji-card">
+            <h3 style="margin: 0; color: #8c7662; font-size: 14px;">⛩️ もふ神神社 御御籤 ⛩️</h3>
+            <hr style="border: 1px dashed #eaddc3; margin: 8px 0;">
+            <div class="card-lucky" id="card-lucky">大吉</div>
+            <div class="card-desc" id="card-desc">結果テキスト</div>
             <a href="index.html" class="back-btn">ポータルに戻る</a>
         </div>
     </div>
 
     <script>
-        const drawBtn = document.getElementById('draw-btn');
-        const screenText = document.getElementById('screen-text');
-        const resultCard = document.getElementById('result-card');
-        const luckyText = document.getElementById('lucky-text');
-        const descText = document.getElementById('desc-text');
+        const dispText = document.getElementById('disp-text');
+        const card = document.getElementById('omikuji-card');
+        const cardLucky = document.getElementById('card-lucky');
+        const cardDesc = document.getElementById('card-desc');
+        const buttons = document.querySelectorAll('.vending-btn');
 
-        // おみくじのデータ（ここを書き換えればいくらでも結果を増やせます！）
+        // 🎰 おみくじ結果データ（画像にある全8種類！）
         const omikujiResults = [
-            { lucky: '✨大吉✨', desc: '創作活動も交流もサクサク進んじゃう最高の一日！ラッキーアイテムは「猫グッズ」🐾', color: '#e74c3c' },
-            { lucky: '🍃中吉🍃', desc: 'のんびり過ごすのに最適な日。お気に入りの部屋でお茶を飲むと良いことあるかも。', color: '#e67e22' },
-            { lucky: '🐾小吉🐾', desc: '小さなハッピーがいくつか見つかりそう。誰かの作品に応援を送ってみよう！', color: '#3498db' },
-            { lucky: '☀️吉☀️', desc: 'いつも通りの平穏で素敵な一日。まったりチャットを眺めてリラックスしよう。', color: '#2ecc71' }
+            { lucky: '✨大吉✨', desc: '創作運・交流運ともに最高潮！もふ神様があなたの背中を優しく押してくれています🐾', color: '#e74c3c' },
+            { lucky: '🌸吉🌸', desc: 'とても平穏で素敵な一日。何気ないチャットの中に素敵な創作のヒントが隠れているかも。', color: '#e67e22' },
+            { lucky: '🍃中吉🍃', desc: '美味しいお茶を飲んでまったり過ごすと吉。コミュニティに幸せが満ちています。', color: '#f39c12' },
+            { lucky: '🐾小吉🐾', desc: '小さな幸運がトコトコ歩いてやってくる予感。お気に入りの部屋に遊びに行ってみよう！', color: '#3498db' },
+            { lucky: '☀️末吉☀️', desc: 'これからどんどん運気が上がっていくワクワクな状態。マイペースに進むのが一番です。', color: '#16a085' },
+            { lucky: '🔮凶🔮', desc: 'ちょっぴりお疲れ気味かも？今日はいっぱいもふもふして、のんびりエネルギーを蓄えましょう。', color: '#9b59b6' },
+            { lucky: '🌧️大凶🌧️', desc: '逆にここからは運気が上がるしかない大チャンス！もふ神神社へのお賽銭があなたを守ります。', color: '#7f8c8d' },
+            { lucky: '🌾平（たいら）🌾', desc: '波風の立たない、とても穏やかでまっすぐな一日。創作の基盤をじっくり作るのに最適です。', color: '#2c3e50' }
         ];
 
         let isDrawing = false;
 
-        drawBtn.addEventListener('click', () => {
-            if (isDrawing) return;
-            isDrawing = true;
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (isDrawing) return;
+                isDrawing = true;
 
-            // ボタンを押した時の効果音（ガチャッという音）
-            try {
-                const btnAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-200.wav');
-                btnAudio.volume = 0.4;
-                btnAudio.play();
-            } catch(e){}
+                // カードが開いていたら一度隠す
+                card.classList.remove('disp-anime');
 
-            // 画面の文字をガシャガシャ動かす演出
-            let count = 0;
-            const interval = setInterval(() => {
-                screenText.textContent = `抽選中... ${['■','□','■','□'][count % 4]}`;
-                count++;
-            }, 100);
-
-            // 1.5秒後に結果を表示
-            setTimeout(() => {
-                clearInterval(interval);
-                screenText.textContent = "【 GO ! 】";
-                
-                // ガラガラ、ポンッ！という音
+                // 🔊 ボタンを押した音
                 try {
-                    const popAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1011/1011-200.wav');
-                    popAudio.volume = 0.5;
-                    popAudio.play();
+                    const pressAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-200.wav');
+                    pressAudio.volume = 0.4;
+                    pressAudio.play();
                 } catch(e){}
 
-                // ランダムで結果を選ぶ
-                const finalResult = omikujiResults[Math.floor(Math.random() * omikujiResults.length)];
-                
-                // 結果を画面にセット
-                luckyText.textContent = finalResult.lucky;
-                luckyText.style.color = finalResult.color;
-                descText.textContent = finalResult.desc;
+                // 🎰 液晶の抽選中アニメーション
+                let count = 0;
+                const interval = setInterval(() => {
+                    dispText.textContent = count % 2 === 0 ? "⏳" : "抽選";
+                    count++;
+                }, 200);
 
-                // カードを表示する
-                resultCard.style.display = 'block';
-                
-                // 結果カードの位置へスムーズにスクロール
-                resultCard.scrollIntoView({ behavior: 'smooth' });
-            }, 1500);
+                // 1.4秒後に結果を表示
+                setTimeout(() => {
+                    clearInterval(interval);
+                    dispText.textContent = "○円"; // お金が落ちた表示
+
+                    // 🔊 ガタゴトッ（商品が落ちてきた音）
+                    try {
+                        const dropAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1011/1011-200.wav');
+                        dropAudio.volume = 0.5;
+                        dropAudio.play();
+                    } catch(e){}
+
+                    // 完全ランダムで結果を1つ選ぶ
+                    const result = omikujiResults[Math.floor(Math.random() * omikujiResults.length)];
+
+                    // カードに文字をセット
+                    cardLucky.textContent = result.lucky;
+                    cardLucky.style.color = result.color;
+                    cardDesc.textContent = result.desc;
+
+                    // カードを飛び出させる
+                    card.classList.add('disp-anime');
+
+                    isDrawing = false;
+                }, 1400);
+            });
         });
     </script>
 
