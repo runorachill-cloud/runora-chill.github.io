@@ -148,11 +148,11 @@
         .sns-youtube { left: 51.2%; }
         .sns-narou { left: 56.5%; }
 
-        /* 🔔 隠しギミック：金色のベル単体のクリックエリア（左斜め下へ微調整） */
+        /* 🔔 隠しギミック：金色のベル単体のクリックエリア（右に5ミリ移動） */
         .secret-bell-trigger {
             position: absolute;
-            top: 22.5%;     /* 少し下へ下げました */
-            left: 85.5%;    /* 少し左へ戻しました */
+            top: 22.5%;     /* 高さはそのまま */
+            left: 86.7%;    /* ほんの少しだけ右に移動しました */
             width: 4.4%;
             height: 5.8%;
             cursor: pointer;
@@ -198,20 +198,17 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 村の活動ログ掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             
@@ -224,14 +221,12 @@
             </div>
         </div>
 
-        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
         <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube"></a>
         <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou"></a>
 
-        <!-- 🔔 鐘の隠しクリックエリア -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
     </div>
 
