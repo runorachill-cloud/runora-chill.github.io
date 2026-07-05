@@ -27,11 +27,11 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計（円のど真ん中に来るよう、さらに左斜め下へ調整） */
+        /* 🕒 アナログ時計（30秒時の垂直ラインを基準に、軸をジャストセンターへ：top 23.65%→23.9%, left 71.45%→71.1%） */
         .analog-clock {
             position: absolute;
-            top: 23.65%;
-            left: 71.45%;
+            top: 23.9%;
+            left: 71.1%;
             width: 16.5%;
             aspect-ratio: 1 / 1;
             transform: translate(-50%, -50%);
@@ -72,7 +72,7 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（木枠のど真ん中に収まるよう、さらに左斜め下へ調整） */
+        /* 📱 デジタル時計と日付（OKをいただいた完璧な位置を維持：top 34.5%, left 70.5%） */
         .digital-container {
             position: absolute;
             top: 34.5%;
