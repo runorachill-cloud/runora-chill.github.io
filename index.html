@@ -27,7 +27,7 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計 */
+        /* 🕒 アナログ時計（新イラストの真っ白な時計盤にピッタリ重ねます） */
         .analog-clock {
             position: absolute;
             top: 23.35%;
@@ -38,6 +38,7 @@
             pointer-events: none;
         }
 
+        /* 針の共通設定 */
         .hand {
             position: absolute;
             bottom: 50%;
@@ -46,6 +47,7 @@
             border-radius: 4px;
         }
 
+        /* 時針（短くて太い黒い針） */
         .hour-hand {
             width: 4%;
             height: 28%;
@@ -53,6 +55,7 @@
             z-index: 3;
         }
 
+        /* 分針（長くて細い黒い針） */
         .minute-hand {
             width: 2.5%;
             height: 40%;
@@ -60,6 +63,7 @@
             z-index: 2;
         }
 
+        /* 秒針（細い金色の針） */
         .second-hand {
             width: 1.5%;
             height: 44%;
@@ -67,38 +71,28 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計（背景に暗い色を敷いて、元のイラストの文字を隠します） */
+        /* 📱 デジタル時計と日付（文字が透けなくなったので背景色を透明にしました！） */
         .digital-container {
             position: absolute;
             top: 34.65%;
             left: 71.95%;
             transform: translate(-50%, -50%);
-            width: 24.5%;
-            height: 5.5%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* 👇 元の文字を隠すための背景色（時計台の液晶に近い暗いブラウン） */
-            background-color: #312615; 
-            border-radius: 4px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.6);
+            width: 24%;
+            text-align: center;
             color: #ffebad;
-            text-shadow: 0 0 6px rgba(243, 156, 18, 0.9);
+            text-shadow: 0 0 8px rgba(243, 156, 18, 0.9);
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
-            line-height: 1.1;
+            line-height: 1.2;
             pointer-events: none;
-            box-sizing: border-box;
-            padding: 1% 0;
         }
 
-        .digital-time { font-size: 2.9vw; }
-        .digital-date { font-size: 1.5vw; margin-top: 1%; color: #e1cea1; }
+        .digital-time { font-size: 3.1vw; }
+        .digital-date { font-size: 1.6vw; margin-top: 3%; color: #e1cea1; }
         
         @media (min-width: 800px) {
-            .digital-time { font-size: 23px; }
-            .digital-date { font-size: 12px; }
+            .digital-time { font-size: 25px; }
+            .digital-date { font-size: 13px; }
         }
 
         /* 🔗 透明なリンクボタン */
@@ -110,7 +104,7 @@
             z-index: 10;
         }
 
-        /* 「管理者（私）の部屋」ボタン */
+        /* 「管理者（私）の部屋」ボタン（ピンクの扉） */
         .link-my-room {
             top: 62.9%;
             left: 6.2%;
@@ -119,7 +113,7 @@
             border-radius: 20px;
         }
 
-        /* フッターのSNSアイコン群 */
+        /* フッターのSNSアイコン群（X、アメブロ、YouTube、なろう） */
         .footer-sns {
             bottom: 3.8%;
             width: 5.5%;
@@ -135,22 +129,19 @@
 <body>
 
     <div class="wrapper">
-        <img src="BC773DFE-417C-46EA-8445-7A3396A641DC.png" alt="RunoraChill ポータル" class="base-image">
+        <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
@@ -162,6 +153,7 @@
         function updateClock() {
             const now = new Date();
             
+            // 1. アナログ時計の制御
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
@@ -174,6 +166,7 @@
             document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
             document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
             
+            // 2. デジタル時計の制御 (12時間制 AM/PM)
             let displayHours = hours % 12;
             displayHours = displayHours ? displayHours : 12; 
             const ampm = hours >= 12 ? 'PM' : 'AM';
@@ -183,6 +176,7 @@
             
             document.getElementById('digi-time').textContent = `${hStr}:${mStr}:${sStr} ${ampm}`;
             
+            // 3. 日付と曜日の制御
             const y = now.getFullYear();
             const m = String(now.getMonth() + 1).padStart(2, '0');
             const d = String(now.getDate()).padStart(2, '0');
