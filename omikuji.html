@@ -26,7 +26,7 @@
             width: 100%;
             height: auto;
             display: block;
-            min-height: 300px; /* 画像が読み込まれる前の潰れ防止 */
+            min-height: 300px;
             background-color: #f6eed6;
         }
 
@@ -64,82 +64,85 @@
             z-index: 20;
         }
 
-        /* 上段のボタン5つ (大吉、吉、中吉、小吉、末吉) */
+        /* 上段のボタン5つ */
         .btn-daikichi { top: 44.5%; left: 28.5%; width: 4.8%; height: 2.8%; }
         .btn-kichi    { top: 44.5%; left: 35.7%; width: 4.8%; height: 2.8%; }
         .btn-chukichi { top: 44.5%; left: 43.0%; width: 4.8%; height: 2.8%; }
         .btn-shokichi { top: 44.5%; left: 50.2%; width: 4.8%; height: 2.8%; }
         .btn-suekichi { top: 44.5%; left: 57.5%; width: 4.8%; height: 2.8%; }
 
-        /* 下段のボタン3つ (凶、大凶、平) */
+        /* 下段のボタン3つ */
         .btn-kyou     { top: 63.3%; left: 32.2%; width: 4.8%; height: 2.8%; }
         .btn-daikyou  { top: 63.3%; left: 41.9%; width: 4.8%; height: 2.8%; }
         .btn-taira    { top: 63.3%; left: 51.5%; width: 4.8%; height: 2.8%; }
 
-        /* 📜 取り出し口から飛び出すおみくじカード */
+        /* 📜 取り出し口から飛び出すおみくじカード（見切れ対策版） */
         .omikuji-card {
             display: none;
             position: absolute;
-            top: 86%; 
+            top: 50%; /* 🛠️ 自販機の中央付近に浮かび上がるように変更 */
             left: 50%;
-            transform: translate(-50%, -20px) scale(0.5);
-            width: 45%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 70%; /* 🛠️ スマホでも文字が読みやすいように少し横幅を広げました */
+            max-width: 340px;
             background: #ffffff;
-            padding: 20px;
+            padding: 16px;
             border-radius: 15px;
             border: 3px solid #eaddc3;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.4;
             z-index: 50;
             opacity: 0;
+            box-sizing: border-box;
         }
 
         .omikuji-card.disp-anime {
             display: block;
-            animation: emergeCard 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+            animation: emergeCard 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
         }
 
         @keyframes emergeCard {
-            0% { transform: translate(-50%, 20px) scale(0.6); opacity: 0; }
-            100% { transform: translate(-50%, -40px) scale(1); opacity: 1; }
+            0% { transform: translate(-50%, -30%) scale(0.7); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         .card-lucky {
-            font-size: 4.5vw;
+            font-size: 5.5vw;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 8px 0;
         }
         .card-desc {
-            font-size: 1.8vw;
+            font-size: 3.2vw; /* 🛠️ 文字が小さすぎず、見切れないサイズに調整 */
             color: #5c4a3c;
-            margin-bottom: 15px;
-            padding: 0 10px;
+            margin-bottom: 12px;
+            padding: 0 5px;
+            line-height: 1.5;
         }
 
         .back-btn {
             display: inline-block;
-            padding: 6px 18px;
+            padding: 8px 20px;
             background-color: #b8a07c;
             color: white;
             text-decoration: none;
             border-radius: 8px;
-            font-size: 1.6vw;
+            font-size: 3.4vw;
             font-weight: bold;
             line-height: 1.2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         @media (min-width: 800px) {
-            .card-lucky { font-size: 36px; }
+            .card-lucky { font-size: 32px; }
             .card-desc { font-size: 14px; }
-            .back-btn { font-size: 13px; }
+            .back-btn { font-size: 14px; }
         }
     </style>
 </head>
 <body>
 
     <div class="wrapper" id="main-wrapper">
-        <!-- 📷 読み込みエラーが起きたら別ルートを自動で試す特殊な画像タグです 🛡️ -->
         <img src="C1F896B4-C794-46E9-9A5B-98FAFB7E6516.png" 
              id="vending-img"
              alt="おみくじ自販機" 
@@ -162,8 +165,8 @@
 
         <!-- 📜 おみくじカード -->
         <div class="omikuji-card" id="omikuji-card">
-            <h3 style="margin: 0; color: #8c7662; font-size: 14px;">⛩️ もふ神神社 御御籤 ⛩️</h3>
-            <hr style="border: 1px dashed #eaddc3; margin: 8px 0;">
+            <h3 style="margin: 0; color: #8c7662; font-size: 13px;">⛩️ もふ神神社 御御籤 ⛩️</h3>
+            <hr style="border: 1px dashed #eaddc3; margin: 6px 0;">
             <div class="card-lucky" id="card-lucky">大吉</div>
             <div class="card-desc" id="card-desc">結果テキスト</div>
             <a href="index.html" class="back-btn">ポータルに戻る</a>
@@ -171,22 +174,13 @@
     </div>
 
     <script>
-        // 🛡️ 画像がエラーになった場合の自動リトライ処理
         let pathTryCount = 0;
         function tryAlternativePaths(imgElement) {
             pathTryCount++;
             const originalName = "C1F896B4-C794-46E9-9A5B-98FAFB7E6516.png";
-            
-            if (pathTryCount === 1) {
-                // パターン1: アプリ内部の相対パスを考慮してドットを付ける
-                imgElement.src = "./" + originalName;
-            } else if (pathTryCount === 2) {
-                // パターン2: 途中で名前が削れている可能性を考慮した名前
-                imgElement.src = "C794-46E9-9A5B-98FAFB7E6516.png";
-            } else if (pathTryCount === 3) {
-                // パターン3: 大文字小文字のズレを完全に無視する対策 (.PNG)
-                imgElement.src = "C1F896B4-C794-46E9-9A5B-98FAFB7E6516.PNG";
-            }
+            if (pathTryCount === 1) imgElement.src = "./" + originalName;
+            else if (pathTryCount === 2) imgElement.src = "C794-46E9-9A5B-98FAFB7E6516.png";
+            else if (pathTryCount === 3) imgElement.src = "C1F896B4-C794-46E9-9A5B-98FAFB7E6516.PNG";
         }
 
         const dispText = document.getElementById('disp-text');
