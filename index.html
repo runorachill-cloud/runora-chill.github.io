@@ -3,224 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunoraChill - ゆるやかにつながる場所</title>
+    <title>RunoraChill 公式ポータル</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            min-height: 100vh;
             background-color: #f6eed6;
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            color: #4a3b32;
+            overflow-x: hidden;
         }
 
-        /* 🌳 メイン背景（時計塔の世界観をそのまま維持） */
-        .portal-bg-container {
+        .wrapper {
+            position: relative;
             width: 100%;
-            min-height: 100vh;
-            background-image: url('RunoraChill_Background.png'); /* 元の背景画像 */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* 👑 ヘッダーエリア */
-        .header-area {
-            text-align: center;
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .main-logo {
-            max-width: 220px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .site-subtitle {
-            font-size: 15px;
-            color: #6d5947;
-            font-weight: bold;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .intro-card {
-            max-width: 550px;
+            max-width: 800px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.75);
-            border-radius: 16px;
-            padding: 16px 24px;
-            font-size: 14px;
-            line-height: 1.6;
-            border: 2px solid #eaddc3;
-            box-shadow: 0 4px 12px rgba(184, 160, 124, 0.15);
+            line-height: 0;
         }
 
-        /* 🚪 5つの部屋カード（ドア画像が映える元のグリッド） */
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 16px;
+        .base-image {
             width: 100%;
-            max-width: 1000px;
-            margin-bottom: 32px;
-        }
-
-        .room-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            border: 2px solid #eaddc3;
-            padding: 16px 12px;
-            text-align: center;
-            box-shadow: 0 6px 16px rgba(184, 160, 124, 0.15);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(4px);
-        }
-
-        .room-card-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: #5c4a3c;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .room-card-img {
-            width: 100%;
-            max-width: 110px;
             height: auto;
-            margin-bottom: 12px;
-            transition: transform 0.2s ease;
+            display: block;
         }
 
-        .room-card:hover .room-card-img {
-            transform: scale(1.05);
+        /* 🕒 アナログ時計 */
+        .analog-clock {
+            position: absolute;
+            top: 23.45%;
+            left: 70.8%;
+            width: 16.5%;
+            aspect-ratio: 1 / 1;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
         }
 
-        .room-card-btn {
-            display: inline-block;
-            width: 85%;
-            padding: 8px 0;
-            font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+            transform: translateX(-50%);
         }
 
-        /* 元のボタンカラーを完全維持 */
-        .btn-myroom { background-color: #fbe9e7; color: #d84315; border: 1px solid #ffccbc; }
-        .btn-member { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
-        .btn-notice { background-color: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
-        .btn-works { background-color: #fff8e1; color: #f57f17; border: 1px solid #ffe082; }
-        .btn-cheer { background-color: #f3e5f5; color: #6a1b9a; border: 1px solid #e1bee7; }
+        .hour-hand { width: 4%; height: 28%; background-color: #2b2b2b; z-index: 3; }
+        .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
+        .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
 
-        /* 📢 最新情報 ＆ ⛩️ もふ神神社（ここを綺麗に横並び一体化） */
-        .info-shrine-container {
-            display: flex;
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-            align-items: stretch;
-        }
-
-        .info-board {
-            flex: 1.2;
-            min-width: 290px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 8px 24px rgba(184, 160, 124, 0.2);
-            border: 2px solid #eaddc3;
-            box-sizing: border-box;
-            backdrop-filter: blur(4px);
-        }
-
-        .shrine-board {
-            flex: 1;
-            min-width: 290px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 24px;
-            padding: 16px;
-            box-shadow: 0 8px 24px rgba(184, 160, 124, 0.2);
-            border: 2px solid #eaddc3;
+        /* 📱 デジタル時計と日付 */
+        .digital-container {
+            position: absolute;
+            top: 34.5%;
+            left: 70.5%;
+            transform: translate(-50%, -50%);
+            width: 22%;
             text-align: center;
-            box-sizing: border-box;
+            color: #ffebad;
+            text-shadow: 0 0 6px rgba(243, 156, 18, 0.9);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            line-height: 1.2;
+            pointer-events: none;
+        }
+
+        .digital-time { font-size: 2.1vw; }
+        .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
+        
+        @media (min-width: 800px) {
+            .digital-time { font-size: 17px; }
+            .digital-date { font-size: 9px; }
+        }
+
+        /* 📜 最新情報掲示板 */
+        .village-board {
+            position: absolute;
+            top: 68.5%;
+            left: 5.5%;
+            width: 43%;
+            height: 20.5%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            backdrop-filter: blur(4px);
+            pointer-events: auto;
+            box-sizing: border-box;
         }
 
         .board-title {
-            margin: 0 0 16px 0;
-            color: #5c4a3c;
-            font-size: 18px;
+            font-size: 3.5vw;
             font-weight: bold;
+            color: #8c7662;
+            text-align: center;
+            margin-bottom: 4px;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        .board-column {
+            flex: 1;
+            background: transparent;
+            padding: 2px 10px 4px 10px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; 
+            box-sizing: border-box;
+            font-size: 1.4vw;
+            color: #5c4a3c;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .board-column::-webkit-scrollbar { width: 6px; }
+        .board-column::-webkit-scrollbar-thumb { background: #eaddc3; border-radius: 4px; }
+
+        .log-item {
+            margin-bottom: 5px;
+            border-bottom: 1px dashed #eaddc3;
+            padding-bottom: 3px;
             display: flex;
-            align-items: center;
+            justify-content: space-between;
             gap: 8px;
         }
 
-        .shrine-title {
-            justify-content: center;
-            margin-bottom: 12px;
-        }
+        .log-text { word-break: break-all; }
+        .log-time { color: #b8a07c; font-size: 1.1vw; white-space: nowrap; }
 
-        /* 最新情報リストの元のデザイン */
-        .info-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        /* ⛩️ もふ神神社エリア（最新情報の右側の空白枠にピッタリ重ねる） */
+        .shrine-container {
+            position: absolute;
+            top: 68.5%;
+            left: 51.5%;
+            width: 43%;
+            height: 20.5%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            font-size: 14px;
-            color: #6d5947;
-            text-align: left;
+            pointer-events: auto;
+            box-sizing: border-box;
+            padding: 2% 3.5% 3.5% 3.5%; /* 元の絵の白い余白の内側に収めるためのクッション */
         }
 
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px dashed #eaddc3;
-            padding-bottom: 6px;
+        .shrine-title {
+            font-size: 2.8vw;
+            font-weight: bold;
+            color: #5c4a3c;
+            text-align: center;
+            margin-bottom: 2%;
+            line-height: 1.2;
         }
 
-        .info-time {
-            color: #b8a07c;
-            flex-shrink: 0;
-            margin-left: 10px;
-        }
-
-        /* ⛩️ 神社画像フレーム */
         .shrine-image-wrap {
             width: 100%;
             flex-grow: 1;
             height: 0;
-            min-height: 180px;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(184, 160, 124, 0.15);
+            border: 2px solid #fff;
             background-color: #fff;
-            line-height: 0;
         }
 
         .shrine-img {
@@ -229,131 +167,253 @@
             object-fit: cover;
         }
 
-        /* 📋 フッターメッセージエリア */
-        .footer-msg-card {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            padding: 16px;
-            width: 100%;
-            max-width: 600px;
-            box-sizing: border-box;
-            font-size: 13px;
-            color: #8c7662;
-            text-align: center;
-            border: 1px solid rgba(234, 221, 195, 0.8);
-            box-shadow: 0 4px 12px rgba(184, 160, 124, 0.1);
+        @media (min-width: 800px) {
+            .board-title { font-size: 28px; }
+            .board-column { font-size: 11px; }
+            .log-time { font-size: 9px; }
+            .shrine-title { font-size: 22px; }
+        }
+
+        /* 🔗 透明なリンク・ボタン共通 */
+        .invisible-link {
+            position: absolute;
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
+
+        /* 🔔 隠しギミック：金色のベル */
+        .secret-bell-trigger {
+            position: absolute;
+            top: 22.1%;
+            left: 86.1%;
+            width: 7.0%;
+            height: 7.6%;
+            cursor: pointer;
+            z-index: 15;
+        }
+
+        /* 🐈 隠しギミック：時計塔のふもとの黒猫 */
+        .secret-cat-trigger {
+            position: absolute;
+            top: 38.0%;
+            left: 86.0%;
+            width: 6.5%;
+            height: 6.5%;
+            cursor: pointer;
+            z-index: 15;
+        }
+
+        /* 浮き出るカウンター・鳴き声テキスト */
+        .floating-counter, .floating-meow {
+            position: absolute;
+            font-size: 3.2vw;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            line-height: 1;
+            animation: floatUpAway 1.2s ease-out forwards;
+        }
+
+        .floating-counter {
+            color: #dca842;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(140, 118, 98, 0.5);
+        }
+
+        .floating-meow {
+            color: #9e7a6b;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 5px rgba(246, 238, 214, 0.8);
+            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
+        }
+
+        @keyframes floatUpAway {
+            0% {
+                transform: translate(-50%, 0) scale(0.7);
+                opacity: 0;
+            }
+            15% {
+                transform: translate(-50%, -20px) scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -80px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .floating-counter, .floating-meow { font-size: 26px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 🌳 メイン背景コンテナ -->
-    <div class="portal-bg-container">
+    <div class="wrapper" id="main-wrapper">
+        <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- 👑 ヘッダー・ロゴエリア -->
-        <header class="header-area">
-            <!-- 元のロゴ画像とサイト名 -->
-            <img src="RunoraChill_Logo.png" alt="RunoraChill" class="main-logo">
-            <div class="site-subtitle">ゆるやかにつながる場所</div>
+        <!-- アナログ時計 -->
+        <div class="analog-clock">
+            <div class="hand hour-hand" id="hour-hand"></div>
+            <div class="hand minute-hand" id="min-hand"></div>
+            <div class="hand second-hand" id="sec-hand"></div>
+        </div>
+
+        <!-- デジタル時計 -->
+        <div class="digital-container">
+            <div class="digital-time" id="digi-time">00:00:00 PM</div>
+            <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
+        </div>
+
+        <!-- 📜 最新情報掲示板 -->
+        <div class="village-board">
+            <div class="board-title">📢 最新情報</div>
             
-            <div class="intro-card">
-                イラスト、小説、音楽、ゲーム、AI作品…<br>
-                ジャンルを問わず、好きなものを自由に表現できる<br>
-                やさしい村のようなコミュニティです。
+            <div class="board-column" id="left-board">
+                <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
+                <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
+                <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
+                <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
+                <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
+                <div class="log-item"><span class="log-text">🐾 過去のログテスト１</span><span class="log-time">07/04</span></div>
+                <div class="log-item"><span class="log-text">🐾 過去のログテスト２</span><span class="log-time">07/03</span></div>
             </div>
-        </header>
+        </div>
 
-        <!-- 🚪 5つの部屋カード（元の美しい画像指定をすべて復元） -->
-        <main class="rooms-grid">
-            
-            <!-- 1. 管理者の部屋 -->
-            <div class="room-card">
-                <div class="room-card-title">🍃 管理者（私）の部屋 🍃</div>
-                <img src="door_myroom.png" alt="管理者の部屋" class="room-card-img">
-                <a href="my-room.html" class="room-card-btn btn-myroom">部屋に入る ›</a>
+        <!-- ⛩️ もふ神神社エリア（右側の空白にオーバーレイ配置） -->
+        <div class="shrine-container">
+            <div class="shrine-title">⛩️ もふ神神社</div>
+            <div class="shrine-image-wrap">
+                <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
             </div>
+        </div>
 
-            <!-- 2. メンバーの部屋 -->
-            <div class="room-card">
-                <div class="room-card-title">🍃 メンバーの部屋 🍃</div>
-                <img src="door_member.png" alt="メンバーの部屋" class="room-card-img">
-                <a href="#" class="room-card-btn btn-member">部屋を見に行く ›</a>
-            </div>
+        <!-- 透明リンク -->
+        <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
 
-            <!-- 3. お知らせ -->
-            <div class="room-card">
-                <div class="room-card-title">🍃 お知らせ 🍃</div>
-                <img src="board_notice.png" alt="お知らせ" class="room-card-img">
-                <a href="#" class="room-card-btn btn-notice">お知らせを見る ›</a>
-            </div>
+        <!-- 🔔 鐘の隠しクリックエリア -->
+        <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
 
-            <!-- 4. 新着作品 -->
-            <div class="room-card">
-                <div class="room-card-title">🍃 新着作品 🍃</div>
-                <img src="book_works.png" alt="新着作品" class="room-card-img">
-                <a href="#" class="room-card-btn btn-works">作品を見に行く ›</a>
-            </div>
-
-            <!-- 5. 応援する -->
-            <div class="room-card">
-                <div class="room-card-title">🍃 応援する 🍃</div>
-                <img src="cup_cheer.png" alt="応援する" class="room-card-img">
-                <a href="#" class="room-card-btn btn-cheer">応援する ›</a>
-            </div>
-
-        </main>
-
-        <!-- 📢 最新情報 ＆ ⛩️ もふ神神社（横並びエリア） -->
-        <section class="info-shrine-container">
-            
-            <!-- 左側：最新情報ボード（元のテキストをそのまま維持） -->
-            <div class="info-board">
-                <h3 class="board-title">
-                    📢 最新情報
-                </h3>
-                <ul class="info-list">
-                    <li class="info-item">
-                        <span>🔔 もふ神留奈さんが部屋の模様替えをしました</span>
-                        <span class="info-time">12:00</span>
-                    </li>
-                    <li class="info-item">
-                        <span>🎨 〇〇さんがギャラリーに画像を追加しました</span>
-                        <span class="info-time">11:30</span>
-                    </li>
-                    <li class="info-item">
-                        <span>💤 〇〇さんが部屋で作業を始めたようです</span>
-                        <span class="info-time">10:15</span>
-                    </li>
-                    <li class="info-item">
-                        <span>📖 〇〇さんが新しい小説を投稿しました</span>
-                        <span class="info-time">09:45</span>
-                    </li>
-                    <li class="info-item">
-                        <span>💻 ポータルサイトが新しくアップデートされました！</span>
-                        <span class="info-time">07/05</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- 右側：【新設】もふ神神社ボード（空白枠を上書き） -->
-            <div class="shrine-board">
-                <h3 class="board-title shrine-title">
-                    ⛩️ もふ神神社
-                </h3>
-                <div class="shrine-image-wrap">
-                    <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
-                </div>
-            </div>
-
-        </section>
-
-        <!-- 📋 フッターメッセージ -->
-        <footer class="footer-msg-card">
-            RunoraChillは、創る人と応援する人が<br>
-            やさしくつながる、居心地の良い場所を目指しています。
-        </footer>
-
+        <!-- 🐈 猫の隠しクリックエリア -->
+        <div class="secret-cat-trigger" id="cat-trigger" title="猫をつつく"></div>
     </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            const hourDeg = (hours % 12) * 30 + minutes * 0.5;
+            const minDeg = minutes * 6 + seconds * 0.1;
+            const secDeg = seconds * 6;
+            
+            document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+            document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+            
+            let displayHours = hours % 12;
+            displayHours = displayHours ? displayHours : 12; 
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const hStr = String(displayHours).padStart(2, '0');
+            const mStr = String(minutes).padStart(2, '0');
+            const sStr = String(seconds).padStart(2, '0');
+            
+            document.getElementById('digi-time').textContent = `${hStr}:${mStr}:${sStr} ${ampm}`;
+            
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const dayName = weekDays[now.getDay()];
+            
+            document.getElementById('digi-date').textContent = `${y}.${m}.${d} ${dayName}`;
+        }
+        
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        const wrapper = document.getElementById('main-wrapper');
+
+        // --- 🔔 ベルの処理 ---
+        const bellTrigger = document.getElementById('bell-trigger');
+        let bellAudio = null;
+        try {
+            bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
+            bellAudio.volume = 0.5;
+        } catch (e) {}
+
+        let bellCount = 0;
+        try {
+            bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
+        } catch (e) {}
+
+        bellTrigger.addEventListener('click', (e) => {
+            bellCount++;
+            try { localStorage.setItem('runora_bell_count', bellCount); } catch (e) {}
+
+            if (bellAudio) {
+                try {
+                    bellAudio.currentTime = 0;
+                    bellAudio.play().catch(err => console.log(err));
+                } catch (err) {}
+            }
+
+            const floatingText = document.createElement('div');
+            floatingText.className = 'floating-counter';
+            floatingText.innerText = `🔔 ${bellCount}回目`;
+
+            const rect = wrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            floatingText.style.left = `${(clickX / rect.width) * 100}%`;
+            floatingText.style.top = `${(clickY / rect.height) * 100}%`;
+
+            wrapper.appendChild(floatingText);
+            floatingText.addEventListener('animationend', () => floatingText.remove());
+        });
+
+
+        // --- 🐈 猫の処理 ---
+        const catTrigger = document.getElementById('cat-trigger');
+        let catAudio = null;
+        try {
+            catAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav');
+            catAudio.volume = 0.6;
+        } catch (e) {}
+
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+
+        catTrigger.addEventListener('click', (e) => {
+            if (catAudio) {
+                try {
+                    catAudio.currentTime = 0;
+                    catAudio.play().catch(err => console.log(err));
+                } catch (err) {}
+            }
+
+            const randomText = meowTexts[Math.floor(Math.random() * meowTexts.length)];
+            
+            const floatingMeow = document.createElement('div');
+            floatingMeow.className = 'floating-meow';
+            floatingMeow.innerText = randomText;
+
+            const rect = wrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            floatingMeow.style.left = `${(clickX / rect.width) * 100}%`;
+            floatingMeow.style.top = `${(clickY / rect.height) * 100}%`;
+
+            wrapper.appendChild(floatingMeow);
+            floatingMeow.addEventListener('animationend', () => floatingMeow.remove());
+        });
+    </script>
 
 </body>
 </html>
