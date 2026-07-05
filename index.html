@@ -1,48 +1,341 @@
-<!-- ===================================================
-     💡 最新情報 ＆ もふ神神社 エリア（ここから丸ごと差し替え）
-     =================================================== -->
-<div style="display: flex; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; align-items: stretch; width: 100%; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 0 4%;">
-    
-    <!-- 📢 左側：最新情報ボード -->
-    <div style="flex: 1; min-width: 280px; background: rgba(255, 255, 255, 0.75); border-radius: 24px; padding: 24px; box-shadow: 0 8px 24px rgba(184, 160, 124, 0.2); border: 2px solid #eaddc3; box-sizing: border-box;">
-        <h3 style="margin: 0 0 16px 0; color: #5c4a3c; font-size: 18px; font-weight: bold; display: flex; align-items: center; gap: 8px;">
-            📢 最新情報
-        </h3>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #6d5947; text-align: left;">
-            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #eaddc3; padding-bottom: 4px;">
-                <span>🔔 もふ神留奈さんが部屋の模様替えをしました</span><span style="color: #b8a07c;">12:00</span>
-            </li>
-            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #eaddc3; padding-bottom: 4px;">
-                <span>🎨 〇〇さんがギャラリーに画像を追加しました</span><span style="color: #b8a07c;">11:30</span>
-            </li>
-            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #eaddc3; padding-bottom: 4px;">
-                <span>💤 〇〇さんが部屋で作業を始めたようです</span><span style="color: #b8a07c;">10:15</span>
-            </li>
-            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #eaddc3; padding-bottom: 4px;">
-                <span>📖 〇〇さんが新しい小説を投稿しました</span><span style="color: #b8a07c;">09:45</span>
-            </li>
-            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed #eaddc3; padding-bottom: 4px;">
-                <span>💻 ポータルサイトが新しくアップデートされました！</span><span style="color: #b8a07c;">07/05</span>
-            </li>
-        </ul>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunoraChill - ゆるやかにつながる場所</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #f6eed6;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            color: #4a3b32;
+        }
+
+        /* 🌳 メインコンテナ */
+        .portal-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* 👑 ヘッダー・ロゴエリア */
+        .header-area {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .main-logo {
+            max-width: 240px;
+            height: auto;
+        }
+
+        .site-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #5c4a3c;
+            margin: 16px 0 4px 0;
+            letter-spacing: 1px;
+        }
+
+        .site-subtitle {
+            font-size: 14px;
+            color: #8c7662;
+            margin-bottom: 24px;
+        }
+
+        .intro-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+            border: 1px dashed #d9caa7;
+        }
+
+        /* 🚪 部屋のカード群（5つのドア） */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .room-card {
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 20px;
+            border: 2px solid #eaddc3;
+            padding: 20px 12px;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(184, 160, 124, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .room-card-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #7c6652;
+            margin-bottom: 12px;
+        }
+
+        .room-card-img {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 16px;
+        }
+
+        .room-card-btn {
+            display: inline-block;
+            width: 80%;
+            padding: 8px 0;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        /* 各部屋のボタンカラー */
+        .btn-myroom { background-color: #fbe9e7; color: #d84315; }
+        .btn-member { background-color: #e8f5e9; color: #2e7d32; }
+        .btn-notice { background-color: #e3f2fd; color: #1565c0; }
+        .btn-works { background-color: #fff8e1; color: #f57f17; }
+        .btn-cheer { background-color: #f3e5f5; color: #6a1b9a; }
+
+        .room-card-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* 📢 最新情報 ＆ ⛩️ もふ神神社（横並びエリア） */
+        .info-shrine-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .info-board {
+            flex: 1.2;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(184, 160, 124, 0.2);
+            border: 2px solid #eaddc3;
+            box-sizing: border-box;
+        }
+
+        .shrine-board {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(184, 160, 124, 0.2);
+            border: 2px solid #eaddc3;
+            text-align: center;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .board-title {
+            margin: 0 0 16px 0;
+            color: #5c4a3c;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shrine-title {
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        /* 最新情報のリスト */
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-size: 14px;
+            color: #6d5947;
+            text-align: left;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #eaddc3;
+            padding-bottom: 6px;
+        }
+
+        .info-time {
+            color: #b8a07c;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        /* 神社画像枠 */
+        .shrine-image-wrap {
+            width: 100%;
+            flex-grow: 1;
+            height: 0;
+            min-height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 3px solid #fff;
+            background-color: #fff;
+            line-height: 0;
+        }
+
+        .shrine-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 📋 フッターメッセージエリア */
+        .footer-msg-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            font-size: 13px;
+            color: #8c7662;
+            text-align: center;
+            border: 1px solid rgba(234, 221, 195, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+
+        <!-- 👑 ヘッダー・ロゴエリア -->
+        <header class="header-area">
+            <img src="RunoraChill_Logo.png" alt="RunoraChill Logo" class="main-logo" onerror="this.style.display='none';">
+            <h1 class="site-title">RunoraChill</h1>
+            <div class="site-subtitle">ゆるやかにつながる場所</div>
+            <div class="intro-card">
+                イラスト、小説、音楽、ゲーム、AI作品…<br>
+                ジャンルを問わず、好きなものを自由に表現できる<br>
+                やさしい村のようなコミュニティです。
+            </div>
+        </header>
+
+        <!-- 🚪 部屋のカード群（5つのドア） -->
+        <main class="rooms-grid">
+            
+            <!-- 1. 管理者の部屋 -->
+            <div class="room-card">
+                <div class="room-card-title">✨ 管理者（私）の部屋 ✨</div>
+                <img src="door_myroom.png" alt="管理者の部屋のドア" class="room-card-img" onerror="this.src='https://placehold.co/120x150?text=Door';">
+                <a href="my-room.html" class="room-card-btn btn-myroom">部屋に入る ›</a>
+            </div>
+
+            <!-- 2. メンバーの部屋 -->
+            <div class="room-card">
+                <div class="room-card-title">✨ メンバーの部屋 ✨</div>
+                <img src="door_member.png" alt="メンバーの部屋のドア" class="room-card-img" onerror="this.src='https://placehold.co/120x150?text=Door';">
+                <a href="#" class="room-card-btn btn-member">部屋を見に行く ›</a>
+            </div>
+
+            <!-- 3. お知らせ -->
+            <div class="room-card">
+                <div class="room-card-title">✨ お知らせ ✨</div>
+                <img src="board_notice.png" alt="お知らせ掲示板" class="room-card-img" onerror="this.src='https://placehold.co/120x150?text=Board';">
+                <a href="#" class="room-card-btn btn-notice">お知らせを見る ›</a>
+            </div>
+
+            <!-- 4. 新着作品 -->
+            <div class="room-card">
+                <div class="room-card-title">✨ 新着作品 ✨</div>
+                <img src="book_works.png" alt="新着作品の本" class="room-card-img" onerror="this.src='https://placehold.co/120x150?text=Book';">
+                <a href="#" class="room-card-btn btn-works">作品を見に行く ›</a>
+            </div>
+
+            <!-- 5. 応援する -->
+            <div class="room-card">
+                <div class="room-card-title">✨ 応援する ✨</div>
+                <img src="cup_cheer.png" alt="応援のカップ" class="room-card-img" onerror="this.src='https://placehold.co/120x150?text=Cup';">
+                <a href="#" class="room-card-btn btn-cheer">応援する ›</a>
+            </div>
+
+        </main>
+
+        <!-- 📢 最新情報 ＆ ⛩️ もふ神神社（横並びエリア） -->
+        <section class="info-shrine-container">
+            
+            <!-- 左側：最新情報ボード -->
+            <div class="info-board">
+                <h3 class="board-title">
+                    📢 最新情報
+                </h3>
+                <ul class="info-list">
+                    <li class="info-item">
+                        <span>🔔 もふ神留奈さんが部屋の模様替えをしました</span>
+                        <span class="info-time">12:00</span>
+                    </li>
+                    <li class="info-item">
+                        <span>🎨 〇〇さんがギャラリーに画像を追加しました</span>
+                        <span class="info-time">11:30</span>
+                    </li>
+                    <li class="info-item">
+                        <span>💤 〇〇さんが部屋で作業を始めたようです</span>
+                        <span class="info-time">10:15</span>
+                    </li>
+                    <li class="info-item">
+                        <span>📖 〇〇さんが新しい小説を投稿しました</span>
+                        <span class="info-time">09:45</span>
+                    </li>
+                    <li class="info-item">
+                        <span>💻 ポータルサイトが新しくアップデートされました！</span>
+                        <span class="info-time">07/05</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 右側：もふ神神社ボード -->
+            <div class="shrine-board">
+                <h3 class="board-title shrine-title">
+                    ⛩️ もふ神神社
+                </h3>
+                <div class="shrine-image-wrap">
+                    <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 📋 フッターメッセージ -->
+        <footer class="footer-msg-card">
+            RunoraChillは、創る人と応援する人が<br>
+            やさしくつながる、居心地の良い場所を目指しています。
+        </footer>
+
     </div>
 
-    <!-- ⛩️ 右側：もふ神神社ボード -->
-    <div style="flex: 1; min-width: 280px; background: rgba(255, 255, 255, 0.75); border-radius: 24px; padding: 16px; box-shadow: 0 8px 24px rgba(184, 160, 124, 0.2); border: 2px solid #eaddc3; text-align: center; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
-        
-        <!-- 神社のタイトル -->
-        <h3 style="margin: 0 0 12px 0; color: #5c4a3c; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 6px;">
-            ⛩️ もふ神神社
-        </h3>
-
-        <!-- 神社画像エリア -->
-        <div style="width: 100%; flex-grow: 1; height: 0; min-height: 180px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 3px solid #fff; background-color: #fff; line-height: 0;">
-            <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-
-    </div>
-
-</div>
-<!-- ===================================================
-     💡 ここまで丸ごと差し替え（一番下の古い神社コードは消してください）
-     =================================================== -->
+</body>
+</html>
