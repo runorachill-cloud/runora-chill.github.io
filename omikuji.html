@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>もふ神神社 - おみくじ自販機</title>
+    <style>
+        body {
+            background-color: #f6eed6;
+            color: #4a3b32;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            text-align: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* 🎰 自販機の見た目 */
+        .vending-machine {
+            background-color: #d35400;
+            border: 4px solid #ba4a00;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .machine-header {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            font-weight: bold;
+            color: #d35400;
+            font-size: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #eaddc3;
+        }
+
+        .display-screen {
+            background-color: #2c3e50;
+            color: #2ecc71;
+            font-family: monospace;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 4px #2ecc71;
+        }
+
+        /* 👇 タップするボタン */
+        .push-button {
+            background: linear-gradient(135deg, #f1c40f, #f39c12);
+            border: none;
+            border-bottom: 5px solid #d35400;
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 20px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: all 0.1s ease;
+            width: 80%;
+        }
+
+        .push-button:active {
+            transform: translateY(3px);
+            border-bottom-width: 2px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 📜 おみくじ結果カード（最初は隠しておく） */
+        .result-card {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 3px solid #eaddc3;
+            box-shadow: 0 6px 16px rgba(184, 160, 124, 0.2);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .result-lucky {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #e74c3c;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background-color: #b8a07c;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background-color: #9e8665; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>⛩️ もふ神神社 おみくじ自販機 ⛩️</h2>
+        <p style="color: #6d5947; margin-bottom: 25px;">お賽銭が届きました！ボタンを押してね🐾</p>
+
+        <!-- 自販機本体 -->
+        <div class="vending-machine">
+            <div class="machine-header">自動御御籤機</div>
+            <div class="display-screen" id="screen-text">【 BUTTON PUSH 】</div>
+            
+            <button class="push-button" id="draw-btn">おみくじを引く！</button>
+        </div>
+
+        <!-- 結果画面（ボタンを押すとここが浮き出ます） -->
+        <div class="result-card" id="result-card">
+            <h3 style="margin: 0; color: #8c7662;">おみくじ結果</h3>
+            <hr style="border: 1px dashed #eaddc3; margin: 15px 0;">
+            <div class="result-lucky" id="lucky-text">大吉</div>
+            <p id="desc-text">今日のみんなとの交流は最高に盛り上がる予感！🐾</p>
+            
+            <a href="index.html" class="back-btn">ポータルに戻る</a>
+        </div>
+    </div>
+
+    <script>
+        const drawBtn = document.getElementById('draw-btn');
+        const screenText = document.getElementById('screen-text');
+        const resultCard = document.getElementById('result-card');
+        const luckyText = document.getElementById('lucky-text');
+        const descText = document.getElementById('desc-text');
+
+        // おみくじのデータ（ここを書き換えればいくらでも結果を増やせます！）
+        const omikujiResults = [
+            { lucky: '✨大吉✨', desc: '創作活動も交流もサクサク進んじゃう最高の一日！ラッキーアイテムは「猫グッズ」🐾', color: '#e74c3c' },
+            { lucky: '🍃中吉🍃', desc: 'のんびり過ごすのに最適な日。お気に入りの部屋でお茶を飲むと良いことあるかも。', color: '#e67e22' },
+            { lucky: '🐾小吉🐾', desc: '小さなハッピーがいくつか見つかりそう。誰かの作品に応援を送ってみよう！', color: '#3498db' },
+            { lucky: '☀️吉☀️', desc: 'いつも通りの平穏で素敵な一日。まったりチャットを眺めてリラックスしよう。', color: '#2ecc71' }
+        ];
+
+        let isDrawing = false;
+
+        drawBtn.addEventListener('click', () => {
+            if (isDrawing) return;
+            isDrawing = true;
+
+            // ボタンを押した時の効果音（ガチャッという音）
+            try {
+                const btnAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-200.wav');
+                btnAudio.volume = 0.4;
+                btnAudio.play();
+            } catch(e){}
+
+            // 画面の文字をガシャガシャ動かす演出
+            let count = 0;
+            const interval = setInterval(() => {
+                screenText.textContent = `抽選中... ${['■','□','■','□'][count % 4]}`;
+                count++;
+            }, 100);
+
+            // 1.5秒後に結果を表示
+            setTimeout(() => {
+                clearInterval(interval);
+                screenText.textContent = "【 GO ! 】";
+                
+                // ガラガラ、ポンッ！という音
+                try {
+                    const popAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1011/1011-200.wav');
+                    popAudio.volume = 0.5;
+                    popAudio.play();
+                } catch(e){}
+
+                // ランダムで結果を選ぶ
+                const finalResult = omikujiResults[Math.floor(Math.random() * omikujiResults.length)];
+                
+                // 結果を画面にセット
+                luckyText.textContent = finalResult.lucky;
+                luckyText.style.color = finalResult.color;
+                descText.textContent = finalResult.desc;
+
+                // カードを表示する
+                resultCard.style.display = 'block';
+                
+                // 結果カードの位置へスムーズにスクロール
+                resultCard.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+    </script>
+
+</body>
+</html>
