@@ -27,10 +27,10 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計（真上へ1ミリ調整した完璧な位置：top 23.65%, left 70.8%） */
+        /* 🕒 アナログ時計（左右は固定、高さをさらに真上へ引き上げ：top 23.65%→23.15%, left 70.8%維持） */
         .analog-clock {
             position: absolute;
-            top: 23.65%;
+            top: 23.15%;
             left: 70.8%;
             width: 16.5%;
             aspect-ratio: 1 / 1;
@@ -72,7 +72,7 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（確定した完璧な位置：top 34.5%, left 70.5%） */
+        /* 📱 デジタル時計と日付（確定した完璧な位置を維持：top 34.5%, left 70.5%） */
         .digital-container {
             position: absolute;
             top: 34.5%;
