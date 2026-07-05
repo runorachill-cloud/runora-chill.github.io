@@ -27,7 +27,7 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計 */
+        /* 🕒 アナログ時計（確定位置） */
         .analog-clock {
             position: absolute;
             top: 23.45%;
@@ -51,7 +51,7 @@
         .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
         .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
 
-        /* 📱 デジタル時計と日付 */
+        /* 📱 デジタル時計と日付（確定位置） */
         .digital-container {
             position: absolute;
             top: 34.5%;
@@ -78,29 +78,41 @@
         /* 📜 左側の大きな白い枠に重ねる「村の活動ログ掲示板」 */
         .village-board {
             position: absolute;
-            top: 77.5%;
-            left: 6%;       /* 左側の白枠の位置に合わせる */
-            width: 42%;     /* 右側を削り、左の白枠ぴったりに狭める */
-            height: 14%;
+            top: 76.5%;     /* ラベル用に少しだけ上に調整 */
+            left: 6%;
+            width: 42%;
+            height: 16.5%;  /* 白枠の下のラインいっぱいに収まるよう高さを拡大 */
             display: flex;
             flex-direction: column;
-            line-height: 1.4;
             pointer-events: auto;
+            box-sizing: border-box;
+        }
+
+        /* 🏷️ 白枠の上縁にのせるタイトルラベル */
+        .board-title {
+            font-size: 1.3vw;
+            font-weight: bold;
+            color: #8c7662;
+            padding-left: 10px;
+            margin-bottom: 2px;
+            line-height: 1.2;
+            text-align: left;
         }
 
         /* ログが表示されてスクロールするエリア */
         .board-column {
             flex: 1;
             background: transparent;
-            padding: 8px 10px;
-            overflow-y: auto; /* 100件になっても縦スクロールで遡れるように */
+            padding: 4px 10px 8px 10px;
+            overflow-y: auto;
             box-sizing: border-box;
             font-size: 1.4vw;
             color: #5c4a3c;
             text-align: left;
+            line-height: 1.4;
         }
 
-        /* スクロールバーのデザインを少し優しく */
+        /* スクロールバーのデザイン */
         .board-column::-webkit-scrollbar {
             width: 4px;
         }
@@ -110,9 +122,9 @@
         }
 
         .log-item {
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             border-bottom: 1px dashed #eaddc3;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
             display: flex;
             justify-content: space-between;
             gap: 8px;
@@ -129,6 +141,7 @@
         }
 
         @media (min-width: 800px) {
+            .board-title { font-size: 10px; }
             .board-column { font-size: 11px; }
             .log-time { font-size: 9px; }
         }
@@ -171,13 +184,17 @@
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 村の活動ログ掲示板（左側の白い枠のみに設置） -->
+        <!-- 📜 村の活動ログ掲示板 -->
         <div class="village-board">
+            <!-- 上縁のタイトル見出し -->
+            <div class="board-title">📢 最新情報</div>
+            
+            <!-- ログ表示エリア（下までいっぱいに行数を増やせる状態） -->
             <div class="board-column" id="left-board">
-                <!-- ここに最新100件・1週間以内のログが古い順に消滅しながら流れるイメージです -->
                 <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
                 <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
                 <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
+                <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
                 <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
             </div>
         </div>
