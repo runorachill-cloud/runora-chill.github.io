@@ -76,7 +76,7 @@
             .digital-date { font-size: 9px; }
         }
 
-        /* 📜 左側の大きな白い枠に重ねる「村の活動ログ掲示板」 */
+        /* 📜 最新情報掲示板 */
         .village-board {
             position: absolute;
             top: 68.5%;
@@ -104,6 +104,7 @@
             background: transparent;
             padding: 2px 10px 4px 10px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; 
             box-sizing: border-box;
             font-size: 1.4vw;
             color: #5c4a3c;
@@ -111,7 +112,7 @@
             line-height: 1.4;
         }
 
-        .board-column::-webkit-scrollbar { width: 4px; }
+        .board-column::-webkit-scrollbar { width: 6px; }
         .board-column::-webkit-scrollbar-thumb { background: #eaddc3; border-radius: 4px; }
 
         .log-item {
@@ -142,18 +143,6 @@
         }
 
         .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
-        
-        /* 📱 最下部フッターのSNSリンク位置を一番下に修正 */
-        .footer-sns { 
-            bottom: 1.0%;   /* 位置が上にズレていたのを一番下に下げました */
-            width: 5.5%; 
-            height: 3.0%; 
-            border-radius: 50%; 
-        }
-        .sns-x { left: 40.5%; }
-        .sns-ameblo { left: 45.8%; }
-        .sns-youtube { left: 51.2%; }
-        .sns-narou { left: 56.5%; }
 
         /* 🔔 隠しギミック：金色のベル */
         .secret-bell-trigger {
@@ -177,7 +166,7 @@
             z-index: 15;
         }
 
-        /* 浮き出るカウンター・鳴き声テキストの共通スタイル */
+        /* 浮き出るカウンター・鳴き声テキスト */
         .floating-counter, .floating-meow {
             position: absolute;
             font-size: 3.2vw;
@@ -238,7 +227,7 @@
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 村の活動ログ掲示板 -->
+        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             
@@ -248,15 +237,13 @@
                 <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
                 <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
                 <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
+                <div class="log-item"><span class="log-text">🐾 過去のログテスト１</span><span class="log-time">07/04</span></div>
+                <div class="log-item"><span class="log-text">🐾 過去のログテスト２</span><span class="log-time">07/03</span></div>
             </div>
         </div>
 
         <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
-        <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
-        <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
-        <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube"></a>
-        <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou"></a>
 
         <!-- 🔔 鐘の隠しクリックエリア -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
