@@ -74,15 +74,15 @@
         .sns-btn {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 14px;
-            border-radius: 16px;
+            justify-content: flex-start; /* 💡 左詰めに変更して大きなアイコンと綺麗に整列させます */
+            padding: 10px 16px; /* 💡 アイコンの大きさに合わせて上下の余白を少し調整 */
+            border-radius: 20px; /* 💡 大きなアイコンに合わせてボタンの角丸を少し強めに */
             text-decoration: none;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 16px; /* 💡 文字が負けないように少しだけ大きく */
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            gap: 8px;
+            gap: 16px; /* 💡 アイコンと文字の間のすき間を少し広げました */
         }
 
         .sns-btn:hover {
@@ -90,13 +90,15 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
 
-        /* 💡 ボタン内画像アイコンのサイズ調整 */
+        /* 💡 ボタン内画像アイコンのサイズを3倍（22px ➔ 66px）に変更 */
         .btn-icon-img {
-            width: 22px;
-            height: 22px;
+            width: 66px;
+            height: 66px;
             object-fit: cover;
             border-radius: 50%;
             background-color: #fff;
+            flex-shrink: 0; /* 💡 画面が狭くなっても画像が潰れないようにする設定 */
+            border: 2px solid rgba(255, 255, 255, 0.8); /* 💡 アイコンの輪郭を綺麗に見せる白枠 */
         }
 
         /* 各SNSの限定カラー */
@@ -140,22 +142,22 @@
 
         <!-- SNSリンク一覧 -->
         <div class="sns-links-container">
-            <!-- ブログのアイコン（最初から大文字指定） -->
+            <!-- ブログのアイコン -->
             <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="sns-btn btn-ameblo">
                 <img src="IMG_4877.PNG" onerror="this.src='IMG_4877.png';" alt="ブログ" class="btn-icon-img"> アメーバブログ
             </a>
             
-            <!-- YouTubeのアイコン（最初から大文字指定） -->
+            <!-- YouTubeのアイコン -->
             <a href="https://youtube.com/@mofugamiruna0111?si=8X5W4yfu_Zj2V09T" target="_blank" class="sns-btn btn-youtube">
                 <img src="IMG_4876.PNG" onerror="this.src='IMG_4876.png';" alt="YouTube" class="btn-icon-img"> YouTubeチャンネル
             </a>
             
-            <!-- 小説家になろうのアイコン（最初から大文字指定） -->
+            <!-- 小説家になろうのアイコン -->
             <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="sns-btn btn-narou">
                 <img src="IMG_4878.PNG" onerror="this.src='IMG_4878.png';" alt="小説家になろう" class="btn-icon-img"> 小説家になろう マイページ
             </a>
 
-            <!-- Xのアイコン（最初から大文字指定） -->
+            <!-- Xのアイコン -->
             <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="sns-btn btn-x">
                 <img src="IMG_4879.PNG" onerror="this.src='IMG_4879.png';" alt="X" class="btn-icon-img"> X (旧Twitter)
             </a>
