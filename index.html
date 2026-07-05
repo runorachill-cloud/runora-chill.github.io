@@ -151,10 +151,10 @@
         /* 🔔 隠しギミック：金色のベル単体のクリックエリア */
         .secret-bell-trigger {
             position: absolute;
-            top: 23.0%;     /* ベルの高さに引き上げました */
-            left: 83.2%;    /* 文字盤のすぐ右側へ寄せました */
-            width: 6.5%;    /* ベルの横幅にジャストフィットさせました */
-            height: 8.5%;   /* ベル単体の縦幅に合わせました */
+            top: 23.0%;
+            left: 83.2%;
+            width: 6.5%;
+            height: 8.5%;
             cursor: pointer;
             z-index: 15;
         }
@@ -236,6 +236,7 @@
     </div>
 
     <script>
+        // --- 🕒 時計機能 ---
         function updateClock() {
             const now = new Date();
             const hours = now.getHours();
@@ -271,21 +272,42 @@
         updateClock();
         setInterval(updateClock, 1000);
 
+        // --- 🔔 鐘つき隠しギミック ---
         const bellTrigger = document.getElementById('bell-trigger');
         const wrapper = document.getElementById('main-wrapper');
 
-        const bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
-        bellAudio.volume = 0.5;
+        // 音源の初期化（エラーが起きても止まらないように処理）
+        let bellAudio = null;
+        try {
+            bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
+            bellAudio.volume = 0.5;
+        } catch (e) {
+            console.log("Audio initialization failed: ", e);
+        }
 
-        let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
+        let bellCount = 0;
+        try {
+            bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
+        } catch (e) {
+            bellCount = 0;
+        }
 
         bellTrigger.addEventListener('click', (e) => {
+            // 1. カウントアップ
             bellCount++;
-            localStorage.setItem('runora_bell_count', bellCount);
+            try {
+                localStorage.setItem('runora_bell_count', bellCount);
+            } catch (e) {}
 
-            bellAudio.currentTime = 0;
-            bellAudio.play().catch(err => console.log("Audio play blocked: ", err));
+            // 2. 音を鳴らす（エラーが出ても無視して次に進む設定）
+            if (bellAudio) {
+                try {
+                    bellAudio.currentTime = 0;
+                    bellAudio.play().catch(err => console.log("Audio play prevented: ", err));
+                } catch (err) {}
+            }
 
+            // 3. 浮き出るエフェクト（音が出なくても文字は絶対にフワッと出す）
             const floatingText = document.createElement('div');
             floatingText.className = 'floating-counter';
             floatingText.innerText = `🔔 ${bellCount}回目`;
