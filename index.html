@@ -27,7 +27,7 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計（確定位置） */
+        /* 🕒 アナログ時計 */
         .analog-clock {
             position: absolute;
             top: 23.45%;
@@ -51,7 +51,7 @@
         .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
         .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
 
-        /* 📱 デジタル時計と日付（確定位置） */
+        /* 📱 デジタル時計と日付 */
         .digital-container {
             position: absolute;
             top: 34.5%;
@@ -75,29 +75,38 @@
             .digital-date { font-size: 9px; }
         }
 
-        /* 📜 大きな白い枠に重ねる「村の活動ログ掲示板」エリア */
+        /* 📜 左側の大きな白い枠に重ねる「村の活動ログ掲示板」 */
         .village-board {
             position: absolute;
-            top: 77.5%; /* イラストの下部、大きな白い枠の高さに配置 */
-            left: 5%;
-            width: 90%;
-            height: 14%; /* 白い枠の縦幅に合わせて調整 */
+            top: 77.5%;
+            left: 6%;       /* 左側の白枠の位置に合わせる */
+            width: 42%;     /* 右側を削り、左の白枠ぴったりに狭める */
+            height: 14%;
             display: flex;
-            gap: 4%;
+            flex-direction: column;
             line-height: 1.4;
             pointer-events: auto;
         }
 
-        /* 左側と右側の枠それぞれの中身設定 */
+        /* ログが表示されてスクロールするエリア */
         .board-column {
             flex: 1;
-            background: transparent; /* 背景の白枠を活かすため透明に */
-            padding: 10px 15px;
-            overflow-y: auto; /* 文字が増えたらスクロールできるように */
+            background: transparent;
+            padding: 8px 10px;
+            overflow-y: auto; /* 100件になっても縦スクロールで遡れるように */
             box-sizing: border-box;
-            font-size: 1.5vw;
+            font-size: 1.4vw;
             color: #5c4a3c;
             text-align: left;
+        }
+
+        /* スクロールバーのデザインを少し優しく */
+        .board-column::-webkit-scrollbar {
+            width: 4px;
+        }
+        .board-column::-webkit-scrollbar-thumb {
+            background: #eaddc3;
+            border-radius: 4px;
         }
 
         .log-item {
@@ -106,16 +115,22 @@
             padding-bottom: 4px;
             display: flex;
             justify-content: space-between;
+            gap: 8px;
+        }
+
+        .log-text {
+            word-break: break-all;
         }
 
         .log-time {
             color: #b8a07c;
-            font-size: 1.2vw;
+            font-size: 1.1vw;
+            white-space: nowrap;
         }
 
         @media (min-width: 800px) {
-            .board-column { font-size: 12px; }
-            .log-time { font-size: 10px; }
+            .board-column { font-size: 11px; }
+            .log-time { font-size: 9px; }
         }
 
         /* 🔗 透明なリンクボタン */
@@ -143,29 +158,31 @@
     <div class="wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
+        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
+        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
+        <!-- 📜 村の活動ログ掲示板（左側の白い枠のみに設置） -->
         <div class="village-board">
             <div class="board-column" id="left-board">
-                <div class="log-item"><span>🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
-                <div class="log-item"><span>🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
-                <div class="log-item"><span>💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
-            </div>
-            <div class="board-column" id="right-board">
-                <div class="log-item"><span>📢 サーバーの定期メンテナンス完了のお知らせ</span><span class="log-time">昨日</span></div>
-                <div class="log-item"><span>✨ RunoraChill 公式ポータルサイトがオープン！</span><span class="log-time">07/05</span></div>
+                <!-- ここに最新100件・1週間以内のログが古い順に消滅しながら流れるイメージです -->
+                <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
+                <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
+                <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
+                <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
             </div>
         </div>
 
+        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
