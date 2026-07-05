@@ -78,10 +78,10 @@
         /* 📜 左側の大きな白い枠に重ねる「村の活動ログ掲示板」 */
         .village-board {
             position: absolute;
-            top: 73.0%;     /* ドアボタンに被らないよう、白枠の上端まで大幅に下げました */
+            top: 71.5%;     /* 73.0%から少しだけ上に引き上げました */
             left: 5.5%;
             width: 43%;
-            height: 17.5%;  /* 白枠の底面に収まるように調整 */
+            height: 17.5%;
             display: flex;
             flex-direction: column;
             pointer-events: auto;
@@ -90,7 +90,7 @@
 
         /* 🏷️ 中央配置・3倍サイズのタイトルラベル */
         .board-title {
-            font-size: 3.5vw; /* 白枠の横幅に対して綺麗に収まるよう微調整 */
+            font-size: 3.5vw;
             font-weight: bold;
             color: #8c7662;
             text-align: center;
@@ -186,10 +186,8 @@
 
         <!-- 📜 村の活動ログ掲示板 -->
         <div class="village-board">
-            <!-- スクロールの上中央に配置されたラベル -->
             <div class="board-title">📢 最新情報</div>
             
-            <!-- 白枠にピッタリ収まるスクロールエリア -->
             <div class="board-column" id="left-board">
                 <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
                 <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
