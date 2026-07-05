@@ -148,29 +148,50 @@
         .sns-youtube { left: 51.2%; }
         .sns-narou { left: 56.5%; }
 
-        /* 🔔 隠しギミック：金色のベル単体のクリックエリア（右側へ幅を拡大） */
+        /* 🔔 隠しギミック：金色のベル */
         .secret-bell-trigger {
             position: absolute;
             top: 22.1%;
             left: 86.1%;
-            width: 7.0%;    /* 横幅を右側に広げました */
+            width: 7.0%;
             height: 7.6%;
             cursor: pointer;
             z-index: 15;
         }
 
-        /* 浮き出るカウンターのテキストスタイル */
-        .floating-counter {
+        /* 🐈 隠しギミック：時計塔のふもとの黒猫 */
+        .secret-cat-trigger {
+            position: absolute;
+            top: 38.0%;     /* 黒猫ちゃんの位置 */
+            left: 86.0%;
+            width: 6.5%;    /* タップしやすいように少し大きめ */
+            height: 6.5%;
+            cursor: pointer;
+            z-index: 15;
+        }
+
+        /* 浮き出るカウンター・鳴き声テキストの共通スタイル */
+        .floating-counter, .floating-meow {
             position: absolute;
             font-size: 3.2vw;
             font-weight: bold;
-            color: #dca842;
-            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(140, 118, 98, 0.5);
             pointer-events: none;
             z-index: 100;
             white-space: nowrap;
             line-height: 1;
             animation: floatUpAway 1.2s ease-out forwards;
+        }
+
+        .floating-counter {
+            color: #dca842;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(140, 118, 98, 0.5);
+        }
+
+        /* 猫の鳴き声用の装飾（ちょっと優しくて可愛いピンクブラウン系） */
+        .floating-meow {
+            color: #9e7a6b;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 5px rgba(246, 238, 214, 0.8);
+            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
         }
 
         @keyframes floatUpAway {
@@ -189,7 +210,7 @@
         }
 
         @media (min-width: 800px) {
-            .floating-counter { font-size: 26px; }
+            .floating-counter, .floating-meow { font-size: 26px; }
         }
     </style>
 </head>
@@ -233,6 +254,9 @@
 
         <!-- 🔔 鐘の隠しクリックエリア -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
+
+        <!-- 🐈 猫の隠しクリックエリア -->
+        <div class="secret-cat-trigger" id="cat-trigger" title="猫をつつく"></div>
     </div>
 
     <script>
@@ -271,34 +295,29 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-        const bellTrigger = document.getElementById('bell-trigger');
         const wrapper = document.getElementById('main-wrapper');
 
+        // --- 🔔 ベルの処理 ---
+        const bellTrigger = document.getElementById('bell-trigger');
         let bellAudio = null;
         try {
             bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
             bellAudio.volume = 0.5;
-        } catch (e) {
-            console.log("Audio initialization failed: ", e);
-        }
+        } catch (e) {}
 
         let bellCount = 0;
         try {
             bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
-        } catch (e) {
-            bellCount = 0;
-        }
+        } catch (e) {}
 
         bellTrigger.addEventListener('click', (e) => {
             bellCount++;
-            try {
-                localStorage.setItem('runora_bell_count', bellCount);
-            } catch (e) {}
+            try { localStorage.setItem('runora_bell_count', bellCount); } catch (e) {}
 
             if (bellAudio) {
                 try {
                     bellAudio.currentTime = 0;
-                    bellAudio.play().catch(err => console.log("Audio play prevented: ", err));
+                    bellAudio.play().catch(err => console.log(err));
                 } catch (err) {}
             }
 
@@ -314,10 +333,47 @@
             floatingText.style.top = `${(clickY / rect.height) * 100}%`;
 
             wrapper.appendChild(floatingText);
+            floatingText.addEventListener('animationend', () => floatingText.remove());
+        });
 
-            floatingText.addEventListener('animationend', () => {
-                floatingText.remove();
-            });
+
+        // --- 🐈 猫の処理 ---
+        const catTrigger = document.getElementById('cat-trigger');
+        let catAudio = null;
+        try {
+            // フリーの可愛い猫の鳴き声SE
+            catAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav');
+            catAudio.volume = 0.6;
+        } catch (e) {}
+
+        // ランダムな鳴き声テキストのリスト
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+
+        catTrigger.addEventListener('click', (e) => {
+            // 音声を再生
+            if (catAudio) {
+                try {
+                    catAudio.currentTime = 0;
+                    catAudio.play().catch(err => console.log(err));
+                } catch (err) {}
+            }
+
+            // ランダムでテキストを選択して画面にふわっと出す
+            const randomText = meowTexts[Math.floor(Math.random() * meowTexts.length)];
+            
+            const floatingMeow = document.createElement('div');
+            floatingMeow.className = 'floating-meow';
+            floatingMeow.innerText = randomText;
+
+            const rect = wrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            floatingMeow.style.left = `${(clickX / rect.width) * 100}%`;
+            floatingMeow.style.top = `${(clickY / rect.height) * 100}%`;
+
+            wrapper.appendChild(floatingMeow);
+            floatingMeow.addEventListener('animationend', () => floatingMeow.remove());
         });
     </script>
 
