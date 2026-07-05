@@ -27,11 +27,11 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計（45秒時の水平ラインを基準に、高さを下に下げて中央へ：top 23.9%→24.25%, left 71.1%は維持） */
+        /* 🕒 アナログ時計（0秒時のラインを基準に、左斜め上へ1ミリ微調整：top 24.25%→23.95%, left 71.1%→70.8%） */
         .analog-clock {
             position: absolute;
-            top: 24.25%;
-            left: 71.1%;
+            top: 23.95%;
+            left: 70.8%;
             width: 16.5%;
             aspect-ratio: 1 / 1;
             transform: translate(-50%, -50%);
@@ -132,20 +132,17 @@
     <div class="wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="https://x.com/mofugamiruna111?s=11" target="_blank" class="invisible-link footer-sns sns-x"></a>
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
