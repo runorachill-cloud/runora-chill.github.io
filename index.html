@@ -148,13 +148,13 @@
         .sns-youtube { left: 51.2%; }
         .sns-narou { left: 56.5%; }
 
-        /* 🔔 隠しギミック：金色のベル単体のクリックエリア */
+        /* 🔔 隠しギミック：金色のベル単体のクリックエリア（サイズ3分の2・右斜め上へ調整） */
         .secret-bell-trigger {
             position: absolute;
-            top: 23.0%;
-            left: 83.2%;
-            width: 6.5%;
-            height: 8.5%;
+            top: 21.5%;     /* 右斜め上（上側）へシフト */
+            left: 84.2%;    /* 右斜め上（右側）へシフト */
+            width: 4.4%;    /* 前回の約3分の2のサイズに縮小 */
+            height: 5.8%;   /* 前回の約3分の2のサイズに縮小 */
             cursor: pointer;
             z-index: 15;
         }
@@ -236,7 +236,6 @@
     </div>
 
     <script>
-        // --- 🕒 時計機能 ---
         function updateClock() {
             const now = new Date();
             const hours = now.getHours();
@@ -272,11 +271,9 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-        // --- 🔔 鐘つき隠しギミック ---
         const bellTrigger = document.getElementById('bell-trigger');
         const wrapper = document.getElementById('main-wrapper');
 
-        // 音源の初期化（エラーが起きても止まらないように処理）
         let bellAudio = null;
         try {
             bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
@@ -293,13 +290,11 @@
         }
 
         bellTrigger.addEventListener('click', (e) => {
-            // 1. カウントアップ
             bellCount++;
             try {
                 localStorage.setItem('runora_bell_count', bellCount);
             } catch (e) {}
 
-            // 2. 音を鳴らす（エラーが出ても無視して次に進む設定）
             if (bellAudio) {
                 try {
                     bellAudio.currentTime = 0;
@@ -307,7 +302,6 @@
                 } catch (err) {}
             }
 
-            // 3. 浮き出るエフェクト（音が出なくても文字は絶対にフワッと出す）
             const floatingText = document.createElement('div');
             floatingText.className = 'floating-counter';
             floatingText.innerText = `🔔 ${bellCount}回目`;
