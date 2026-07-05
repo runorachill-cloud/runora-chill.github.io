@@ -71,28 +71,29 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（位置をさらに上方向に持ち上げました：top 33.85% → 32.0%） */
+        /* 📱 デジタル時計と日付（文字サイズをふた周り小さくし、位置を中央に調整） */
         .digital-container {
             position: absolute;
-            top: 32.0%;
+            top: 33.2%;
             left: 71.95%;
             transform: translate(-50%, -50%);
-            width: 24%;
+            width: 22%;
             text-align: center;
             color: #ffebad;
-            text-shadow: 0 0 8px rgba(243, 156, 18, 0.9);
+            text-shadow: 0 0 6px rgba(243, 156, 18, 0.9);
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
             line-height: 1.2;
             pointer-events: none;
         }
 
-        .digital-time { font-size: 3.1vw; }
-        .digital-date { font-size: 1.6vw; margin-top: 3%; color: #e1cea1; }
+        /* 👇 文字サイズをふた周り小さく調整しました */
+        .digital-time { font-size: 2.4vw; }
+        .digital-date { font-size: 1.2vw; margin-top: 2%; color: #e1cea1; }
         
         @media (min-width: 800px) {
-            .digital-time { font-size: 25px; }
-            .digital-date { font-size: 13px; }
+            .digital-time { font-size: 19px; }
+            .digital-date { font-size: 10px; }
         }
 
         /* 🔗 透明なリンクボタン */
