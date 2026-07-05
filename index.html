@@ -151,7 +151,7 @@
         }
 
         .shrine-image-wrap {
-            position: relative; /* 💡 賽銭箱ボタンを重ねる基準 */
+            position: relative;
             width: 100%;
             flex-grow: 1;
             height: 0;
@@ -177,7 +177,6 @@
             height: 25%;
             cursor: pointer;
             z-index: 20;
-            /* background: rgba(255,0,0,0.3); */ /* 💡 位置を確認したい時はここを外すと赤く見えます */
         }
 
         @media (min-width: 800px) {
@@ -437,11 +436,10 @@
         });
 
 
-        // --- 🪙 賽銭箱の処理 ＆ ランダムおみくじ遷移 ---
+        // --- 🪙 賽銭箱の処理 ＆ おみくじページ遷移 ---
         const saisenTrigger = document.getElementById('saisen-trigger');
         let coinAudio = null;
         try {
-            // チャリンと鳴るコインの音
             coinAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav');
             coinAudio.volume = 0.5;
         } catch (e) {}
@@ -450,15 +448,6 @@
         try {
             saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10);
         } catch (e) {}
-
-        // 🎰 ランダムで飛ぶおみくじ結果のページリスト（作成したファイル名に変更してください）
-        const omikujiPages = [
-            'daikichi.html',  // 大吉
-            'chukichi.html',  // 中吉
-            'shokichi.html',  // 小吉
-            'kichi.html',     // 吉
-            'kyou.html'       // 凶（もしあれば！）
-        ];
 
         saisenTrigger.addEventListener('click', (e) => {
             saisenCount++;
@@ -486,10 +475,9 @@
             wrapper.appendChild(floatingSaisen);
             floatingSaisen.addEventListener('animationend', () => floatingSaisen.remove());
 
-            // ⛩️ 1秒後にランダムでおみくじページにジャンプ！
+            // ⛩️ 1秒後に自動でおみくじ自販機ページ（omikuji.html）にジャンプ！
             setTimeout(() => {
-                const randomPage = omikujiPages[Math.floor(Math.random() * omikujiPages.length)];
-                window.location.href = randomPage;
+                window.location.href = 'omikuji.html';
             }, 1000);
         });
     </script>
