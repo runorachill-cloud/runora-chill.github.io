@@ -148,16 +148,15 @@
         .sns-youtube { left: 51.2%; }
         .sns-narou { left: 56.5%; }
 
-        /* 🔔 隠しギミック：金色の鐘のクリックエリア */
+        /* 🔔 隠しギミック：金色のベル単体のクリックエリア */
         .secret-bell-trigger {
             position: absolute;
-            top: 25.5%;
-            left: 85.0%;
-            width: 10.0%;
-            height: 11.5%;
+            top: 23.0%;     /* ベルの高さに引き上げました */
+            left: 83.2%;    /* 文字盤のすぐ右側へ寄せました */
+            width: 6.5%;    /* ベルの横幅にジャストフィットさせました */
+            height: 8.5%;   /* ベル単体の縦幅に合わせました */
             cursor: pointer;
             z-index: 15;
-            /* background: rgba(255,0,0,0.3); */ /* 位置確認用（本番はコメントアウト） */
         }
 
         /* 浮き出るカウンターのテキストスタイル */
@@ -237,7 +236,6 @@
     </div>
 
     <script>
-        // --- 🕒 時計機能 ---
         function updateClock() {
             const now = new Date();
             const hours = now.getHours();
@@ -273,33 +271,25 @@
         updateClock();
         setInterval(updateClock, 1000);
 
-
-        // --- 🔔 鐘つき隠しギミック ---
         const bellTrigger = document.getElementById('bell-trigger');
         const wrapper = document.getElementById('main-wrapper');
 
-        // 音源の設定（CC0ライセンスの綺麗なベル音を使用しています）
         const bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
         bellAudio.volume = 0.5;
 
-        // ローカルストレージからカウントを読み込む（無ければ0）
         let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
 
         bellTrigger.addEventListener('click', (e) => {
-            // 1. カウントアップ＆保存
             bellCount++;
             localStorage.setItem('runora_bell_count', bellCount);
 
-            // 2. 音を鳴らす（連続タップでも最初から再生されるようにリセット）
             bellAudio.currentTime = 0;
             bellAudio.play().catch(err => console.log("Audio play blocked: ", err));
 
-            // 3. 浮き出る数字のエフェクトを作成
             const floatingText = document.createElement('div');
             floatingText.className = 'floating-counter';
             floatingText.innerText = `🔔 ${bellCount}回目`;
 
-            // クリックした位置（wrapper基準）に配置
             const rect = wrapper.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const clickY = e.clientY - rect.top;
@@ -309,7 +299,6 @@
 
             wrapper.appendChild(floatingText);
 
-            // アニメーションが終わったら自動で消去
             floatingText.addEventListener('animationend', () => {
                 floatingText.remove();
             });
