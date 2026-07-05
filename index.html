@@ -219,29 +219,29 @@
             z-index: 15;
         }
 
-        /* 💬 背景画像内の「白いメッセージ枠」にぴったり重ねる設定 🛠️ */
+        /* 💬 赤線で囲まれた白い枠の「下半分」に配置 🛠️ */
         .white-box-hint {
             position: absolute;
-            top: 75.3%;  /* 画像の中の白い枠の縦位置に合わせました */
-            left: 29.5%; /* 白い枠の横位置 */
-            width: 41.0%; /* 白い枠の幅に合わせました */
-            height: 4.5%; /* 白い枠の高さ */
+            top: 76.5%;  /* 下半分のスペースにしっかり下げました */
+            left: 29.5%; 
+            width: 41.0%; 
+            height: 3.5%; 
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: none; /* 下の画像へのタッチを邪魔しない */
+            pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
         }
 
         .hint-text {
-            font-size: 1.5vw; /* 🛠️ スマホでも枠からはみ出ない絶妙なサイズ */
+            font-size: 1.4vw; /* 枠に綺麗に収まるサイズ */
             color: #8c7662;
             font-weight: bold;
             text-align: center;
             letter-spacing: 0.2px;
             line-height: 1.2;
-            white-space: nowrap; /* 1行でスッキリ見せる */
+            white-space: nowrap; 
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
@@ -251,7 +251,7 @@
         }
 
         @media (min-width: 800px) {
-            .hint-text { font-size: 12px; }
+            .hint-text { font-size: 11px; }
         }
 
         /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
@@ -337,17 +337,17 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 画像内の白い枠の中に重なるメッセージエリア 🛠️ -->
+        <!-- 💬 白い枠の「下半分」にぴったり重なるメッセージエリア 🛠️ -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
     <script>
-        // 💬 ランダムメッセージ（ご提案を反映して「村」や「タップで撫でよう」に修正！） 🛠️
+        // 💬 ランダムメッセージ（お祈りの文言に修正！） 🛠️
         const hintMessages = [
             "💡 時計塔のまわりをよーく探すと、何かが聞こえるかも……？🐾",
-            "💡 もふ神神社にはお賽銭箱があるようですよ。中に何が入っているのかな？⛩️",
+            "💡 もふ神神社があります。タップでお賽銭を入れてお祈りしましょう⛩️",
             "💡 この村のどこかにいる黒猫は、タップで撫でると鳴いてくれるという噂です……🐈",
             "💡 優しい時間が流れるこの村を、のんびりお散歩してみてくださいね🌸",
             "💡 神社の奥には、1日1回だけ運を占える自動販売機があるとか……？🪙"
