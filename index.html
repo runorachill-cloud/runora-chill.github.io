@@ -436,7 +436,7 @@
         });
 
 
-        // --- 🪙 賽銭箱の処理 ＆ おみくじページ遷移 ---
+        // --- 🪙 賽銭箱の処理 ＆ おみくじページへの確実な遷移 ---
         const saisenTrigger = document.getElementById('saisen-trigger');
         let coinAudio = null;
         try {
@@ -475,7 +475,7 @@
             wrapper.appendChild(floatingSaisen);
             floatingSaisen.addEventListener('animationend', () => floatingSaisen.remove());
 
-            // ⛩️ 1秒後に自動でおみくじ自販機ページ（omikuji.html）にジャンプ！
+            // ⛩️ 1秒後に自動でおみくじ自販機ページ（omikuji.html）に正しくジャンプ！
             setTimeout(() => {
                 window.location.href = 'omikuji.html';
             }, 1000);
