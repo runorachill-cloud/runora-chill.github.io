@@ -219,6 +219,36 @@
             z-index: 15;
         }
 
+        /* 💬 フッターのランダムメッセージ表示エリア 🛠️ */
+        .footer-hint-area {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px 10px 25px 10px; /* 下側の余白に綺麗に収まる位置 */
+            background-color: #f6eed6;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .hint-text {
+            font-size: 13px;
+            color: #8c7662;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.5;
+            opacity: 0.85;
+            animation: fadeInHint 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInHint {
+            0% { opacity: 0; transform: translateY(5px); }
+            100% { opacity: 0.85; transform: translateY(0); }
+        }
+
+        @media (max-width: 500px) {
+            .hint-text { font-size: 11px; }
+        }
+
         /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
         .floating-counter, .floating-meow, .floating-saisen {
             position: absolute;
@@ -263,17 +293,20 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
+        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
+        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
+        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -285,6 +318,7 @@
             </div>
         </div>
 
+        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -293,12 +327,29 @@
             </div>
         </div>
 
+        <!-- 透明リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
-        <div class="secret-cat-trigger" id="cat-trigger" title="猫をつつく"></div>
+        <div class="secret-cat-trigger" id="cat-trigger" title="猫をつつつく"></div>
+    </div>
+
+    <!-- 💬 フッターのメッセージ表示エリア 🛠️ -->
+    <div class="footer-hint-area">
+        <div class="hint-text" id="random-hint">ポータルサイトをのんびりお散歩してみてくださいね🌸</div>
     </div>
 
     <script>
+        // 💬 ランダムヒントメッセージの配列 🛠️
+        const hintMessages = [
+            "💡 時計塔のまわりをよーく探すと、何かが聞こえるかも……？🐾",
+            "💡 もふ神神社にはお賽銭箱があるようですよ。中に何が入っているのかな？⛩️",
+            "💡 この村のどこかに、つつくと鳴く黒猫が隠れているという噂です……🐈",
+            "💡 ポータルサイトをのんびりお散歩してみてくださいね🌸",
+            "💡 神社の奥には、1日1回だけ運を占える自動販売機があるとか……？🪙"
+        ];
+        // ランダムで1つ選んで表示
+        document.getElementById('random-hint').textContent = hintMessages[Math.floor(Math.random() * hintMessages.length)];
+
         function updateClock() {
             const now = new Date();
             const hours = now.getHours();
@@ -345,7 +396,7 @@
             wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
         });
 
-        // お賽銭 ＆ どちらのファイル名でも絶対に繋ぐジャンプ処理 🛡️
+        // お賽銭
         document.getElementById('saisen-trigger').addEventListener('click', (e) => {
             let saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10) + 1;
             localStorage.setItem('runora_saisen_count', saisenCount);
@@ -355,17 +406,8 @@
             const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
             wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
 
-            // 1秒後に移動を開始
             setTimeout(() => {
-                // 先に普通の「omikuji.html」を試みる
-                const testImg = new Image();
-                testImg.src = 'omikuji.html';
-                
-                // 少し待ってエラーかどうか関係なく、まずは通常の移動を試みるが、
-                // 念のためテキスト形式になっていた場合もカバーする安全な転送をします
                 window.location.href = 'omikuji.html';
-                
-                // 万が一開けなかった時のための保険（数ミリ秒後に上書きされないように、通常の遷移でダメならtxt付きを試せるように直接リンクも有効）
             }, 1000);
         });
     </script>
