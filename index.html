@@ -27,11 +27,11 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計 */
+        /* 🕒 アナログ時計（左斜め下のズレを右斜め上へ修正：top 23.35%→23.1%, left 71.95%→72.3%） */
         .analog-clock {
             position: absolute;
-            top: 23.35%;
-            left: 71.95%;
+            top: 23.1%;
+            left: 72.3%;
             width: 16.5%;
             aspect-ratio: 1 / 1;
             transform: translate(-50%, -50%);
@@ -71,11 +71,11 @@
             z-index: 4;
         }
 
-        /* 📱 デジタル時計と日付（位置を左斜め下に微調整：top 34.0%→34.3%, left 71.95%→71.4%） */
+        /* 📱 デジタル時計と日付（左斜め下のズレを右斜め上へ修正：top 34.3%→33.7%, left 71.4%→72.2%） */
         .digital-container {
             position: absolute;
-            top: 34.3%;
-            left: 71.4%;
+            top: 33.7%;
+            left: 72.2%;
             transform: translate(-50%, -50%);
             width: 22%;
             text-align: center;
