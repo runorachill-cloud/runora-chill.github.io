@@ -11,6 +11,7 @@
             width: 100%;
             background-color: #f6eed6;
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            overflow-x: hidden;
         }
 
         .wrapper {
@@ -78,17 +79,16 @@
         /* 📜 左側の大きな白い枠に重ねる「村の活動ログ掲示板」 */
         .village-board {
             position: absolute;
-            top: 68.5%;     /* さらに1.5%分、上に引き上げました */
+            top: 68.5%;
             left: 5.5%;
             width: 43%;
-            height: 20.5%;  /* 位置を上げた分、白枠の底面まで届くように高さを広げました */
+            height: 20.5%;
             display: flex;
             flex-direction: column;
             pointer-events: auto;
             box-sizing: border-box;
         }
 
-        /* 🏷️ 中央配置・3倍サイズのタイトルラベル */
         .board-title {
             font-size: 3.5vw;
             font-weight: bold;
@@ -99,7 +99,6 @@
             letter-spacing: 1px;
         }
 
-        /* ログが表示されてスクロールするエリア */
         .board-column {
             flex: 1;
             background: transparent;
@@ -112,14 +111,8 @@
             line-height: 1.4;
         }
 
-        /* スクロールバーのデザイン */
-        .board-column::-webkit-scrollbar {
-            width: 4px;
-        }
-        .board-column::-webkit-scrollbar-thumb {
-            background: #eaddc3;
-            border-radius: 4px;
-        }
+        .board-column::-webkit-scrollbar { width: 4px; }
+        .board-column::-webkit-scrollbar-thumb { background: #eaddc3; border-radius: 4px; }
 
         .log-item {
             margin-bottom: 5px;
@@ -130,15 +123,8 @@
             gap: 8px;
         }
 
-        .log-text {
-            word-break: break-all;
-        }
-
-        .log-time {
-            color: #b8a07c;
-            font-size: 1.1vw;
-            white-space: nowrap;
-        }
+        .log-text { word-break: break-all; }
+        .log-time { color: #b8a07c; font-size: 1.1vw; white-space: nowrap; }
 
         @media (min-width: 800px) {
             .board-title { font-size: 28px; }
@@ -146,7 +132,7 @@
             .log-time { font-size: 9px; }
         }
 
-        /* 🔗 透明なリンクボタン */
+        /* 🔗 透明なリンク・ボタン共通 */
         .invisible-link {
             position: absolute;
             display: block;
@@ -155,20 +141,62 @@
             z-index: 10;
         }
 
-        /* 「管理者（私）の部屋」ボタン */
         .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
-
-        /* フッターのSNSアイコン群 */
         .footer-sns { bottom: 3.8%; width: 5.5%; height: 2.8%; border-radius: 50%; }
         .sns-x { left: 40.5%; }
         .sns-ameblo { left: 45.8%; }
         .sns-youtube { left: 51.2%; }
         .sns-narou { left: 56.5%; }
+
+        /* 🔔 隠しギミック：金色の鐘のクリックエリア */
+        .secret-bell-trigger {
+            position: absolute;
+            top: 25.5%;
+            left: 85.0%;
+            width: 10.0%;
+            height: 11.5%;
+            cursor: pointer;
+            z-index: 15;
+            /* background: rgba(255,0,0,0.3); */ /* 位置確認用（本番はコメントアウト） */
+        }
+
+        /* 浮き出るカウンターのテキストスタイル */
+        .floating-counter {
+            position: absolute;
+            font-size: 3.2vw;
+            font-weight: bold;
+            color: #dca842;
+            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(140, 118, 98, 0.5);
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            line-height: 1;
+            animation: floatUpAway 1.2s ease-out forwards;
+        }
+
+        @keyframes floatUpAway {
+            0% {
+                transform: translate(-50%, 0) scale(0.7);
+                opacity: 0;
+            }
+            15% {
+                transform: translate(-50%, -20px) scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -80px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @media (min-width: 800px) {
+            .floating-counter { font-size: 26px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
+    <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
         <!-- アナログ時計 -->
@@ -203,9 +231,13 @@
         <a href="https://ameblo.jp/mofugamiruna0111/" target="_blank" class="invisible-link footer-sns sns-ameblo"></a>
         <a href="https://youtube.com/@mofugamiruna0111?si=fl_ygD-iyH6i2epW" target="_blank" class="invisible-link footer-sns sns-youtube"></a>
         <a href="https://mypage.syosetu.com/3068539/" target="_blank" class="invisible-link footer-sns sns-narou"></a>
+
+        <!-- 🔔 鐘の隠しクリックエリア -->
+        <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
     </div>
 
     <script>
+        // --- 🕒 時計機能 ---
         function updateClock() {
             const now = new Date();
             const hours = now.getHours();
@@ -240,6 +272,48 @@
         
         updateClock();
         setInterval(updateClock, 1000);
+
+
+        // --- 🔔 鐘つき隠しギミック ---
+        const bellTrigger = document.getElementById('bell-trigger');
+        const wrapper = document.getElementById('main-wrapper');
+
+        // 音源の設定（CC0ライセンスの綺麗なベル音を使用しています）
+        const bellAudio = new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav');
+        bellAudio.volume = 0.5;
+
+        // ローカルストレージからカウントを読み込む（無ければ0）
+        let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10);
+
+        bellTrigger.addEventListener('click', (e) => {
+            // 1. カウントアップ＆保存
+            bellCount++;
+            localStorage.setItem('runora_bell_count', bellCount);
+
+            // 2. 音を鳴らす（連続タップでも最初から再生されるようにリセット）
+            bellAudio.currentTime = 0;
+            bellAudio.play().catch(err => console.log("Audio play blocked: ", err));
+
+            // 3. 浮き出る数字のエフェクトを作成
+            const floatingText = document.createElement('div');
+            floatingText.className = 'floating-counter';
+            floatingText.innerText = `🔔 ${bellCount}回目`;
+
+            // クリックした位置（wrapper基準）に配置
+            const rect = wrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            floatingText.style.left = `${(clickX / rect.width) * 100}%`;
+            floatingText.style.top = `${(clickY / rect.height) * 100}%`;
+
+            wrapper.appendChild(floatingText);
+
+            // アニメーションが終わったら自動で消去
+            floatingText.addEventListener('animationend', () => {
+                floatingText.remove();
+            });
+        });
     </script>
 
 </body>
