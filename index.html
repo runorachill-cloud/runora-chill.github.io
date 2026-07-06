@@ -195,10 +195,19 @@
             z-index: 10;
         }
 
-        /* 🎯 【修正】管理者の部屋（ピンクの扉）の選択枠をイラストの内枠へ完璧にフィット */
+        /* 管理者の部屋（ピンクの扉の白い内枠） */
         .link-my-room { 
             top: 45.4%; 
             left: 5.6%; 
+            width: 14.8%; 
+            height: 11.4%; 
+            border-radius: 12px; 
+        }
+
+        /* 🎯 【新規追加】メンバー一覧（緑の扉の白い内枠） */
+        .link-member-portal { 
+            top: 45.4%; 
+            left: 23.9%; 
             width: 14.8%; 
             height: 11.4%; 
             border-radius: 12px; 
@@ -291,7 +300,6 @@
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
-        /* 🔄 アニメーション切り替えに対応させるため、再実行できるようにリセット設定を追加 */
         @keyframes fadeInHint {
             0% { opacity: 0; transform: scale(0.95); }
             100% { opacity: 0.9; transform: scale(1); }
@@ -409,7 +417,11 @@
         </div>
 
         <!-- 各種ボタン・リンク -->
+        <!-- 管理者の部屋（ピンクの扉） -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
+        
+        <!-- 🎯 【新規追加】メンバー一覧（緑の扉） -->
+        <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
         
         <!-- 🚪 時計台の扉（メンバーの部屋リンク） -->
         <a href="#" class="invisible-link link-member-room" id="member-door" title="メンバーの部屋を見る">
@@ -469,7 +481,7 @@
                         // 時計台の扉を美しく光らせる
                         doorLink.classList.add('is-glowing');
 
-                        // ⏰【新規実装】扉が光り始めてから2分後（120000ms）に光を自動で消す
+                        // ⏰ 扉が光り始めてから2分後（120000ms）に光を自動で消す
                         setTimeout(() => {
                             doorLink.classList.remove('is-glowing');
                         }, 120000);
@@ -487,7 +499,7 @@
         }, TRIGGER_TIME);
 
 
-        // 📢 運営メッセージのリスト
+        // 📢 運営メッセージ
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
@@ -497,20 +509,9 @@
         ];
         
         const hintEl = document.getElementById('random-hint');
-        
-        // 🎯 【機能追加】看板のテキストを30秒ごとに優しく切り替える処理
-        function changeHintMessage() {
-            if (!hintEl) return;
-            // アニメーションを一旦リセットしてフェードインを再発動させる
-            hintEl.style.animation = 'none';
-            hintEl.offsetHeight; // リフローを発生させてリセットを確定
+        if (hintEl) {
             hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
-            hintEl.style.animation = 'fadeInHint 0.8s ease-out forwards';
         }
-
-        // 初回実行と、30秒（30000ms）ごとの自動ループ切り替え
-        changeHintMessage();
-        setInterval(changeHintMessage, 30000);
 
         function updateClock() {
             const now = new Date();
