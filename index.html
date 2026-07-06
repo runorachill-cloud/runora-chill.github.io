@@ -195,11 +195,23 @@
             z-index: 10;
         }
 
-        /* リンクの位置情報（％指定） */
+        /* 1️⃣ 管理者（私）の部屋カード */
         .link-my-room { top: 43.5%; left: 4.8%; width: 16.5%; height: 14.5%; border-radius: 16px; }
         
-        /* 🌟 緑の扉カード（メンバーの部屋）のクリックエリア */
-        .link-member-room { top: 43.5%; left: 23.3%; width: 16.5%; height: 14.5%; border-radius: 16px; }
+        /* 2️⃣ 緑の扉カード（メンバー一覧ページへ） */
+        .link-member-portal { top: 43.5%; left: 23.3%; width: 16.5%; height: 14.5%; border-radius: 16px; }
+
+        /* 3️⃣ 時計台の中央の小さな扉（各部屋へランダムワープ！） */
+        .link-clock-door {
+            position: absolute;
+            top: 38.0%;
+            left: 65.3%;
+            width: 10.5%;
+            height: 7.5%;
+            border-top-left-radius: 50% 100%;
+            border-top-right-radius: 50% 100%;
+            z-index: 12;
+        }
 
         /* 🔔 隠しギミック：金色のベル */
         .secret-bell-trigger {
@@ -302,17 +314,20 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
+        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
+        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
+        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -324,6 +339,7 @@
             </div>
         </div>
 
+        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -332,19 +348,43 @@
             </div>
         </div>
 
+        <!-- 🔗 各種メニューのクリックエリア -->
+        <!-- 1️⃣ 管理者の部屋 -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <a href="member-portal.html" class="invisible-link link-member-room" title="メンバーの部屋を見る"></a>
+        <!-- 2️⃣ 緑の扉（メンバー一覧ページへ連動） -->
+        <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
 
+        <!-- 3️⃣ 時計台の小さな扉（ランダムワープ機能！） -->
+        <a href="#" class="invisible-link link-clock-door" id="clock-random-door" title="誰かのお部屋にランダムワープ！"></a>
+
+        <!-- 🔔 鐘と黒猫のギミック用トリガー -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
+        <!-- 💬 看板の案内テキスト -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
     <script>
+        // 🔮 メンバーが増えたらここにファイル名を追加していくリスト（あなたも含む）
+        const memberRooms = [
+            'my-room.html' // 現在はあなたの部屋だけ。増えたら 'room2.html', 'room3.html' のように追加します
+        ];
+
+        // 🕒 時計台の扉をクリックしたときのランダム転送処理
+        const clockDoor = document.getElementById('clock-random-door');
+        if (clockDoor) {
+            clockDoor.addEventListener('click', (e) => {
+                e.preventDefault();
+                // 登録されている部屋リストからランダムで1つ選択してジャンプ
+                const randomRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
+                window.location.href = randomRoom;
+            });
+        }
+
         // 📢 運営メッセージ
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
@@ -407,7 +447,7 @@
 
         // 猫
         const catTrig = document.getElementById('cat-trigger');
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃオ？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
         if (catTrig && wrapper) {
             catTrig.addEventListener('click', (e) => {
                 try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
