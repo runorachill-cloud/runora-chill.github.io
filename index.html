@@ -195,23 +195,23 @@
             z-index: 10;
         }
 
-        /* 🛠️ ボタンのタップ判定エリアをしっかりと広げました */
-        /* 1️⃣ 管理者（ピンクの扉）カードのクリックエリア */
+        /* 🎯 扉の描いてある「白い枠」の内側にぴったりサイズを合わせました */
+        /* 1️⃣ 管理者の部屋（ピンクの扉の白枠内） */
         .link-my-room { 
-            top: 42.5%; 
-            left: 4.0%; 
-            width: 17.5%; 
-            height: 16.5%; 
-            border-radius: 16px; 
+            top: 44.5%; 
+            left: 6.2%; 
+            width: 13.6%; 
+            height: 10.3%; 
+            border-radius: 8px; 
         }
         
-        /* 2️⃣ メンバー（緑の扉）カードのクリックエリア */
+        /* 2️⃣ メンバーの部屋（緑の扉の白枠内） */
         .link-member-portal { 
-            top: 42.5%; 
-            left: 22.5%; 
-            width: 17.5%; 
-            height: 16.5%; 
-            border-radius: 16px; 
+            top: 44.5%; 
+            left: 24.7%; 
+            width: 13.6%; 
+            height: 10.3%; 
+            border-radius: 8px; 
         }
 
         /* 3️⃣ 時計台の中央の小さな扉 */
@@ -327,20 +327,17 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -352,7 +349,6 @@
             </div>
         </div>
 
-        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -361,21 +357,15 @@
             </div>
         </div>
 
-        <!-- 🔗 各種メニューのクリックエリア -->
-        <!-- 1️⃣ 管理者の部屋（ピンクの扉） -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- 2️⃣ メンバーの部屋（緑の扉） -->
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
 
-        <!-- 3️⃣ 時計台の小さな扉（ランダムワープ機能） -->
         <a href="#" class="invisible-link link-clock-door" id="clock-random-door" title="誰かのお部屋にランダムワープ！"></a>
 
-        <!-- 🔔 鐘と黒猫のギミック用トリガー -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 看板の案内テキスト -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
