@@ -195,8 +195,7 @@
             z-index: 10;
         }
 
-        /* 🎯 【サイズ統一】管理者の部屋（ピンクの扉） */
-        /* 横幅（width: 17.0%）と縦幅（height: 23.0%）を緑の扉と全く同じに設定 */
+        /* 管理者の部屋（ピンクの扉） */
         .link-my-room { 
             top: 44.5%; 
             left: 5.6%; 
@@ -424,8 +423,8 @@
         <!-- メンバー一覧（緑の扉） -->
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
         
-        <!-- 🚪 時計台の扉（メンバーの部屋リンク） -->
-        <a href="#" class="invisible-link link-member-room" id="member-door" title="メンバーの部屋を見る">
+        <!-- 🚪 時計台の扉（管理者・メンバーの部屋へランダムリンク） -->
+        <a href="#" class="invisible-link link-member-room" id="member-door" title="時計台の扉を開く">
             <div class="door-glow-effect"></div>
         </a>
 
@@ -444,19 +443,21 @@
     </div>
 
     <script>
+        // 🚪 各部屋へのランダム移動データ（初期値にあなたの部屋を追加）
+        // 💡 将来メンバーの部屋ができたら、ここにオブジェクトを追加していくだけで自動でランダム対象になります。
         const memberRooms = [
-            { name: "〇〇さん（イラスト）", url: "member-a.html" },
-            { name: "🪶 △△さん（小説）", url: "member-b.html" },
-            { name: "🎵 □□さん（音楽）", url: "member-c.html" }
+            { name: "管理者（私）の部屋", url: "my-room.html" }
+            // 例: { name: "〇〇さん（イラスト）", url: "member-a.html" }
         ];
 
         const doorLink = document.getElementById('member-door');
         let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
         if (doorLink) {
             doorLink.href = selectedRoom.url;
-            doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
+            doorLink.title = `時計台の扉（現在は ${selectedRoom.name} に繋がっています）`;
         }
 
+        // ⏳ 魔法の案内タイマー（30秒=30000ms）
         const TRIGGER_TIME = 30000; 
 
         setTimeout(() => {
