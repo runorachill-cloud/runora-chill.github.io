@@ -221,7 +221,6 @@
             transition: all 0.5s ease;
         }
 
-        /* 魔法が発動して光が走っている状態のアニメーション */
         .is-glowing .door-glow-effect {
             animation: flashDoor 2.5s ease-in-out infinite;
             box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8), 0 0 10px rgba(255, 223, 115, 0.6);
@@ -322,7 +321,7 @@
             transition: opacity 0.6s ease-in-out;
         }
 
-        /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
+        /* 浮き出るエフェクト */
         .floating-counter, .floating-meow, .floating-saisen {
             position: absolute;
             font-size: 3.2vw;
@@ -342,7 +341,6 @@
         .floating-meow {
             color: #9e7a6b;
             text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 5px rgba(246, 238, 214, 0.8);
-            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
         }
 
         .floating-saisen {
@@ -411,34 +409,39 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 一番下の白い看板の中にぴったり収める設定 -->
+        <!-- 💬 看板の案内テキスト -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
-    <!-- 🔮 突然真ん中に現れるメッセージボード -->
+    <!-- 🔮 メッセージボード -->
     <div class="magic-overlay" id="magic-overlay">
         <div class="magic-text" id="magic-text">迷ってますか？</div>
     </div>
 
     <script>
-        // 🚪 将来的なメンバー部屋のデータリスト
+        // 🚪 将来的なメンバー部屋のデータリスト（※現在は準備中ポップアップになります）
         const memberRooms = [
-            { name: "〇〇さん（イラスト）", url: "member-a.html" },
-            { name: "🪶 △△さん（小説）", url: "member-b.html" },
-            { name: "🎵 □□さん（音楽）", url: "member-c.html" }
+            { name: "〇〇さん（イラスト）" },
+            { name: "🪶 △△さん（小説）" },
+            { name: "🎵 □□さん（音楽）" }
         ];
 
-        // 最初からランダムでセットしておく
+        // ランダムで訪問先を決定
         const doorLink = document.getElementById('member-door');
         let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
         if (doorLink) {
-            doorLink.href = selectedRoom.url;
             doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
+
+            // 🛠️【新規追加】クリックした時に「準備中」のアラートを出す対策
+            doorLink.addEventListener('click', (e) => {
+                e.preventDefault(); // 画面遷移をストップ
+                alert(`✨「${selectedRoom.name}の部屋」は現在もふもふ準備中です。公開をお楽しみに！ ✨`);
+            });
         }
 
-        // ⏳ 魔法の案内タイマー（30秒=30000msに設定中）
+        // ⏳ 魔法の案内タイマー（30秒=30000ms）
         const TRIGGER_TIME = 30000; 
 
         setTimeout(() => {
@@ -446,11 +449,9 @@
             const textEl = document.getElementById('magic-text');
             
             if (overlay && textEl && doorLink) {
-                // 1. 真ん中に『迷ってますか？』をじわ〜っとフェードイン
                 overlay.style.display = 'block';
                 setTimeout(() => { overlay.style.opacity = '1'; }, 50);
 
-                // 2. 3秒後（3000ms）に文字を切り替え、同時に時計台の扉を光らせる
                 setTimeout(() => {
                     textEl.style.opacity = '0';
                     
@@ -458,17 +459,16 @@
                         textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
                         textEl.style.opacity = '1';
                         
-                        // 時計台の扉を美しく光らせる
+                        // 扉を光らせる
                         doorLink.classList.add('is-glowing');
 
-                        // ⏰【新規実装】扉が光り始めてから2分後（120000ms）に光を自動で消す
+                        // ⏰ 2分後（120000ms）に光を消す
                         setTimeout(() => {
                             doorLink.classList.remove('is-glowing');
                         }, 120000);
 
                     }, 400);
 
-                    // 中央メッセージボードを優しく消す（3.5秒後）
                     setTimeout(() => {
                         overlay.style.opacity = '0';
                         setTimeout(() => { overlay.style.display = 'none'; }, 1200);
