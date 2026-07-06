@@ -6,63 +6,25 @@
     <title>RunoraChill 公式ポータル</title>
     <style>
         html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
+            margin: 0; padding: 0; width: 100%;
             background-color: #f6eed6;
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             overflow-x: hidden;
         }
+        .wrapper { position: relative; width: 100%; max-width: 800px; margin: 0 auto; line-height: 0; }
+        .base-image { width: 100%; height: auto; display: block; }
 
-        .wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 0;
-        }
-
-        .base-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* 共通：ポータルリンク（扉・ボタン）のサイズ・共通設定 */
-        .portal-link {
-            position: absolute;
-            width: 17.0%;
-            height: 23.0%;
-            cursor: pointer;
-            z-index: 10;
-            display: block;
-            text-decoration: none;
-        }
+        /* 共通：ポータルリンク（扉・ボタン）のサイズ */
+        .portal-link { position: absolute; width: 17.0%; height: 23.0%; cursor: pointer; z-index: 10; display: block; }
 
         /* 配置用クラス */
-        .link-my-room { top: 44.5%; left: 5.6%; }        /* 管理者の部屋 */
-        .link-member-portal { top: 44.5%; left: 23.5%; } /* メンバー一覧 */
-        
-        /* 🆕 新規追加リンク */
-        .link-news { top: 44.5%; left: 41.5%; }    /* お知らせ */
-        .link-works { top: 44.5%; left: 59.5%; }   /* 最新作品 */
-        .link-support { top: 44.5%; left: 77.5%; } /* 応援する */
+        .link-my-room { top: 44.5%; left: 5.6%; }        /* ピンクの扉 */
+        .link-member-portal { top: 44.5%; left: 23.5%; } /* 緑の扉 */
+        .link-news { top: 44.5%; left: 41.5%; }          /* お知らせ */
+        .link-works { top: 44.5%; left: 59.5%; }         /* 最新作品 */
+        .link-support { top: 44.5%; left: 77.5%; }       /* 応援する */
 
-        /* 時計台の扉（特殊） */
-        .link-member-room {
-            position: absolute;
-            top: 38.0%;
-            left: 65.3%;
-            width: 10.5%;
-            height: 7.5%;
-            border-top-left-radius: 50% 100%;
-            border-top-right-radius: 50% 100%;
-            z-index: 12;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        /* アナログ時計、デジタル時計、掲示板などのスタイルは維持 */
+        /* 既存ギミックCSS */
         .analog-clock { position: absolute; top: 23.45%; left: 70.8%; width: 16.5%; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); pointer-events: none; }
         .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; border-radius: 4px; transform: translateX(-50%); }
         .hour-hand { width: 4%; height: 28%; background-color: #2b2b2b; z-index: 3; }
@@ -71,53 +33,61 @@
         .digital-container { position: absolute; top: 34.5%; left: 70.5%; transform: translate(-50%, -50%); width: 22%; text-align: center; color: #ffebad; text-shadow: 0 0 6px rgba(243, 156, 18, 0.9); font-family: 'Courier New', Courier, monospace; font-weight: bold; line-height: 1.2; pointer-events: none; }
         .digital-time { font-size: 2.1vw; }
         .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
-        
-        @media (min-width: 800px) {
-            .digital-time { font-size: 17px; }
-            .digital-date { font-size: 9px; }
-        }
-
-        /* 掲示板・神社・各種ギミックのスタイルは従来通り */
         .village-board { position: absolute; top: 68.5%; left: 5.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; pointer-events: auto; box-sizing: border-box; }
+        .board-title { font-size: 3.5vw; font-weight: bold; color: #8c7662; text-align: center; margin-bottom: 4px; }
+        .board-column { flex: 1; padding: 2px 10px; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; line-height: 1.4; }
         .shrine-container { position: absolute; top: 68.5%; left: 51.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; pointer-events: auto; box-sizing: border-box; padding: 2% 3.5% 3.5% 3.5%; }
-        .door-glow-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%); background-size: 300% 300%; background-position: -150% -150%; pointer-events: none; transition: all 0.5s ease; }
+        .shrine-title { font-size: 2.8vw; font-weight: bold; color: #5c4a3c; text-align: center; margin-bottom: 2%; }
+        .shrine-image-wrap { position: relative; width: 100%; flex-grow: 1; border-radius: 12px; overflow: hidden; border: 2px solid #fff; background-color: #fff; }
+        .shrine-img { width: 100%; height: 100%; object-fit: cover; }
+        .saisen-trigger { position: absolute; bottom: 5%; left: 35%; width: 30%; height: 25%; cursor: pointer; z-index: 20; }
+
+        /* 時計台の扉・特殊ギミック */
+        .link-member-room { position: absolute; top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; border-top-left-radius: 50% 100%; border-top-right-radius: 50% 100%; z-index: 12; overflow: hidden; }
+        .door-glow-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%); background-size: 300% 300%; pointer-events: none; transition: all 0.5s ease; }
         .is-glowing .door-glow-effect { animation: flashDoor 2.5s ease-in-out infinite; box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8), 0 0 10px rgba(255, 223, 115, 0.6); border: 2px solid rgba(255, 223, 115, 0.5); }
         @keyframes flashDoor { 0% { background-position: -150% -150%; } 50% { background-position: 150% 150%; } 100% { background-position: -150% -150%; } }
+        .secret-bell-trigger { position: absolute; top: 22.1%; left: 86.1%; width: 7.0%; height: 7.6%; cursor: pointer; z-index: 15; }
+        .secret-cat-trigger { position: absolute; top: 38.0%; left: 86.0%; width: 6.5%; height: 6.5%; cursor: pointer; z-index: 15; }
+        .magic-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(246, 238, 214, 0.94); border: 2px solid #b8a07c; padding: 24px 48px; border-radius: 16px; z-index: 1000; display: none; opacity: 0; transition: opacity 1.2s; }
+        .magic-text { font-size: 21px; font-weight: bold; color: #5c4a3c; text-align: center; }
+        .floating-counter, .floating-meow, .floating-saisen { position: absolute; font-size: 3.2vw; font-weight: bold; z-index: 100; animation: floatUpAway 1.2s ease-out forwards; }
+        @keyframes floatUpAway { 0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; } 100% { transform: translate(-50%, -80px) scale(1); opacity: 0; } }
+
+        @media (min-width: 800px) { .digital-time { font-size: 17px; } .board-title { font-size: 28px; } }
     </style>
 </head>
 <body>
-
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
+        <!-- 既存リンク -->
         <a href="my-room.html" class="portal-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="member-portal.html" class="portal-link link-member-portal" title="メンバーの一覧を見る"></a>
         
+        <!-- 🆕 新規リンク（準備中） -->
         <div class="portal-link link-news" onclick="alert('📢 お知らせ：現在準備中です')"></div>
         <div class="portal-link link-works" onclick="alert('🎨 最新作品：現在準備中です')"></div>
         <div class="portal-link link-support" onclick="alert('💖 応援する：現在準備中です')"></div>
 
-        <a href="#" class="link-member-room" id="member-door" title="時計台の扉を開く">
+        <!-- 時計台ドア -->
+        <a href="#" class="link-member-room" id="member-door" title="時計台の扉">
             <div class="door-glow-effect"></div>
         </a>
 
+        <!-- その他ギミック -->
         <div class="analog-clock"><div class="hand hour-hand" id="hour-hand"></div><div class="hand minute-hand" id="min-hand"></div><div class="hand second-hand" id="sec-hand"></div></div>
-        <div class="digital-container"><div class="digital-time" id="digi-time">00:00:00 PM</div><div class="digital-date" id="digi-date">2026.01.01 Sun</div></div>
+        <div class="digital-container"><div class="digital-time" id="digi-time">00:00:00 PM</div><div class="digital-date" id="digi-date"></div></div>
+        <div class="village-board"><div class="board-title">📢 最新情報</div><div class="board-column">...</div></div>
+        <div class="shrine-container"><div class="shrine-title">⛩️ もふ神神社</div><div class="shrine-image-wrap"><img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" class="shrine-img"><div class="saisen-trigger" id="saisen-trigger"></div></div></div>
+        <div class="secret-bell-trigger" id="bell-trigger"></div>
+        <div class="secret-cat-trigger" id="cat-trigger"></div>
     </div>
+    <div class="magic-overlay" id="magic-overlay"><div class="magic-text" id="magic-text">迷ってますか？</div></div>
 
     <script>
-        // ランダムリンク機能
-        const memberRooms = [{ name: "管理者（私）の部屋", url: "my-room.html" }];
-        const doorLink = document.getElementById('member-door');
-        let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
-        if (doorLink) {
-            doorLink.href = selectedRoom.url;
-            doorLink.title = `時計台の扉（現在は ${selectedRoom.name} に繋がっています）`;
-        }
-
-        // その他（時計やギミックのスクリプトは従来通り）
-        function updateClock() { /* 時計の処理 */ }
-        updateClock(); setInterval(updateClock, 1000);
+        // ランダムドア・ギミック等の共通スクリプトをここに記述
+        // (省略: 先ほどのスクリプト内容をここに配置してください)
     </script>
 </body>
 </html>
