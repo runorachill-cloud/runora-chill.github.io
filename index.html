@@ -45,9 +45,8 @@
         .link-my-room { top: 44.5%; left: 5.6%; width: 17.0%; height: 23.0%; border-radius: 12px; }
         .link-member-portal { top: 44.5%; left: 23.5%; width: 17.0%; height: 23.0%; border-radius: 16px; }
         
-        /* お知らせ扉 ＆ 新着作品扉のリンク（各座標を割り当て） */
+        /* 【お知らせ扉】準備中リンク（座標を中央の扉に合致） */
         .link-news-board { top: 44.5%; left: 41.5%; width: 17.0%; height: 23.0%; z-index: 11; }
-        .link-new-works { top: 44.5%; left: 59.5%; width: 17.0%; height: 23.0%; z-index: 11; }
 
         .link-member-room { position: absolute; top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; z-index: 12; overflow: hidden; }
         .door-glow-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%); background-size: 300% 300%; pointer-events: none; transition: all 0.5s ease; }
@@ -62,6 +61,8 @@
         @keyframes fadeInHint { 0% { opacity: 0; } 100% { opacity: 0.9; } }
         
         .magic-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(246, 238, 214, 0.94); border: 2px solid #b8a07c; padding: 24px 48px; border-radius: 16px; z-index: 1000; display: none; opacity: 0; transition: opacity 1.2s; }
+        .floating-counter, .floating-meow, .floating-saisen { position: absolute; font-size: 3.2vw; font-weight: bold; pointer-events: none; z-index: 100; animation: floatUpAway 1.2s ease-out forwards; }
+        @keyframes floatUpAway { 0% { opacity: 0; } 100% { transform: translate(-50%, -80px); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -86,9 +87,8 @@
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
         
-        <!-- お知らせ・新着作品 扉リンク -->
+        <!-- 【お知らせ】準備中リンク -->
         <div class="invisible-link link-news-board" onclick="alert('📢 現在準備中です')" title="準備中"></div>
-        <div class="invisible-link link-new-works" onclick="alert('📢 現在準備中です')" title="準備中"></div>
         
         <a href="#" class="invisible-link link-member-room" id="member-door"><div class="door-glow-effect"></div></a>
 
@@ -98,7 +98,10 @@
         <div class="white-box-hint"><div class="hint-text" id="random-hint">Loading...</div></div>
     </div>
 
+    <div class="magic-overlay" id="magic-overlay"><div class="magic-text" id="magic-text">迷ってますか？</div></div>
+
     <script>
+        // 既存のスクリプトを継承
         document.getElementById('saisen-trigger').onclick = () => window.location.href = 'omikuji.html';
         const hintMessages = ["💡 時計塔のまわりを探すと……？🐾", "💡 もふ神神社でお祈りしましょう⛩️"];
         document.getElementById('random-hint').innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
