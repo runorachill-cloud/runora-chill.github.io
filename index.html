@@ -223,8 +223,9 @@
         .white-box-hint {
             position: absolute;
             top: 76.5%;  
-            left: 27.0%; 
-            width: 44.0%; 
+            /* 🛠️ 表示幅をすこし狭めて中央をキープ */
+            left: 31.0%; 
+            width: 36.0%; 
             height: 3.5%; 
             display: flex;
             align-items: center;
@@ -232,8 +233,8 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            /* 🛠️ ここを引き上げて、看板の白い部分に綺麗に入れます */
-            transform: translateY(23.7vw); 
+            /* 🛠️ 2行のまとまりが上下ぴったり中央にくる高さ */
+            transform: translateY(23.4vw); 
         }
 
         .hint-text {
@@ -242,7 +243,7 @@
             font-weight: bold;
             text-align: center;
             letter-spacing: 0.2px;
-            line-height: 1.3;
+            line-height: 1.35;
             white-space: normal; 
             animation: fadeInHint 0.8s ease-out forwards;
         }
@@ -339,7 +340,7 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 安全に一番下の白い看板の中にずらしたメッセージエリア -->
+        <!-- 💬 一番下の白い看板の中にぴったり収める設定 -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
