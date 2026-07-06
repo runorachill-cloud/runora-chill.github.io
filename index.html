@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunoraChill 公式ポータル</title>
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; background-color: #f6eed6; font-family: 'Helvetica Neue', Arial, sans-serif; overflow-x: hidden; }
+        html, body {
+            margin: 0; padding: 0; width: 100%;
+            background-color: #f6eed6;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            overflow-x: hidden;
+        }
+
         .wrapper { position: relative; width: 100%; max-width: 800px; margin: 0 auto; line-height: 0; }
         .base-image { width: 100%; height: auto; display: block; }
 
-        /* リンクエリア */
+        /* リンク共通設定 */
         .portal-link { position: absolute; width: 14.0%; height: 18.0%; cursor: pointer; z-index: 10; display: block; }
         .link-my-room        { top: 44.5%; left: 7.5%; }
         .link-member-portal  { top: 44.5%; left: 25.5%; }
@@ -23,50 +29,63 @@
         .hour-hand { width: 4%; height: 28%; background-color: #2b2b2b; z-index: 3; }
         .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
         .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
-        .digital-container { position: absolute; top: 34.5%; left: 70.5%; transform: translate(-50%, -50%); width: 22%; text-align: center; color: #ffebad; font-family: monospace; font-weight: bold; pointer-events: none; }
+        .digital-container { position: absolute; top: 34.5%; left: 70.5%; transform: translate(-50%, -50%); width: 22%; text-align: center; color: #ffebad; text-shadow: 0 0 6px rgba(243, 156, 18, 0.9); font-family: 'Courier New', Courier, monospace; font-weight: bold; pointer-events: none; }
         .digital-time { font-size: 2.1vw; }
 
         /* 掲示板 */
         .village-board { position: absolute; top: 68.5%; left: 5.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; z-index: 5; }
-        .board-column { flex: 1; padding: 2px 10px; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; }
-        
+        .board-column { flex: 1; padding: 2px 10px; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; line-height: 1.4; background: transparent; }
+        .log-item { margin-bottom: 5px; border-bottom: 1px dashed #eaddc3; padding-bottom: 3px; font-size: 1.2vw; }
+
         /* 神社 */
-        .shrine-container { position: absolute; top: 68.5%; left: 51.5%; width: 43%; height: 20.5%; z-index: 5; }
+        .shrine-container { position: absolute; top: 68.5%; left: 51.5%; width: 43%; height: 20.5%; z-index: 5; padding: 2% 3.5%; }
         .saisen-trigger { position: absolute; bottom: 5%; left: 35%; width: 30%; height: 25%; cursor: pointer; z-index: 20; }
-        
-        /* 時計塔ドア・隠しギミック */
-        .link-member-room { position: absolute; top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; z-index: 12; }
+
+        /* 時計塔扉と隠しギミック */
+        .link-member-room { position: absolute; top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; z-index: 12; overflow: hidden; }
+        .door-glow-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%); background-size: 300% 300%; pointer-events: none; transition: all 0.5s ease; }
         .secret-bell-trigger { position: absolute; top: 22.1%; left: 86.1%; width: 7.0%; height: 7.6%; cursor: pointer; z-index: 15; }
         .secret-cat-trigger { position: absolute; top: 38.0%; left: 86.0%; width: 6.5%; height: 6.5%; cursor: pointer; z-index: 15; }
+        
+        .floating-counter, .floating-meow { position: absolute; font-size: 3.2vw; font-weight: bold; pointer-events: none; z-index: 100; animation: floatUpAway 1.2s ease-out forwards; }
+        @keyframes floatUpAway { 0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; } 100% { transform: translate(-50%, -80px) scale(1); opacity: 0; } }
     </style>
 </head>
 <body>
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill" class="base-image">
 
-        <!-- リンク -->
+        <!-- ボタンリンク -->
         <a href="my-room.html" class="portal-link link-my-room"></a>
         <a href="member-portal.html" class="portal-link link-member-portal"></a>
-        <div class="portal-link link-news" onclick="alert('📢 お知らせ：準備中')"></div>
-        <div class="portal-link link-works" onclick="alert('🎨 最新作品：準備中')"></div>
-        <div class="portal-link link-support" onclick="alert('💖 応援する：準備中')"></div>
-        
-        <a href="#" class="link-member-room" id="member-door"></a>
+        <div class="portal-link link-news" onclick="alert('📢 お知らせ：現在準備中')"></div>
+        <div class="portal-link link-works" onclick="alert('🎨 最新作品：現在準備中')"></div>
+        <div class="portal-link link-support" onclick="alert('💖 応援する：現在準備中')"></div>
+
+        <!-- ギミック -->
+        <a href="#" class="link-member-room" id="member-door">
+            <div class="door-glow-effect"></div>
+        </a>
         <div class="secret-bell-trigger" id="bell-trigger"></div>
         <div class="secret-cat-trigger" id="cat-trigger"></div>
 
-        <!-- 時計・掲示板・神社 -->
         <div class="analog-clock"><div class="hand hour-hand" id="hour-hand"></div><div class="hand minute-hand" id="min-hand"></div><div class="hand second-hand" id="sec-hand"></div></div>
         <div class="digital-container"><div class="digital-time" id="digi-time">00:00:00</div></div>
-        <div class="village-board"><div class="board-column" id="left-board">
-            <div class="log-item">🔔 もふ神留奈さんが模様替えをしました</div>
-            <div class="log-item">🎨 ギャラリーに画像が追加されました</div>
-        </div></div>
-        <div class="shrine-container"><div class="saisen-trigger" id="saisen-trigger"></div></div>
+
+        <div class="village-board">
+            <div class="board-column" id="left-board">
+                <div class="log-item">🔔 もふ神留奈さんが模様替えをしました</div>
+                <div class="log-item">🎨 ギャラリーに画像が追加されました</div>
+                <div class="log-item">💤 作業が始まりました</div>
+            </div>
+        </div>
+        <div class="shrine-container">
+            <div class="saisen-trigger" id="saisen-trigger"></div>
+        </div>
     </div>
 
     <script>
-        // 時計・ギミック・ランダムドアの処理（以前と同じ内容）
+        // 時計
         function updateClock() {
             const now = new Date();
             const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
@@ -76,6 +95,9 @@
             document.getElementById('digi-time').textContent = `${String(h % 12 || 12).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }
         setInterval(updateClock, 1000);
+        updateClock();
+
+        // 各種ギミック
         document.getElementById('saisen-trigger').onclick = () => window.location.href = 'omikuji.html';
         document.getElementById('bell-trigger').onclick = () => alert('🔔');
         document.getElementById('cat-trigger').onclick = () => alert('🐾');
