@@ -219,10 +219,10 @@
             z-index: 15;
         }
 
-        /* 💬 赤線で囲まれた白い枠の「下半分」に配置 🛠️ */
+        /* 💬 白い枠の「下半分」にぴったり重なるメッセージエリア */
         .white-box-hint {
             position: absolute;
-            top: 76.5%;  /* 下半分のスペースにしっかり下げました */
+            top: 76.5%;  
             left: 29.5%; 
             width: 41.0%; 
             height: 3.5%; 
@@ -235,7 +235,7 @@
         }
 
         .hint-text {
-            font-size: 1.4vw; /* 枠に綺麗に収まるサイズ */
+            font-size: 1.4vw; 
             color: #8c7662;
             font-weight: bold;
             text-align: center;
@@ -296,6 +296,7 @@
 <body>
 
     <div class="wrapper" id="main-wrapper">
+        <!-- ⚠️【重要】実際の背景画像のファイル名に書き換えてください -->
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
         <!-- アナログ時計 -->
@@ -316,7 +317,7 @@
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
                 <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
-                <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
+                <div class="log-item"><span class="log-text">🎨 〇͡〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
                 <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
                 <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
                 <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
@@ -327,6 +328,7 @@
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
+                <!-- ⚠️【重要】実際の神社の画像のファイル名に書き換えてください -->
                 <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
                 <div class="saisen-trigger" id="saisen-trigger" title="お賽銭を入れる"></div>
             </div>
@@ -337,14 +339,13 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 白い枠の「下半分」にぴったり重なるメッセージエリア 🛠️ -->
+        <!-- 💬 白い枠の「下半分」にぴったり重なるメッセージエリア -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
     <script>
-        // 💬 ランダムメッセージ（お祈りの文言に修正！） 🛠️
         const hintMessages = [
             "💡 時計塔のまわりをよーく探すと、何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。タップでお賽銭を入れてお祈りしましょう⛩️",
@@ -352,8 +353,12 @@
             "💡 優しい時間が流れるこの村を、のんびりお散歩してみてくださいね🌸",
             "💡 神社の奥には、1日1回だけ運を占える自動販売機があるとか……？🪙"
         ];
-        // ランダムで1つ選んで表示
-        document.getElementById('random-hint').textContent = hintMessages[Math.floor(Math.random() * hintMessages.length)];
+        
+        // ランダムメッセージの表示（エラー防止のため存在チェック付き）
+        const hintEl = document.getElementById('random-hint');
+        if (hintEl) {
+            hintEl.textContent = hintMessages[Math.floor(Math.random() * hintMessages.length)];
+        }
 
         function updateClock() {
             const now = new Date();
@@ -365,56 +370,71 @@
             const minDeg = minutes * 6 + seconds * 0.1;
             const secDeg = seconds * 6;
             
-            document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
-            document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
-            document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+            const hh = document.getElementById('hour-hand');
+            const mh = document.getElementById('min-hand');
+            const sh = document.getElementById('sec-hand');
+            if (hh) hh.style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
+            if (mh) mh.style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+            if (sh) sh.style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
             
             let displayHours = hours % 12;
             displayHours = displayHours ? displayHours : 12; 
             const ampm = hours >= 12 ? 'PM' : 'AM';
-            document.getElementById('digi-time').textContent = `${String(displayHours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')} ${ampm}`;
+            
+            const dt = document.getElementById('digi-time');
+            const dd = document.getElementById('digi-date');
+            if (dt) dt.textContent = `${String(displayHours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')} ${ampm}`;
             
             const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            document.getElementById('digi-date').textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${weekDays[now.getDay()]}`;
+            if (dd) dd.textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${weekDays[now.getDay()]}`;
         }
         updateClock();
         setInterval(updateClock, 1000);
 
         const wrapper = document.getElementById('main-wrapper');
 
-        // ベル
-        document.getElementById('bell-trigger').addEventListener('click', (e) => {
-            let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10) + 1;
-            localStorage.setItem('runora_bell_count', bellCount);
-            try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch (e) {}
-            const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = `🔔 ${bellCount}回目`;
-            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
-        });
+        // ベルのトリガー
+        const bellTrig = document.getElementById('bell-trigger');
+        if (bellTrig && wrapper) {
+            bellTrig.addEventListener('click', (e) => {
+                let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10) + 1;
+                localStorage.setItem('runora_bell_count', bellCount);
+                try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch (err) {}
+                const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = `🔔 ${bellCount}回目`;
+                const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+                wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
+            });
+        }
 
-        // 猫
+        // 猫のトリガー
+        const catTrig = document.getElementById('cat-trigger');
         const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
-        document.getElementById('cat-trigger').addEventListener('click', (e) => {
-            try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (e) {}
-            const f = document.createElement('div'); f.className = 'floating-meow'; f.innerText = meowTexts[Math.floor(Math.random()*meowTexts.length)];
-            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
-        });
+        if (catTrig && wrapper) {
+            catTrig.addEventListener('click', (e) => {
+                try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
+                const f = document.createElement('div'); f.className = 'floating-meow'; f.innerText = meowTexts[Math.floor(Math.random()*meowTexts.length)];
+                const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+                wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
+            });
+        }
 
-        // お賽銭
-        document.getElementById('saisen-trigger').addEventListener('click', (e) => {
-            let saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10) + 1;
-            localStorage.setItem('runora_saisen_count', saisenCount);
-            try { new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav').play(); } catch (e) {}
-            
-            const f = document.createElement('div'); f.className = 'floating-saisen'; f.innerText = `🪙 お賽銭 ${saisenCount}回目`;
-            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
+        // お賽銭のトリガー
+        const saisenTrig = document.getElementById('saisen-trigger');
+        if (saisenTrig && wrapper) {
+            saisenTrig.addEventListener('click', (e) => {
+                let saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10) + 1;
+                localStorage.setItem('runora_saisen_count', saisenCount);
+                try { new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav').play(); } catch (err) {}
+                
+                const f = document.createElement('div'); f.className = 'floating-saisen'; f.innerText = `🪙 お賽銭 ${saisenCount}回目`;
+                const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+                wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
 
-            setTimeout(() => {
-                window.location.href = 'omikuji.html';
-            }, 1000);
-        });
+                setTimeout(() => {
+                    window.location.href = 'omikuji.html';
+                }, 1000);
+            });
+        }
     </script>
 </body>
 </html>
