@@ -213,22 +213,22 @@
             border-radius: 16px; 
         }
         
-        /* お知らせ（扉） */
+        /* お知らせの扉 */
         .link-news-board {
             top: 44.5%;
             left: 41.5%;
             width: 17.0%;
             height: 23.0%;
-            z-index: 11;
+            border-radius: 16px;
         }
-        
-        /* 新着作品（扉） */
+
+        /* 新着作品の扉 */
         .link-new-works {
             top: 44.5%;
             left: 59.5%;
             width: 17.0%;
             height: 23.0%;
-            z-index: 11;
+            border-radius: 16px;
         }
 
         /* 🚪 時計台の扉（メンバーの部屋リンク） */
@@ -400,17 +400,20 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
+        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
+        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
+        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -422,6 +425,7 @@
             </div>
         </div>
 
+        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -430,13 +434,20 @@
             </div>
         </div>
 
+        <!-- 各種ボタン・リンク -->
+        <!-- 管理者の部屋（ピンクの扉） -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
+        <!-- メンバー一覧（緑の扉） -->
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
         
-        <div class="invisible-link link-news-board" onclick="alert('📢 現在準備中です')" title="準備中"></div>
-        <div class="invisible-link link-new-works" onclick="alert('📢 現在準備中です')" title="準備中"></div>
+        <!-- 追加：お知らせの扉 -->
+        <div class="invisible-link link-news-board" onclick="alert('📢 お知らせは現在準備中です')" title="お知らせ（準備中）"></div>
+        
+        <!-- 追加：新着作品の扉 -->
+        <div class="invisible-link link-new-works" onclick="alert('📢 新着作品は現在準備中です')" title="新着作品（準備中）"></div>
 
+        <!-- 🚪 時計台の扉（管理者・メンバーの部屋へランダムリンク） -->
         <a href="#" class="invisible-link link-member-room" id="member-door" title="時計台の扉を開く">
             <div class="door-glow-effect"></div>
         </a>
@@ -444,11 +455,13 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
+        <!-- 💬 一番下の白い看板の中にぴったり収める設定 -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
+    <!-- 🔮 突然真ん中に現れるメッセージボード -->
     <div class="magic-overlay" id="magic-overlay">
         <div class="magic-text" id="magic-text">迷ってますか？</div>
     </div>
@@ -543,7 +556,7 @@
             if (dd) dd.textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${weekDays[now.getDay()]}`;
         }
         
-        // スマホ環境での時計停止対策
+        // スマホ環境での時計停止対策：フォーカス時に再開
         window.addEventListener('focus', updateClock);
         updateClock();
         setInterval(updateClock, 1000);
