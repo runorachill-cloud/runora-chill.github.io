@@ -179,14 +179,7 @@
             z-index: 20;
         }
 
-        @media (min-width: 800px) {
-            .board-title { font-size: 28px; }
-            .board-column { font-size: 11px; }
-            .log-time { font-size: 9px; }
-            .shrine-title { font-size: 22px; }
-        }
-
-        /* 🔗 透明なリンク・ボタン共通 */
+        /* 🔗 リンク・ボタン共通 */
         .invisible-link {
             position: absolute;
             display: block;
@@ -204,6 +197,15 @@
             border-radius: 12px; 
         }
 
+        /* 準備中リンク（ピンクの扉と同サイズ、お知らせ掲示板上に配置） */
+        .link-news-board {
+            top: 68.5%;
+            left: 5.6%;
+            width: 17.0%;
+            height: 23.0%;
+            z-index: 11;
+        }
+
         /* メンバー一覧（緑の扉） */
         .link-member-portal { 
             top: 44.5%; 
@@ -213,7 +215,7 @@
             border-radius: 16px; 
         }
 
-        /* 🚪 時計台の扉（メンバーの部屋リンク） */
+        /* 🚪 時計台の扉 */
         .link-member-room {
             position: absolute;
             top: 38.0%;
@@ -226,7 +228,6 @@
             overflow: hidden;
         }
 
-        /* ✨ 扉が光るエフェクト */
         .door-glow-effect {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -237,7 +238,6 @@
             transition: all 0.5s ease;
         }
 
-        /* 魔法が発動して光が走っている状態のアニメーション */
         .is-glowing .door-glow-effect {
             animation: flashDoor 2.5s ease-in-out infinite;
             box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8), 0 0 10px rgba(255, 223, 115, 0.6);
@@ -251,7 +251,6 @@
             100% { background-position: -150% -150%; }
         }
 
-        /* 🔔 隠しギミック：金色のベル */
         .secret-bell-trigger {
             position: absolute;
             top: 22.1%;
@@ -262,7 +261,6 @@
             z-index: 15;
         }
 
-        /* 🐈 隠しギミック：時計塔のふもとの黒猫 */
         .secret-cat-trigger {
             position: absolute;
             top: 38.0%;
@@ -273,7 +271,6 @@
             z-index: 15;
         }
 
-        /* 💬 看板の中にぴったり収める設定 */
         .white-box-hint {
             position: absolute;
             top: 78.3%;  
@@ -305,11 +302,6 @@
             100% { opacity: 0.9; transform: scale(1); }
         }
 
-        @media (min-width: 800px) {
-            .hint-text { font-size: 13px; }
-        }
-
-        /* 🔮 突然真ん中に現れる案内メッセージボード */
         .magic-overlay {
             position: fixed;
             top: 50%;
@@ -338,7 +330,6 @@
             transition: opacity 0.6s ease-in-out;
         }
 
-        /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
         .floating-counter, .floating-meow, .floating-saisen {
             position: absolute;
             font-size: 3.2vw;
@@ -350,21 +341,9 @@
             animation: floatUpAway 1.2s ease-out forwards;
         }
 
-        .floating-counter {
-            color: #dca842;
-            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(140, 118, 98, 0.5);
-        }
-
-        .floating-meow {
-            color: #9e7a6b;
-            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 5px rgba(246, 238, 214, 0.8);
-            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
-        }
-
-        .floating-saisen {
-            color: #e67e22;
-            text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 6px rgba(230, 126, 34, 0.4);
-        }
+        .floating-counter { color: #dca842; text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9); }
+        .floating-meow { color: #9e7a6b; text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9); }
+        .floating-saisen { color: #e67e22; text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9); }
 
         @keyframes floatUpAway {
             0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
@@ -373,6 +352,11 @@
         }
 
         @media (min-width: 800px) {
+            .board-title { font-size: 28px; }
+            .board-column { font-size: 11px; }
+            .log-time { font-size: 9px; }
+            .shrine-title { font-size: 22px; }
+            .hint-text { font-size: 13px; }
             .floating-counter, .floating-meow, .floating-saisen { font-size: 26px; }
         }
     </style>
@@ -382,20 +366,17 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -407,7 +388,6 @@
             </div>
         </div>
 
-        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -416,14 +396,12 @@
             </div>
         </div>
 
-        <!-- 各種ボタン・リンク -->
-        <!-- 管理者の部屋（ピンクの扉） -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
-        
-        <!-- メンバー一覧（緑の扉） -->
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
         
-        <!-- 🚪 時計台の扉（管理者・メンバーの部屋へランダムリンク） -->
+        <!-- お知らせ掲示板上の準備中リンク -->
+        <div class="invisible-link link-news-board" onclick="alert('📢 現在準備中です')" title="準備中"></div>
+        
         <a href="#" class="invisible-link link-member-room" id="member-door" title="時計台の扉を開く">
             <div class="door-glow-effect"></div>
         </a>
@@ -431,25 +409,17 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 一番下の白い看板の中にぴったり収める設定 -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
-    <!-- 🔮 突然真ん中に現れるメッセージボード -->
     <div class="magic-overlay" id="magic-overlay">
         <div class="magic-text" id="magic-text">迷ってますか？</div>
     </div>
 
     <script>
-        // 🚪 各部屋へのランダム移動データ（初期値にあなたの部屋を追加）
-        // 💡 将来メンバーの部屋ができたら、ここにオブジェクトを追加していくだけで自動でランダム対象になります。
-        const memberRooms = [
-            { name: "管理者（私）の部屋", url: "my-room.html" }
-            // 例: { name: "〇〇さん（イラスト）", url: "member-a.html" }
-        ];
-
+        const memberRooms = [{ name: "管理者（私）の部屋", url: "my-room.html" }];
         const doorLink = document.getElementById('member-door');
         let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
         if (doorLink) {
@@ -457,129 +427,68 @@
             doorLink.title = `時計台の扉（現在は ${selectedRoom.name} に繋がっています）`;
         }
 
-        // ⏳ 魔法の案内タイマー（30秒=30000ms）
-        const TRIGGER_TIME = 30000; 
-
         setTimeout(() => {
             const overlay = document.getElementById('magic-overlay');
             const textEl = document.getElementById('magic-text');
-            
             if (overlay && textEl && doorLink) {
                 overlay.style.display = 'block';
                 setTimeout(() => { overlay.style.opacity = '1'; }, 50);
-
                 setTimeout(() => {
                     textEl.style.opacity = '0';
-                    
                     setTimeout(() => {
                         textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
                         textEl.style.opacity = '1';
-                        
                         doorLink.classList.add('is-glowing');
-
-                        setTimeout(() => {
-                            doorLink.classList.remove('is-glowing');
-                        }, 120000);
-
+                        setTimeout(() => { doorLink.classList.remove('is-glowing'); }, 120000);
                     }, 400);
-
                     setTimeout(() => {
                         overlay.style.opacity = '0';
                         setTimeout(() => { overlay.style.display = 'none'; }, 1200);
                     }, 3500);
-
                 }, 3000); 
             }
-        }, TRIGGER_TIME);
+        }, 30000);
 
         const hintMessages = [
-            "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
-            "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
-            "💡 村にいる黒猫をタップすると<br>鳴いてくれる噂です……🐈",
-            "💡 優しい時間が流れる村を、<br>のんびり散歩してくださいね🌸",
-            "💡 神社の奥には、1日1回<br>運を占える自販機があるかも🪙"
+            "💡 時計塔のまわりを探すと、何かが聞こえるかも……？🐾",
+            "💡 もふ神神社があります。お賽銭を入れて祈りましょう⛩️",
+            "💡 村にいる黒猫をタップすると鳴いてくれる噂です……🐈",
+            "💡 優しい時間が流れる村を、のんびり散歩してくださいね🌸",
+            "💡 神社の奥には、1日1回運を占える自販機があるかも🪙"
         ];
-        
-        const hintEl = document.getElementById('random-hint');
-        if (hintEl) {
-            hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
-        }
+        document.getElementById('random-hint').innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
 
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-            
-            const hourDeg = (hours % 12) * 30 + minutes * 0.5;
-            const minDeg = minutes * 6 + seconds * 0.1;
-            const secDeg = seconds * 6;
-            
-            const hh = document.getElementById('hour-hand');
-            const mh = document.getElementById('min-hand');
-            const sh = document.getElementById('sec-hand');
-            if (hh) hh.style.transform = `translateX(-50%) rotate(${hourDeg}deg)`;
-            if (mh) mh.style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
-            if (sh) sh.style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
-            
-            let displayHours = hours % 12;
-            displayHours = displayHours ? displayHours : 12; 
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            
-            const dt = document.getElementById('digi-time');
-            const dd = document.getElementById('digi-date');
-            if (dt) dt.textContent = `${String(displayHours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')} ${ampm}`;
-            
-            const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            if (dd) dd.textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${weekDays[now.getDay()]}`;
+            const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
+            document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${(h % 12) * 30 + m * 0.5}deg)`;
+            document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${m * 6 + s * 0.1}deg)`;
+            document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
+            let dispH = h % 12 || 12;
+            document.getElementById('digi-time').textContent = `${String(dispH).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${h>=12?'PM':'AM'}`;
+            document.getElementById('digi-date').textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][now.getDay()]}`;
         }
-        updateClock();
         setInterval(updateClock, 1000);
+        updateClock();
 
         const wrapper = document.getElementById('main-wrapper');
+        document.getElementById('bell-trigger').addEventListener('click', (e) => {
+            let c = parseInt(localStorage.getItem('bell_c') || '0', 10) + 1;
+            localStorage.setItem('bell_c', c);
+            const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = `🔔 ${c}回目`;
+            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
+        });
 
-        // ベル
-        const bellTrig = document.getElementById('bell-trigger');
-        if (bellTrig && wrapper) {
-            bellTrig.addEventListener('click', (e) => {
-                let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10) + 1;
-                localStorage.setItem('runora_bell_count', bellCount);
-                try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch (err) {}
-                const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = `🔔 ${bellCount}回目`;
-                const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-                wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
-            });
-        }
+        document.getElementById('cat-trigger').addEventListener('click', (e) => {
+            const f = document.createElement('div'); f.className = 'floating-meow'; f.innerText = '🐾 にゃ〜ん';
+            const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
+            wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
+        });
 
-        // 猫
-        const catTrig = document.getElementById('cat-trigger');
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
-        if (catTrig && wrapper) {
-            catTrig.addEventListener('click', (e) => {
-                try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
-                const f = document.createElement('div'); f.className = 'floating-meow'; f.innerText = meowTexts[Math.floor(Math.random()*meowTexts.length)];
-                const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-                wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
-            });
-        }
-
-        // お賽銭
-        const saisenTrig = document.getElementById('saisen-trigger');
-        if (saisenTrig && wrapper) {
-            saisenTrig.addEventListener('click', (e) => {
-                let saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10) + 1;
-                localStorage.setItem('runora_saisen_count', saisenCount);
-                try { new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav').play(); } catch (err) {}
-                
-                const f = document.createElement('div'); f.className = 'floating-saisen'; f.innerText = `🪙 お賽銭 ${saisenCount}回目`;
-                const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-                wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
-
-                setTimeout(() => {
-                    window.location.href = 'omikuji.html';
-                }, 1000);
-            });
-        }
+        document.getElementById('saisen-trigger').addEventListener('click', () => {
+            window.location.href = 'omikuji.html';
+        });
     </script>
 </body>
 </html>
