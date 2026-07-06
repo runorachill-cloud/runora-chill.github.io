@@ -195,13 +195,26 @@
             z-index: 10;
         }
 
-        /* 1️⃣ 管理者（私）の部屋カード */
-        .link-my-room { top: 43.5%; left: 4.8%; width: 16.5%; height: 14.5%; border-radius: 16px; }
+        /* 🛠️ ボタンのタップ判定エリアをしっかりと広げました */
+        /* 1️⃣ 管理者（ピンクの扉）カードのクリックエリア */
+        .link-my-room { 
+            top: 42.5%; 
+            left: 4.0%; 
+            width: 17.5%; 
+            height: 16.5%; 
+            border-radius: 16px; 
+        }
         
-        /* 2️⃣ 緑の扉カード（メンバー一覧ページへ） */
-        .link-member-portal { top: 43.5%; left: 23.3%; width: 16.5%; height: 14.5%; border-radius: 16px; }
+        /* 2️⃣ メンバー（緑の扉）カードのクリックエリア */
+        .link-member-portal { 
+            top: 42.5%; 
+            left: 22.5%; 
+            width: 17.5%; 
+            height: 16.5%; 
+            border-radius: 16px; 
+        }
 
-        /* 3️⃣ 時計台の中央の小さな扉（各部屋へランダムワープ！） */
+        /* 3️⃣ 時計台の中央の小さな扉 */
         .link-clock-door {
             position: absolute;
             top: 38.0%;
@@ -349,13 +362,13 @@
         </div>
 
         <!-- 🔗 各種メニューのクリックエリア -->
-        <!-- 1️⃣ 管理者の部屋 -->
+        <!-- 1️⃣ 管理者の部屋（ピンクの扉） -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- 2️⃣ 緑の扉（メンバー一覧ページへ連動） -->
+        <!-- 2️⃣ メンバーの部屋（緑の扉） -->
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
 
-        <!-- 3️⃣ 時計台の小さな扉（ランダムワープ機能！） -->
+        <!-- 3️⃣ 時計台の小さな扉（ランダムワープ機能） -->
         <a href="#" class="invisible-link link-clock-door" id="clock-random-door" title="誰かのお部屋にランダムワープ！"></a>
 
         <!-- 🔔 鐘と黒猫のギミック用トリガー -->
@@ -369,9 +382,9 @@
     </div>
 
     <script>
-        // 🔮 メンバーが増えたらここにファイル名を追加していくリスト（あなたも含む）
+        // 🔮 メンバーが増えたらここにファイル名を追加していくリスト
         const memberRooms = [
-            'my-room.html' // 現在はあなたの部屋だけ。増えたら 'room2.html', 'room3.html' のように追加します
+            'my-room.html'
         ];
 
         // 🕒 時計台の扉をクリックしたときのランダム転送処理
@@ -379,7 +392,6 @@
         if (clockDoor) {
             clockDoor.addEventListener('click', (e) => {
                 e.preventDefault();
-                // 登録されている部屋リストからランダムで1つ選択してジャンプ
                 const randomRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
                 window.location.href = randomRoom;
             });
