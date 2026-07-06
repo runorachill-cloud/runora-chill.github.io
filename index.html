@@ -219,10 +219,10 @@
             z-index: 15;
         }
 
-        /* 💬 一番下の白い看板の中にぴったり収める設定 */
+        /* 💬 看板の中にぴったり収める設定（位置を少し下に調整） */
         .white-box-hint {
             position: absolute;
-            top: 76.5%;  
+            top: 76.8%;  /* 76.5% から 76.8% に少し下げました */
             left: 27.0%; 
             width: 44.0%; 
             height: 3.5%; 
@@ -241,7 +241,7 @@
             font-weight: bold;
             text-align: center;
             letter-spacing: 0.2px;
-            line-height: 1.4;
+            line-height: 1.45;
             white-space: normal; 
             animation: fadeInHint 0.8s ease-out forwards;
         }
@@ -345,7 +345,7 @@
     </div>
 
     <script>
-        // 📢 運営メッセージ（各行22〜24文字前後に完全調整）
+        // 📢 運営メッセージ
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
