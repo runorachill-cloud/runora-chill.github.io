@@ -204,9 +204,9 @@
             border-radius: 12px; 
         }
 
-        /* 🎯 【サイズ調整】メンバー一覧（緑の扉）をふた周りほど拡大 */
+        /* 🎯 【微調整】メンバー一覧（緑の扉）の位置を少しだけ下（top: 44.5%）へ変更 */
         .link-member-portal { 
-            top: 43.0%; 
+            top: 44.5%; 
             left: 21.5%; 
             width: 19.5%; 
             height: 16.0%; 
@@ -561,7 +561,7 @@
 
         // 猫
         const catTrig = document.getElementById('cat-trigger');
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃオ？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
         if (catTrig && wrapper) {
             catTrig.addEventListener('click', (e) => {
                 try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
