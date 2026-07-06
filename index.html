@@ -195,8 +195,8 @@
             z-index: 10;
         }
 
-        /* 🎯 【修正】白い内枠線に完璧に一致させました */
-        /* 1️⃣ 管理者の部屋（ピンクの扉の白い内枠） */
+        /* 🎯 【修正】各カードのイラスト内「白い内枠線」に完全に合わせました */
+        /* 1️⃣ 管理者の部屋（ピンクの扉） */
         .link-my-room { 
             top: 45.4%; 
             left: 5.6%; 
@@ -205,7 +205,7 @@
             border-radius: 12px; 
         }
         
-        /* 2️⃣ メンバーの部屋（緑の扉の白い内枠） */
+        /* 2️⃣ メンバーの部屋（緑の扉） */
         .link-member-portal { 
             top: 45.4%; 
             left: 23.9%; 
@@ -248,10 +248,10 @@
             z-index: 15;
         }
 
-        /* 💬 【修正】一番下の看板パーツ内にある「小さな白い枠」に位置を完全固定 */
+        /* 💬 【大修正】最下部の電球マーク付きの白い看板枠に位置をジャストフィット */
         .white-box-hint {
             position: absolute;
-            top: 76.5%;  
+            top: 86.2%;  
             left: 36.5%; 
             width: 27.0%; 
             height: 3.5%; 
@@ -274,11 +274,11 @@
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
-        /* ✨ 【復元】消えていた光る・フェードインのエフェクト */
+        /* ✨ 【完全復元】メッセージ切り替え時の光るフェードイン効果 */
         @keyframes fadeInHint {
             0% { opacity: 0; transform: scale(0.95); filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
-            50% { filter: drop-shadow(0 0 4px rgba(243,156,18,0.4)); }
-            100% { opacity: 0.9; transform: scale(1); filter: drop-shadow(0 0 1px rgba(255,255,255,0)); }
+            50% { filter: drop-shadow(0 0 4px rgba(243,156,18,0.5)); }
+            100% { opacity: 0.9; transform: scale(1); filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
         }
 
         @media (min-width: 800px) {
@@ -398,7 +398,7 @@
             });
         }
 
-        // 📢 【復元】誘導メッセージ（メッセージ内容と、30秒ごとの切り替えループ処理）
+        // 📢 【完全復元】誘導メッセージと30秒ごとのループ切り替え処理
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
@@ -411,14 +411,13 @@
         
         function changeHintMessage() {
             if (!hintEl) return;
-            // 一度フェードアウトさせてから切り替えるエフェクト用の処理
             hintEl.style.animation = 'none';
-            hintEl.offsetHeight; // トリガー
+            hintEl.offsetHeight; // リフローを発生させてアニメーションをリセット
             hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
             hintEl.style.animation = 'fadeInHint 0.8s ease-out forwards';
         }
 
-        // 初回実行と30秒ごとのローテーション設定
+        // 初回実行と30秒ごとの定期切り替えを実行
         changeHintMessage();
         setInterval(changeHintMessage, 30000);
 
