@@ -219,7 +219,7 @@
             z-index: 15;
         }
 
-        /* 💬 白い枠の「下半分」に安全に3センチ移動させる設定 🛠️ */
+        /* 💬 白い枠の「下半分」にぴったり合わせる設定 🛠️ */
         .white-box-hint {
             position: absolute;
             top: 76.5%;  
@@ -232,8 +232,8 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            /* 🛠️ 安全に見た目だけを3センチほど下に押し下げます */
-            transform: translateY(6vw); 
+            /* 🛠️ 移動距離を大きくして、一番下の白い看板の中にぴったり収まるようにしました */
+            transform: translateY(12.5vw); 
         }
 
         .hint-text {
@@ -339,7 +339,7 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 安全に3センチ下にずらしたメッセージエリア -->
+        <!-- 💬 安全に一番下の白い枠の中にずらしたメッセージエリア -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
@@ -407,7 +407,7 @@
 
         // 猫
         const catTrig = document.getElementById('cat-trigger');
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃオ？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
         if (catTrig && wrapper) {
             catTrig.addEventListener('click', (e) => {
                 try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
