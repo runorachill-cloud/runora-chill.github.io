@@ -195,8 +195,8 @@
             z-index: 10;
         }
 
-        /* 🎯 【微調整】各カードのイラストを囲う「白い枠線」の位置 */
-        /* 1️⃣ 管理者の部屋 */
+        /* 🎯 【修正】白い内枠線に完璧に一致させました */
+        /* 1️⃣ 管理者の部屋（ピンクの扉の白い内枠） */
         .link-my-room { 
             top: 45.4%; 
             left: 5.6%; 
@@ -205,7 +205,7 @@
             border-radius: 12px; 
         }
         
-        /* 2️⃣ メンバーの部屋 */
+        /* 2️⃣ メンバーの部屋（緑の扉の白い内枠） */
         .link-member-portal { 
             top: 45.4%; 
             left: 23.9%; 
@@ -248,7 +248,7 @@
             z-index: 15;
         }
 
-        /* 💬 【修正】一番下の大きな看板の中にある「小さな白い枠」へ配置 */
+        /* 💬 【修正】一番下の看板パーツ内にある「小さな白い枠」に位置を完全固定 */
         .white-box-hint {
             position: absolute;
             top: 76.5%;  
@@ -274,9 +274,11 @@
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
+        /* ✨ 【復元】消えていた光る・フェードインのエフェクト */
         @keyframes fadeInHint {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 0.9; transform: scale(1); }
+            0% { opacity: 0; transform: scale(0.95); filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
+            50% { filter: drop-shadow(0 0 4px rgba(243,156,18,0.4)); }
+            100% { opacity: 0.9; transform: scale(1); filter: drop-shadow(0 0 1px rgba(255,255,255,0)); }
         }
 
         @media (min-width: 800px) {
@@ -364,7 +366,7 @@
         <!-- 1️⃣ 管理者の部屋（ピンクの扉） -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- 2️⃣ メンバーの部屋（緑の扉) -->
+        <!-- 2️⃣ メンバーの部屋（緑の扉） -->
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
 
         <!-- 3️⃣ 時計台の小さな扉（ランダムワープ機能） -->
@@ -381,12 +383,12 @@
     </div>
 
     <script>
-        // 🔮 メンバーが増えたらここにファイル名を追加していくリスト
+        // 🔮 メンバー一覧
         const memberRooms = [
             'my-room.html'
         ];
 
-        // 🕒 時計台の扉をクリックしたときのランダム転送処理
+        // 🕒 時計台の扉（ランダム転送）
         const clockDoor = document.getElementById('clock-random-door');
         if (clockDoor) {
             clockDoor.addEventListener('click', (e) => {
@@ -396,7 +398,7 @@
             });
         }
 
-        // 📢 運営メッセージ
+        // 📢 【復元】誘導メッセージ（メッセージ内容と、30秒ごとの切り替えループ処理）
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
@@ -406,9 +408,19 @@
         ];
         
         const hintEl = document.getElementById('random-hint');
-        if (hintEl) {
+        
+        function changeHintMessage() {
+            if (!hintEl) return;
+            // 一度フェードアウトさせてから切り替えるエフェクト用の処理
+            hintEl.style.animation = 'none';
+            hintEl.offsetHeight; // トリガー
             hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
+            hintEl.style.animation = 'fadeInHint 0.8s ease-out forwards';
         }
+
+        // 初回実行と30秒ごとのローテーション設定
+        changeHintMessage();
+        setInterval(changeHintMessage, 30000);
 
         function updateClock() {
             const now = new Date();
