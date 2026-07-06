@@ -256,7 +256,7 @@
             z-index: 15;
         }
 
-        /* 💬 看板の中にぴったり収める設定 */
+        /* 💬 看板の案内テキスト */
         .white-box-hint {
             position: absolute;
             top: 78.3%;  
@@ -421,23 +421,13 @@
     </div>
 
     <script>
-        // 🚪 将来的なメンバー部屋のデータリスト（※現在は準備中ポップアップになります）
-        const memberRooms = [
-            { name: "〇〇さん（イラスト）" },
-            { name: "🪶 △△さん（小説）" },
-            { name: "🎵 □□さん（音楽）" }
-        ];
-
-        // ランダムで訪問先を決定
+        // 🚪 時計台の扉の接続設定
         const doorLink = document.getElementById('member-door');
-        let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
         if (doorLink) {
-            doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
-
-            // 🛠️【新規追加】クリックした時に「準備中」のアラートを出す対策
+            // 🌟 メンバー一覧仮設ページ（member-portal.html）へジャンプさせる設定
             doorLink.addEventListener('click', (e) => {
-                e.preventDefault(); // 画面遷移をストップ
-                alert(`✨「${selectedRoom.name}の部屋」は現在もふもふ準備中です。公開をお楽しみに！ ✨`);
+                e.preventDefault(); 
+                window.location.href = 'member-portal.html';
             });
         }
 
@@ -456,13 +446,13 @@
                     textEl.style.opacity = '0';
                     
                     setTimeout(() => {
-                        textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
+                        textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ メンバーの部屋へのトビラが開いたようです</span>`;
                         textEl.style.opacity = '1';
                         
                         // 扉を光らせる
                         doorLink.classList.add('is-glowing');
 
-                        // ⏰ 2分後（120000ms）に光を消す
+                        // ⏰ 2分後（120000ms）に光を自動で消す
                         setTimeout(() => {
                             doorLink.classList.remove('is-glowing');
                         }, 120000);
