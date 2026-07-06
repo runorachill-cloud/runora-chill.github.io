@@ -219,10 +219,10 @@
             z-index: 15;
         }
 
-        /* 💬 白い枠の「下半分」にぴったり重なるメッセージエリア */
+        /* 💬 白い枠の「一番下（真下へ3センチほど移動）」にぴったり重ねる設定 🛠️ */
         .white-box-hint {
             position: absolute;
-            top: 76.5%;  
+            top: 83.2%;  
             left: 29.5%; 
             width: 41.0%; 
             height: 3.5%; 
@@ -296,7 +296,7 @@
 <body>
 
     <div class="wrapper" id="main-wrapper">
-        <!-- ⚠️【重要】実際の背景画像のファイル名に書き換えてください -->
+        <!-- 背景画像名をお使いのものに合わせてください -->
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
         <!-- アナログ時計 -->
@@ -317,7 +317,7 @@
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
                 <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
-                <div class="log-item"><span class="log-text">🎨 〇͡〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
+                <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
                 <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
                 <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
                 <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
@@ -328,7 +328,7 @@
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
-                <!-- ⚠️【重要】実際の神社の画像のファイル名に書き換えてください -->
+                <!-- 神社画像名をお使いのものに合わせてください -->
                 <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
                 <div class="saisen-trigger" id="saisen-trigger" title="お賽銭を入れる"></div>
             </div>
@@ -339,7 +339,7 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 白い枠の「下半分」にぴったり重なるメッセージエリア -->
+        <!-- 💬 白い枠の一番下にぴったり重なるメッセージエリア -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
@@ -354,7 +354,6 @@
             "💡 神社の奥には、1日1回だけ運を占える自動販売機があるとか……？🪙"
         ];
         
-        // ランダムメッセージの表示（エラー防止のため存在チェック付き）
         const hintEl = document.getElementById('random-hint');
         if (hintEl) {
             hintEl.textContent = hintMessages[Math.floor(Math.random() * hintMessages.length)];
@@ -393,7 +392,7 @@
 
         const wrapper = document.getElementById('main-wrapper');
 
-        // ベルのトリガー
+        // ベル
         const bellTrig = document.getElementById('bell-trigger');
         if (bellTrig && wrapper) {
             bellTrig.addEventListener('click', (e) => {
@@ -406,7 +405,7 @@
             });
         }
 
-        // 猫のトリガー
+        // 猫
         const catTrig = document.getElementById('cat-trigger');
         const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
         if (catTrig && wrapper) {
@@ -418,7 +417,7 @@
             });
         }
 
-        // お賽銭のトリガー
+        // お賽銭
         const saisenTrig = document.getElementById('saisen-trigger');
         if (saisenTrig && wrapper) {
             saisenTrig.addEventListener('click', (e) => {
