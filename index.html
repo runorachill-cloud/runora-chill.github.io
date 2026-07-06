@@ -223,7 +223,6 @@
         .white-box-hint {
             position: absolute;
             top: 76.5%;  
-            /* 🛠️ 左側に少しずらし、幅をわずかに広げて左右対称に配置 */
             left: 27.0%; 
             width: 44.0%; 
             height: 3.5%; 
@@ -233,7 +232,8 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            transform: translateY(25.0vw); 
+            /* 🛠️ ここを引き上げて、看板の白い部分に綺麗に入れます */
+            transform: translateY(23.7vw); 
         }
 
         .hint-text {
