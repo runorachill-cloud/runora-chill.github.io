@@ -219,20 +219,21 @@
             z-index: 15;
         }
 
-        /* 💬 白い枠の範囲内に固定しつつ、安全に下へ押し下げる設定 🛠️ */
+        /* 💬 白い枠の「下半分」に安全に3センチ移動させる設定 🛠️ */
         .white-box-hint {
             position: absolute;
-            top: 76.5%;  /* 確実に表示される安全な位置に戻しました */
+            top: 76.5%;  
             left: 29.5%; 
             width: 41.0%; 
-            height: 8.0%; /* 高さに余裕を持たせました */
+            height: 3.5%; 
             display: flex;
-            align-items: flex-end; /* 🛠️ 枠内の「一番下」に文字を寄せます */
+            align-items: center;
             justify-content: center;
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            padding-bottom: 5px; /* 🛠️ 下にずらす微調整用の余白 */
+            /* 🛠️ 安全に見た目だけを3センチほど下に押し下げます */
+            transform: translateY(6vw); 
         }
 
         .hint-text {
@@ -338,7 +339,7 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 白い枠の下半分に安全に寄せるエリア -->
+        <!-- 💬 安全に3センチ下にずらしたメッセージエリア -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
