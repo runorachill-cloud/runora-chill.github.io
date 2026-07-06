@@ -195,44 +195,11 @@
             z-index: 10;
         }
 
-        .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
-
-        /* 🚪 時計台の扉（メンバーの部屋リンク） */
-        .link-member-room {
-            position: absolute;
-            top: 38.0%;
-            left: 65.3%;
-            width: 10.5%;
-            height: 7.5%;
-            border-top-left-radius: 50% 100%;
-            border-top-right-radius: 50% 100%;
-            z-index: 12;
-            overflow: hidden;
-        }
-
-        /* ✨ 扉が光るエフェクト */
-        .door-glow-effect {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%);
-            background-size: 300% 300%;
-            background-position: -150% -150%;
-            pointer-events: none;
-            transition: all 0.5s ease;
-        }
-
-        .is-glowing .door-glow-effect {
-            animation: flashDoor 2.5s ease-in-out infinite;
-            box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8), 0 0 10px rgba(255, 223, 115, 0.6);
-            border: 2px solid rgba(255, 223, 115, 0.5);
-            box-sizing: border-box;
-        }
-
-        @keyframes flashDoor {
-            0% { background-position: -150% -150%; }
-            50% { background-position: 150% 150%; }
-            100% { background-position: -150% -150%; }
-        }
+        /* リンクの位置情報（％指定） */
+        .link-my-room { top: 43.5%; left: 4.8%; width: 16.5%; height: 14.5%; border-radius: 16px; }
+        
+        /* 🌟 緑の扉カード（メンバーの部屋）のクリックエリア */
+        .link-member-room { top: 43.5%; left: 23.3%; width: 16.5%; height: 14.5%; border-radius: 16px; }
 
         /* 🔔 隠しギミック：金色のベル */
         .secret-bell-trigger {
@@ -292,35 +259,6 @@
             .hint-text { font-size: 13px; }
         }
 
-        /* 🔮 突然真ん中に現れる案内メッセージボード */
-        .magic-overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(246, 238, 214, 0.94); 
-            border: 2px solid #b8a07c;
-            padding: 24px 48px;
-            border-radius: 16px;
-            box-shadow: 0 10px 35px rgba(140, 118, 98, 0.3);
-            z-index: 1000;
-            display: none;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
-        }
-
-        .magic-text {
-            font-size: 21px;
-            font-weight: bold;
-            color: #5c4a3c;
-            text-align: center;
-            line-height: 1.6;
-            white-space: nowrap;
-            opacity: 1;
-            transition: opacity 0.6s ease-in-out;
-        }
-
         /* 浮き出るエフェクト */
         .floating-counter, .floating-meow, .floating-saisen {
             position: absolute;
@@ -364,20 +302,17 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -389,7 +324,6 @@
             </div>
         </div>
 
-        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -398,77 +332,19 @@
             </div>
         </div>
 
-        <!-- 各種ボタン・リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- 🚪 時計台の扉（メンバーの部屋リンク） -->
-        <a href="#" class="invisible-link link-member-room" id="member-door" title="メンバーの部屋を見る">
-            <div class="door-glow-effect"></div>
-        </a>
+        <a href="member-portal.html" class="invisible-link link-member-room" title="メンバーの部屋を見る"></a>
 
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 看板の案内テキスト -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
-    <!-- 🔮 メッセージボード -->
-    <div class="magic-overlay" id="magic-overlay">
-        <div class="magic-text" id="magic-text">迷ってますか？</div>
-    </div>
-
     <script>
-        // 🚪 時計台の扉の接続設定
-        const doorLink = document.getElementById('member-door');
-        if (doorLink) {
-            // 🌟 メンバー一覧仮設ページ（member-portal.html）へジャンプさせる設定
-            doorLink.addEventListener('click', (e) => {
-                e.preventDefault(); 
-                window.location.href = 'member-portal.html';
-            });
-        }
-
-        // ⏳ 魔法の案内タイマー（30秒=30000ms）
-        const TRIGGER_TIME = 30000; 
-
-        setTimeout(() => {
-            const overlay = document.getElementById('magic-overlay');
-            const textEl = document.getElementById('magic-text');
-            
-            if (overlay && textEl && doorLink) {
-                overlay.style.display = 'block';
-                setTimeout(() => { overlay.style.opacity = '1'; }, 50);
-
-                setTimeout(() => {
-                    textEl.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ メンバーの部屋へのトビラが開いたようです</span>`;
-                        textEl.style.opacity = '1';
-                        
-                        // 扉を光らせる
-                        doorLink.classList.add('is-glowing');
-
-                        // ⏰ 2分後（120000ms）に光を自動で消す
-                        setTimeout(() => {
-                            doorLink.classList.remove('is-glowing');
-                        }, 120000);
-
-                    }, 400);
-
-                    setTimeout(() => {
-                        overlay.style.opacity = '0';
-                        setTimeout(() => { overlay.style.display = 'none'; }, 1200);
-                    }, 3500);
-
-                }, 3000); 
-            }
-        }, TRIGGER_TIME);
-
-
         // 📢 運営メッセージ
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
