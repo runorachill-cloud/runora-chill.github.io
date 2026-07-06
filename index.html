@@ -195,8 +195,7 @@
             z-index: 10;
         }
 
-        /* 🎯 【修正】各カードのイラスト内「白い内枠線」に完全に合わせました */
-        /* 1️⃣ 管理者の部屋（ピンクの扉） */
+        /* 🎯 【修正】管理者の部屋（ピンクの扉）の選択枠をイラストの内枠へ完璧にフィット */
         .link-my-room { 
             top: 45.4%; 
             left: 5.6%; 
@@ -204,18 +203,9 @@
             height: 11.4%; 
             border-radius: 12px; 
         }
-        
-        /* 2️⃣ メンバーの部屋（緑の扉） */
-        .link-member-portal { 
-            top: 45.4%; 
-            left: 23.9%; 
-            width: 14.8%; 
-            height: 11.4%; 
-            border-radius: 12px; 
-        }
 
-        /* 3️⃣ 時計台の中央の小さな扉 */
-        .link-clock-door {
+        /* 🚪 時計台の扉（メンバーの部屋リンク） */
+        .link-member-room {
             position: absolute;
             top: 38.0%;
             left: 65.3%;
@@ -224,6 +214,32 @@
             border-top-left-radius: 50% 100%;
             border-top-right-radius: 50% 100%;
             z-index: 12;
+            overflow: hidden;
+        }
+
+        /* ✨ 扉が光るエフェクト */
+        .door-glow-effect {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%);
+            background-size: 300% 300%;
+            background-position: -150% -150%;
+            pointer-events: none;
+            transition: all 0.5s ease;
+        }
+
+        /* 魔法が発動して光が走っている状態のアニメーション */
+        .is-glowing .door-glow-effect {
+            animation: flashDoor 2.5s ease-in-out infinite;
+            box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8), 0 0 10px rgba(255, 223, 115, 0.6);
+            border: 2px solid rgba(255, 223, 115, 0.5);
+            box-sizing: border-box;
+        }
+
+        @keyframes flashDoor {
+            0% { background-position: -150% -150%; }
+            50% { background-position: 150% 150%; }
+            100% { background-position: -150% -150%; }
         }
 
         /* 🔔 隠しギミック：金色のベル */
@@ -248,12 +264,12 @@
             z-index: 15;
         }
 
-        /* 💬 【大修正】最下部の電球マーク付きの白い看板枠に位置をジャストフィット */
+        /* 💬 看板の中にぴったり収める設定 */
         .white-box-hint {
             position: absolute;
-            top: 86.2%;  
-            left: 36.5%; 
-            width: 27.0%; 
+            top: 78.3%;  
+            left: 27.0%; 
+            width: 44.0%; 
             height: 3.5%; 
             display: flex;
             align-items: center;
@@ -261,31 +277,60 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
+            transform: translateY(23.4vw); 
         }
 
         .hint-text {
-            font-size: 1.25vw; 
+            font-size: 1.6vw; 
             color: #8c7662;
             font-weight: bold;
             text-align: center;
-            letter-spacing: 0.1px;
-            line-height: 1.3;
+            letter-spacing: 0.2px;
+            line-height: 1.45;
             white-space: normal; 
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
-        /* ✨ 【完全復元】メッセージ切り替え時の光るフェードイン効果 */
+        /* 🔄 アニメーション切り替えに対応させるため、再実行できるようにリセット設定を追加 */
         @keyframes fadeInHint {
-            0% { opacity: 0; transform: scale(0.95); filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
-            50% { filter: drop-shadow(0 0 4px rgba(243,156,18,0.5)); }
-            100% { opacity: 0.9; transform: scale(1); filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 0.9; transform: scale(1); }
         }
 
         @media (min-width: 800px) {
-            .hint-text { font-size: 10px; }
+            .hint-text { font-size: 13px; }
         }
 
-        /* 浮き出るエフェクト */
+        /* 🔮 突然真ん中に現れる案内メッセージボード */
+        .magic-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(246, 238, 214, 0.94); 
+            border: 2px solid #b8a07c;
+            padding: 24px 48px;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(140, 118, 98, 0.3);
+            z-index: 1000;
+            display: none;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .magic-text {
+            font-size: 21px;
+            font-weight: bold;
+            color: #5c4a3c;
+            text-align: center;
+            line-height: 1.6;
+            white-space: nowrap;
+            opacity: 1;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
         .floating-counter, .floating-meow, .floating-saisen {
             position: absolute;
             font-size: 3.2vw;
@@ -305,6 +350,7 @@
         .floating-meow {
             color: #9e7a6b;
             text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9), 0 0 5px rgba(246, 238, 214, 0.8);
+            font-family: 'Hiragino Maru Gothic ProN', 'ヒラギノ丸ゴ ProN', sans-serif;
         }
 
         .floating-saisen {
@@ -362,43 +408,86 @@
             </div>
         </div>
 
-        <!-- 🔗 各種メニューのクリックエリア -->
-        <!-- 1️⃣ 管理者の部屋（ピンクの扉） -->
+        <!-- 各種ボタン・リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- 2️⃣ メンバーの部屋（緑の扉） -->
-        <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
+        <!-- 🚪 時計台の扉（メンバーの部屋リンク） -->
+        <a href="#" class="invisible-link link-member-room" id="member-door" title="メンバーの部屋を見る">
+            <div class="door-glow-effect"></div>
+        </a>
 
-        <!-- 3️⃣ 時計台の小さな扉（ランダムワープ機能） -->
-        <a href="#" class="invisible-link link-clock-door" id="clock-random-door" title="誰かのお部屋にランダムワープ！"></a>
-
-        <!-- 🔔 鐘と黒猫のギミック用トリガー -->
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 看板の案内テキスト -->
+        <!-- 💬 一番下の白い看板の中にぴったり収める設定 -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
+    <!-- 🔮 突然真ん中に現れるメッセージボード -->
+    <div class="magic-overlay" id="magic-overlay">
+        <div class="magic-text" id="magic-text">迷ってますか？</div>
+    </div>
+
     <script>
-        // 🔮 メンバー一覧
+        // 🚪 将来的なメンバー部屋のデータリスト
         const memberRooms = [
-            'my-room.html'
+            { name: "〇〇さん（イラスト）", url: "member-a.html" },
+            { name: "🪶 △△さん（小説）", url: "member-b.html" },
+            { name: "🎵 □□さん（音楽）", url: "member-c.html" }
         ];
 
-        // 🕒 時計台の扉（ランダム転送）
-        const clockDoor = document.getElementById('clock-random-door');
-        if (clockDoor) {
-            clockDoor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const randomRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
-                window.location.href = randomRoom;
-            });
+        // 最初からランダムでセットしておく
+        const doorLink = document.getElementById('member-door');
+        let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
+        if (doorLink) {
+            doorLink.href = selectedRoom.url;
+            doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
         }
 
-        // 📢 【完全復元】誘導メッセージと30秒ごとのループ切り替え処理
+        // ⏳ 魔法の案内タイマー（30秒=30000msに設定中）
+        const TRIGGER_TIME = 30000; 
+
+        setTimeout(() => {
+            const overlay = document.getElementById('magic-overlay');
+            const textEl = document.getElementById('magic-text');
+            
+            if (overlay && textEl && doorLink) {
+                // 1. 真ん中に『迷ってますか？』をじわ〜っとフェードイン
+                overlay.style.display = 'block';
+                setTimeout(() => { overlay.style.opacity = '1'; }, 50);
+
+                // 2. 3秒後（3000ms）に文字を切り替え、同時に時計台の扉を光らせる
+                setTimeout(() => {
+                    textEl.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
+                        textEl.style.opacity = '1';
+                        
+                        // 時計台の扉を美しく光らせる
+                        doorLink.classList.add('is-glowing');
+
+                        // ⏰【新規実装】扉が光り始めてから2分後（120000ms）に光を自動で消す
+                        setTimeout(() => {
+                            doorLink.classList.remove('is-glowing');
+                        }, 120000);
+
+                    }, 400);
+
+                    // 中央メッセージボードを優しく消す（3.5秒後）
+                    setTimeout(() => {
+                        overlay.style.opacity = '0';
+                        setTimeout(() => { overlay.style.display = 'none'; }, 1200);
+                    }, 3500);
+
+                }, 3000); 
+            }
+        }, TRIGGER_TIME);
+
+
+        // 📢 運営メッセージのリスト
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
@@ -409,15 +498,17 @@
         
         const hintEl = document.getElementById('random-hint');
         
+        // 🎯 【機能追加】看板のテキストを30秒ごとに優しく切り替える処理
         function changeHintMessage() {
             if (!hintEl) return;
+            // アニメーションを一旦リセットしてフェードインを再発動させる
             hintEl.style.animation = 'none';
-            hintEl.offsetHeight; // リフローを発生させてアニメーションをリセット
+            hintEl.offsetHeight; // リフローを発生させてリセットを確定
             hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
             hintEl.style.animation = 'fadeInHint 0.8s ease-out forwards';
         }
 
-        // 初回実行と30秒ごとの定期切り替えを実行
+        // 初回実行と、30秒（30000ms）ごとの自動ループ切り替え
         changeHintMessage();
         setInterval(changeHintMessage, 30000);
 
@@ -469,7 +560,7 @@
 
         // 猫
         const catTrig = document.getElementById('cat-trigger');
-        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃオ？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
+        const meowTexts = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'];
         if (catTrig && wrapper) {
             catTrig.addEventListener('click', (e) => {
                 try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
