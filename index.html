@@ -232,18 +232,20 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            /* 🛠️ 上の文字との重なりを解消し、看板の下部スペースに配置 */
-            transform: translateY(23.5vw); 
+            /* 🛠️ 2行になった際の見栄えを考慮し、微調整 */
+            transform: translateY(22.8vw); 
         }
 
         .hint-text {
-            font-size: 1.4vw; 
+            /* 🛠️ 文字サイズを少し大きく変更 */
+            font-size: 1.6vw; 
             color: #8c7662;
             font-weight: bold;
             text-align: center;
             letter-spacing: 0.2px;
-            line-height: 1.2;
-            white-space: nowrap; 
+            line-height: 1.3;
+            /* 🛠️ 横幅に合わせて自動で2行に改行させる設定 */
+            white-space: normal; 
             animation: fadeInHint 0.8s ease-out forwards;
         }
 
@@ -253,7 +255,7 @@
         }
 
         @media (min-width: 800px) {
-            .hint-text { font-size: 11px; }
+            .hint-text { font-size: 13px; }
         }
 
         /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
