@@ -197,14 +197,14 @@
 
         .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
 
-        /* 🚪 修正：image_5.pngの白い線で囲まれた「時計台の本来の扉」に位置を変更 */
+        /* 🚪 修正：image_4.pngを基に右斜め上へ完全にフィット */
         .link-member-room {
             position: absolute;
-            top: 39.2%;        /* 縦位置を時計台中央の扉に調整 */
-            left: 61.0%;       /* 横位置を時計台中央の扉に調整 */
-            width: 13.0%;      /* 扉の横幅にフィット */
-            height: 7.2%;      /* 扉の縦幅にフィット */
-            border-top-left-radius: 50% 100%;  /* アーチ型の扉の上部に合わせる設定 */
+            top: 38.0%;        /* 少し上へ移動 */
+            left: 69.5%;       /* デジタル時計の下（右側）へ移動 */
+            width: 10.5%;      /* 扉の横幅に合わせて少しシャープに */
+            height: 7.5%;      /* 扉の縦幅 */
+            border-top-left-radius: 50% 100%;  
             border-top-right-radius: 50% 100%;
             z-index: 12;
             overflow: hidden;
@@ -438,7 +438,7 @@
             doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
         }
 
-        // ⏳ 魔法の案内タイマー（テスト用に30秒=30000msに設定中）
+        // ⏳ 魔法の案内タイマー（30秒=30000msに設定中）
         const TRIGGER_TIME = 30000; 
 
         setTimeout(() => {
