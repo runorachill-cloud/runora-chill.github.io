@@ -197,6 +197,42 @@
 
         .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
 
+        /* 🚪 メンバーの部屋への扉（新設：ここが魔法で光ります） */
+        .link-member-room {
+            position: absolute;
+            top: 43.1%;
+            left: 24.3%;
+            width: 15.3%;
+            height: 15.2%;
+            border-radius: 12px;
+            z-index: 12;
+            overflow: hidden; /* 光エフェクトをはみ出させないため */
+        }
+
+        /* ✨ 扉が光るエフェクト用の子要素 */
+        .door-glow-effect {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%);
+            background-size: 300% 300%;
+            background-position: -150% -150%;
+            pointer-events: none;
+        }
+
+        /* 光が走るアニメーションクラス */
+        .is-glowing .door-glow-effect {
+            animation: flashDoor 2.5s ease-in-out infinite;
+            box-shadow: inset 0 0 20px rgba(255, 235, 173, 0.8), 0 0 15px rgba(255, 223, 115, 0.6);
+            border: 2px solid rgba(255, 223, 115, 0.8);
+            box-sizing: border-box;
+        }
+
+        @keyframes flashDoor {
+            0% { background-position: -150% -150%; }
+            50% { background-position: 150% 150%; }
+            100% { background-position: -150% -150%; }
+        }
+
         /* 🔔 隠しギミック：金色のベル */
         .secret-bell-trigger {
             position: absolute;
@@ -219,10 +255,10 @@
             z-index: 15;
         }
 
-        /* 💬 看板の中にぴったり収める設定（さらに文字1行分下へ調整） */
+        /* 💬 看板の中にぴったり収める設定 */
         .white-box-hint {
             position: absolute;
-            top: 78.3%;  /* 76.8% から約1行分（1.5%）下げて 78.3% に調整 */
+            top: 78.3%;  
             left: 27.0%; 
             width: 44.0%; 
             height: 3.5%; 
@@ -253,6 +289,33 @@
 
         @media (min-width: 800px) {
             .hint-text { font-size: 13px; }
+        }
+
+        /* 🔮 突然真ん中に現れる案内メッセージメッセージ */
+        .magic-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(246, 238, 214, 0.92); /* 世界観に合わせたクリーム色調 */
+            border: 2px solid #b8a07c;
+            padding: 20px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(140, 118, 98, 0.25);
+            z-index: 1000;
+            display: none;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .magic-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #5c4a3c;
+            text-align: center;
+            line-height: 1.5;
+            white-space: nowrap;
         }
 
         /* 浮き出るカウンター・鳴き声・お賽銭テキスト */
@@ -333,8 +396,14 @@
             </div>
         </div>
 
-        <!-- 透明リンク -->
+        <!-- 各種ボタン・リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
+        
+        <!-- 🚪 メンバーの部屋の扉（ここにランダムリンクと光エフェクトが乗ります） -->
+        <a href="#" class="invisible-link link-member-room" id="member-door" title="メンバーの部屋を見る">
+            <div class="door-glow-effect"></div>
+        </a>
+
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
@@ -344,7 +413,57 @@
         </div>
     </div>
 
+    <!-- 🔮 突然真ん中に現れるメッセージボード -->
+    <div class="magic-overlay" id="magic-overlay">
+        <div class="magic-text" id="magic-text">迷ってますか？</div>
+    </div>
+
     <script>
+        // 🚪 将来的なメンバー部屋のデータリスト（ここにどんどん追加していけます！）
+        const memberRooms = [
+            { name: "〇〇さん（イラスト）", url: "member-a.html" },
+            { name: "🪶 △△さん（小説）", url: "member-b.html" },
+            { name: "🎵 □□さん（音楽）", url: "member-c.html" }
+        ];
+
+        // ページ読み込み時に最初からランダムでセットしておく
+        const doorLink = document.getElementById('member-door');
+        let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
+        if (doorLink) {
+            doorLink.href = selectedRoom.url;
+            doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
+        }
+
+        // ⏳ 魔法の案内タイマー（数分後。テスト用に今は30秒=30000msにしています。3分にするなら 180000 に変更）
+        const TRIGGER_TIME = 30000; 
+
+        setTimeout(() => {
+            const overlay = document.getElementById('magic-overlay');
+            const textEl = document.getElementById('magic-text');
+            
+            if (overlay && textEl && doorLink) {
+                // 1. 真ん中に『迷ってますか？』を表示
+                overlay.style.display = 'block';
+                setTimeout(() => { overlay.style.opacity = '1'; }, 50);
+
+                // 2. その1秒後にテキスト切り替え ＆ 扉をピカピカ光らせる
+                setTimeout(() => {
+                    textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
+                    
+                    // 扉に光るアニメーションクラスを付与
+                    doorLink.classList.add('is-glowing');
+                    
+                    // 中央メッセージは案内完了後にふわっと消す（3秒後）
+                    setTimeout(() => {
+                        overlay.style.opacity = '0';
+                        setTimeout(() => { overlay.style.display = 'none'; }, 600);
+                    }, 3000);
+
+                }, 1000);
+            }
+        }, TRIGGER_TIME);
+
+
         // 📢 運営メッセージ
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
