@@ -204,13 +204,13 @@
             border-radius: 12px; 
         }
 
-        /* 🎯 【サイズ・形状微調整】メンバー一覧（緑の扉） */
-        /* 横幅を少し狭め（17.0%）、縦幅を下に伸ばす（height: 20.0% / top: 44.5%） */
+        /* 🎯 【微調整】メンバー一覧（緑の扉） */
+        /* 位置を少し右（left: 23.5%）へ、さらに下方向へ伸ばす（height: 23.0%） */
         .link-member-portal { 
             top: 44.5%; 
-            left: 22.5%; 
+            left: 23.5%; 
             width: 17.0%; 
-            height: 20.0%; 
+            height: 23.0%; 
             border-radius: 16px; 
         }
 
@@ -444,14 +444,12 @@
     </div>
 
     <script>
-        // 🚪 将来的なメンバー部屋のデータリスト
         const memberRooms = [
             { name: "〇〇さん（イラスト）", url: "member-a.html" },
             { name: "🪶 △△さん（小説）", url: "member-b.html" },
             { name: "🎵 □□さん（音楽）", url: "member-c.html" }
         ];
 
-        // 最初からランダムでセットしておく
         const doorLink = document.getElementById('member-door');
         let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
         if (doorLink) {
@@ -459,7 +457,6 @@
             doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
         }
 
-        // ⏳ 魔法の案内タイマー（30秒=30000msに設定中）
         const TRIGGER_TIME = 30000; 
 
         setTimeout(() => {
@@ -467,11 +464,9 @@
             const textEl = document.getElementById('magic-text');
             
             if (overlay && textEl && doorLink) {
-                // 1. 真ん中に『迷ってますか？』をじわ〜っとフェードイン
                 overlay.style.display = 'block';
                 setTimeout(() => { overlay.style.opacity = '1'; }, 50);
 
-                // 2. 3秒後（3000ms）に文字を切り替え、同時に時計台の扉を光らせる
                 setTimeout(() => {
                     textEl.style.opacity = '0';
                     
@@ -479,17 +474,14 @@
                         textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
                         textEl.style.opacity = '1';
                         
-                        // 時計台の扉を美しく光らせる
                         doorLink.classList.add('is-glowing');
 
-                        // ⏰ 扉が光り始めてから2分後（120000ms）に光を自動で消す
                         setTimeout(() => {
                             doorLink.classList.remove('is-glowing');
                         }, 120000);
 
                     }, 400);
 
-                    // 中央メッセージボードを優しく消す（3.5秒後）
                     setTimeout(() => {
                         overlay.style.opacity = '0';
                         setTimeout(() => { overlay.style.display = 'none'; }, 1200);
@@ -499,8 +491,6 @@
             }
         }, TRIGGER_TIME);
 
-
-        // 📢 運営メッセージ
         const hintMessages = [
             "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
             "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
