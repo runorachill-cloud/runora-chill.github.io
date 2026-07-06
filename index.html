@@ -232,7 +232,6 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            /* 看板の白いエリアの上下中央にジャストフィットさせます */
             transform: translateY(23.4vw); 
         }
 
@@ -346,18 +345,17 @@
     </div>
 
     <script>
-        // 📢 運営メッセージの登録（<br>で綺麗に2行に分割）
+        // 📢 運営メッセージ（各行22〜24文字前後に完全調整）
         const hintMessages = [
-            "💡 時計塔のまわりをよーく探すと、<br>何かが聞こえるかも……？🐾",
-            "💡 もふ神神社があります。タップで<br>お賽銭を入れてお祈りしましょう⛩️",
-            "💡 この村のどこかにいる黒猫は、タップで<br>撫でると鳴いてくれるという噂です……🐈",
-            "💡 優しい時間が流れるこの村を、<br>のんびりお散歩してみてくださいね🌸",
-            "💡 神社の奥には、1日1回だけ運を<br>占える自動販売機があるとか……？🪙"
+            "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
+            "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
+            "💡 村にいる黒猫をタップすると<br>鳴いてくれる噂です……🐈",
+            "💡 優しい時間が流れる村を、<br>のんびり散歩してくださいね🌸",
+            "💡 神社の奥には、1日1回<br>運を占える自販機があるかも🪙"
         ];
         
         const hintEl = document.getElementById('random-hint');
         if (hintEl) {
-            // HTMLタグとして読み込ませるため innerHTML に変更
             hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)];
         }
 
