@@ -232,19 +232,17 @@
             pointer-events: none; 
             box-sizing: border-box;
             z-index: 5;
-            /* 🛠️ 2行になった際の見栄えを考慮し、微調整 */
-            transform: translateY(22.8vw); 
+            /* 🛠️ 2行の文字が看板の下半分にジャストフィットするよう調整 */
+            transform: translateY(25.0vw); 
         }
 
         .hint-text {
-            /* 🛠️ 文字サイズを少し大きく変更 */
             font-size: 1.6vw; 
             color: #8c7662;
             font-weight: bold;
             text-align: center;
             letter-spacing: 0.2px;
             line-height: 1.3;
-            /* 🛠️ 横幅に合わせて自動で2行に改行させる設定 */
             white-space: normal; 
             animation: fadeInHint 0.8s ease-out forwards;
         }
