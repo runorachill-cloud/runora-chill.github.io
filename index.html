@@ -197,7 +197,7 @@
 
         .link-my-room { top: 62.9%; left: 6.2%; width: 17.6%; height: 2.8%; border-radius: 20px; }
 
-        /* 🚪 メンバーの部屋への扉（新設：ここが魔法で光ります） */
+        /* 🚪 メンバーの部屋への扉 */
         .link-member-room {
             position: absolute;
             top: 43.1%;
@@ -206,10 +206,10 @@
             height: 15.2%;
             border-radius: 12px;
             z-index: 12;
-            overflow: hidden; /* 光エフェクトをはみ出させないため */
+            overflow: hidden;
         }
 
-        /* ✨ 扉が光るエフェクト用の子要素 */
+        /* ✨ 扉が光るエフェクト */
         .door-glow-effect {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -291,17 +291,17 @@
             .hint-text { font-size: 13px; }
         }
 
-        /* 🔮 突然真ん中に現れる案内メッセージメッセージ */
+        /* 🔮 突然真ん中に現れる案内メッセージボード */
         .magic-overlay {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(246, 238, 214, 0.92); /* 世界観に合わせたクリーム色調 */
+            background: rgba(246, 238, 214, 0.94); 
             border: 2px solid #b8a07c;
-            padding: 20px 40px;
+            padding: 24px 48px;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(140, 118, 98, 0.25);
+            box-shadow: 0 10px 35px rgba(140, 118, 98, 0.3);
             z-index: 1000;
             display: none;
             pointer-events: none;
@@ -310,11 +310,11 @@
         }
 
         .magic-text {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: bold;
             color: #5c4a3c;
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.6;
             white-space: nowrap;
         }
 
@@ -399,7 +399,7 @@
         <!-- 各種ボタン・リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         
-        <!-- 🚪 メンバーの部屋の扉（ここにランダムリンクと光エフェクトが乗ります） -->
+        <!-- 🚪 メンバーの部屋の扉 -->
         <a href="#" class="invisible-link link-member-room" id="member-door" title="メンバーの部屋を見る">
             <div class="door-glow-effect"></div>
         </a>
@@ -419,14 +419,14 @@
     </div>
 
     <script>
-        // 🚪 将来的なメンバー部屋のデータリスト（ここにどんどん追加していけます！）
+        // 🚪 将来的なメンバー部屋のデータリスト
         const memberRooms = [
             { name: "〇〇さん（イラスト）", url: "member-a.html" },
             { name: "🪶 △△さん（小説）", url: "member-b.html" },
             { name: "🎵 □□さん（音楽）", url: "member-c.html" }
         ];
 
-        // ページ読み込み時に最初からランダムでセットしておく
+        // 最初からランダムでセットしておく
         const doorLink = document.getElementById('member-door');
         let selectedRoom = memberRooms[Math.floor(Math.random() * memberRooms.length)];
         if (doorLink) {
@@ -434,7 +434,7 @@
             doorLink.title = `${selectedRoom.name}の部屋へ行ってみる？`;
         }
 
-        // ⏳ 魔法の案内タイマー（数分後。テスト用に今は30秒=30000msにしています。3分にするなら 180000 に変更）
+        // ⏳ 魔法の案内タイマー（テスト用に今は30秒=30000msにしています）
         const TRIGGER_TIME = 30000; 
 
         setTimeout(() => {
@@ -446,20 +446,20 @@
                 overlay.style.display = 'block';
                 setTimeout(() => { overlay.style.opacity = '1'; }, 50);
 
-                // 2. その1秒後にテキスト切り替え ＆ 扉をピカピカ光らせる
+                // 2. ★【変更点】1秒から「3秒後（3000ms）」にテキスト切り替え ＆ 扉を光らせる
                 setTimeout(() => {
-                    textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
+                    textEl.innerHTML = `では、こちらへどうぞ<br><span style="font-size:14px; color:#b8a07c; display:inline-block; margin-top:8px;">✨ ${selectedRoom.name} の扉が開いたようです</span>`;
                     
                     // 扉に光るアニメーションクラスを付与
                     doorLink.classList.add('is-glowing');
                     
-                    // 中央メッセージは案内完了後にふわっと消す（3秒後）
+                    // 中央メッセージをふわっと消す（テキストが変わってから3.5秒後）
                     setTimeout(() => {
                         overlay.style.opacity = '0';
                         setTimeout(() => { overlay.style.display = 'none'; }, 600);
-                    }, 3000);
+                    }, 3500);
 
-                }, 1000);
+                }, 3000); // 3000ms = 3秒に変更
             }
         }, TRIGGER_TIME);
 
