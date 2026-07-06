@@ -5,56 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunoraChill 公式ポータル</title>
     <style>
-        html, body {
-            margin: 0; padding: 0; width: 100%;
-            background-color: #f6eed6;
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            overflow-x: hidden;
-        }
+        html, body { margin: 0; padding: 0; width: 100%; background-color: #f6eed6; font-family: sans-serif; overflow-x: hidden; }
         .wrapper { position: relative; width: 100%; max-width: 800px; margin: 0 auto; line-height: 0; }
         .base-image { width: 100%; height: auto; display: block; }
 
-        /* 🕒 アナログ時計 */
-        .analog-clock { position: absolute; top: 23.45%; left: 70.8%; width: 16.5%; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); pointer-events: none; }
-        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; border-radius: 4px; transform: translateX(-50%); }
-        .hour-hand { width: 4%; height: 28%; background-color: #2b2b2b; z-index: 3; }
-        .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
-        .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
-
-        /* 📱 デジタル時計 */
-        .digital-container { position: absolute; top: 34.5%; left: 70.5%; transform: translate(-50%, -50%); width: 22%; text-align: center; color: #ffebad; text-shadow: 0 0 6px rgba(243, 156, 18, 0.9); font-family: 'Courier New', Courier, monospace; font-weight: bold; line-height: 1.2; pointer-events: none; }
-        .digital-time { font-size: 2.1vw; }
-        .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
-        @media (min-width: 800px) { .digital-time { font-size: 17px; } .digital-date { font-size: 9px; } }
-
-        /* 📜 最新情報・神社 */
-        .village-board { position: absolute; top: 68.5%; left: 5.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; pointer-events: auto; box-sizing: border-box; }
-        .board-title { font-size: 3.5vw; font-weight: bold; color: #8c7662; text-align: center; margin-bottom: 4px; }
-        .board-column { flex: 1; padding: 2px 10px; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; line-height: 1.4; }
-        .log-item { margin-bottom: 5px; border-bottom: 1px dashed #eaddc3; padding-bottom: 3px; display: flex; justify-content: space-between; }
-        .shrine-container { position: absolute; top: 68.5%; left: 51.5%; width: 43%; height: 20.5%; padding: 2% 3.5% 3.5% 3.5%; box-sizing: border-box; }
-        .saisen-trigger { position: absolute; bottom: 5%; left: 35%; width: 30%; height: 25%; cursor: pointer; z-index: 20; }
-
-        /* 🔗 ボタン・リンク */
-        .invisible-link { position: absolute; display: block; text-decoration: none; cursor: pointer; z-index: 10; }
+        /* ボタン・リンクの配置 */
+        .invisible-link { position: absolute; display: block; cursor: pointer; z-index: 10; }
         .link-my-room { top: 44.5%; left: 5.6%; width: 17.0%; height: 23.0%; }
         .link-member-portal { top: 44.5%; left: 23.5%; width: 17.0%; height: 23.0%; }
+        
+        /* 修正した「お知らせ」ボタンの位置 */
         .link-news-board { top: 44.5%; left: 41.5%; width: 17.0%; height: 23.0%; z-index: 11; }
+
+        /* 掲示板と神社のレイアウト（復元） */
+        .village-board { position: absolute; top: 68.5%; left: 5.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; box-sizing: border-box; }
+        .board-title { font-size: 3.5vw; font-weight: bold; color: #8c7662; text-align: center; margin-bottom: 4px; }
+        .board-column { flex: 1; padding: 2px 10px; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; line-height: 1.4; }
+        .log-item { margin-bottom: 5px; border-bottom: 1px dashed #eaddc3; display: flex; justify-content: space-between; }
         
-        .link-member-room { position: absolute; top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; z-index: 12; overflow: hidden; }
-        .door-glow-effect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%); background-size: 300% 300%; pointer-events: none; transition: all 0.5s ease; }
-        .is-glowing .door-glow-effect { animation: flashDoor 2.5s ease-in-out infinite; }
-        @keyframes flashDoor { 0% { background-position: -150% -150%; } 50% { background-position: 150% 150%; } 100% { background-position: -150% -150%; } }
-        
-        .secret-bell-trigger { position: absolute; top: 22.1%; left: 86.1%; width: 7.0%; height: 7.6%; cursor: pointer; z-index: 15; }
-        .secret-cat-trigger { position: absolute; top: 38.0%; left: 86.0%; width: 6.5%; height: 6.5%; cursor: pointer; z-index: 15; }
-        
-        /* 補助要素 */
-        .white-box-hint { position: absolute; top: 78.3%; left: 27.0%; width: 44.0%; height: 3.5%; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 5; transform: translateY(23.4vw); }
-        .hint-text { font-size: 1.6vw; color: #8c7662; font-weight: bold; }
-        .magic-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(246, 238, 214, 0.94); border: 2px solid #b8a07c; padding: 24px 48px; border-radius: 16px; z-index: 1000; display: none; opacity: 0; transition: opacity 1.2s; }
-        .floating-counter, .floating-meow, .floating-saisen { position: absolute; font-size: 3.2vw; font-weight: bold; pointer-events: none; z-index: 100; animation: floatUpAway 1.2s ease-out forwards; }
-        @keyframes floatUpAway { 0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; } 100% { transform: translate(-50%, -80px) scale(1); opacity: 0; } }
+        .shrine-container { position: absolute; top: 68.5%; left: 51.5%; width: 43%; height: 20.5%; padding: 2% 3.5% 3.5% 3.5%; box-sizing: border-box; }
+        .saisen-trigger { position: absolute; bottom: 5%; left: 35%; width: 30%; height: 25%; cursor: pointer; z-index: 20; }
     </style>
 </head>
 <body>
@@ -62,65 +32,26 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <div class="analog-clock">
-            <div class="hand hour-hand" id="hour-hand"></div>
-            <div class="hand minute-hand" id="min-hand"></div>
-            <div class="hand second-hand" id="sec-hand"></div>
-        </div>
-
-        <div class="digital-container">
-            <div class="digital-time" id="digi-time">00:00:00 PM</div>
-            <div class="digital-date" id="digi-date">2026.07.07 Tue</div>
-        </div>
-
+        <!-- 掲示板表示 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
-            <div class="board-column" id="left-board">
+            <div class="board-column">
                 <div class="log-item"><span>🔔 もふ神留奈さんが模様替えをしました</span><span>12:00</span></div>
             </div>
         </div>
 
+        <!-- 神社表示 -->
         <div class="shrine-container">
             <div class="saisen-trigger" id="saisen-trigger"></div>
         </div>
 
+        <!-- リンク -->
         <a href="my-room.html" class="invisible-link link-my-room"></a>
         <a href="member-portal.html" class="invisible-link link-member-portal"></a>
         <div class="invisible-link link-news-board" onclick="alert('📢 現在準備中です')" title="準備中"></div>
-        
-        <a href="#" class="invisible-link link-member-room" id="member-door">
-            <div class="door-glow-effect"></div>
-        </a>
-
-        <div class="secret-bell-trigger" id="bell-trigger"></div>
-        <div class="secret-cat-trigger" id="cat-trigger"></div>
-
-        <div class="white-box-hint"><div class="hint-text" id="random-hint"></div></div>
     </div>
 
-    <div class="magic-overlay" id="magic-overlay"><div class="magic-text" id="magic-text">迷ってますか？</div></div>
-
     <script>
-        const doorLink = document.getElementById('member-door');
-        const memberRooms = [{ url: "my-room.html" }];
-        doorLink.href = memberRooms[0].url;
-
-        function updateClock() {
-            const now = new Date();
-            const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
-            document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${(h % 12) * 30 + m * 0.5}deg)`;
-            document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${m * 6 + s * 0.1}deg)`;
-            document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
-            document.getElementById('digi-time').textContent = `${String(h % 12 || 12).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${h>=12?'PM':'AM'}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        document.getElementById('bell-trigger').onclick = (e) => {
-            const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = '🔔';
-            const r = document.getElementById('main-wrapper').getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
-            document.getElementById('main-wrapper').appendChild(f);
-        };
         document.getElementById('saisen-trigger').onclick = () => window.location.href = 'omikuji.html';
     </script>
 </body>
