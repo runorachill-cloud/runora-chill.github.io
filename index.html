@@ -28,7 +28,7 @@
             display: block;
         }
 
-        /* 📢 ページ上部メッセージティッカー */
+        /* 📢 メッセージティッカー */
         .top-message-ticker {
             position: absolute;
             top: 1.5%;
@@ -61,264 +61,49 @@
             95%, 100% { opacity: 0; }
         }
 
-        /* 🕒 アナログ時計 */
-        .analog-clock {
-            position: absolute;
-            top: 23.45%;
-            left: 70.8%;
-            width: 16.5%;
-            aspect-ratio: 1 / 1;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom center;
-            border-radius: 4px;
-            transform: translateX(-50%);
-        }
-
+        /* 🕒 時計関係 */
+        .analog-clock { position: absolute; top: 23.45%; left: 70.8%; width: 16.5%; aspect-ratio: 1 / 1; transform: translate(-50%, -50%); pointer-events: none; }
+        .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; border-radius: 4px; transform: translateX(-50%); }
         .hour-hand { width: 4%; height: 28%; background-color: #2b2b2b; z-index: 3; }
         .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
         .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
-
-        /* 📱 デジタル時計と日付 */
-        .digital-container {
-            position: absolute;
-            top: 34.5%;
-            left: 70.5%;
-            transform: translate(-50%, -50%);
-            width: 22%;
-            text-align: center;
-            color: #ffebad;
-            text-shadow: 0 0 6px rgba(243, 156, 18, 0.9);
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            line-height: 1.2;
-            pointer-events: none;
-        }
-
+        .digital-container { position: absolute; top: 34.5%; left: 70.5%; transform: translate(-50%, -50%); width: 22%; text-align: center; color: #ffebad; text-shadow: 0 0 6px rgba(243, 156, 18, 0.9); font-family: 'Courier New', Courier, monospace; font-weight: bold; line-height: 1.2; pointer-events: none; }
         .digital-time { font-size: 2.1vw; }
         .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
-        
-        @media (min-width: 800px) {
-            .ticker-text { font-size: 20px; }
-            .digital-time { font-size: 17px; }
-            .digital-date { font-size: 9px; }
-        }
 
-        /* 📜 最新情報掲示板 */
-        .village-board {
-            position: absolute;
-            top: 68.5%;
-            left: 5.5%;
-            width: 43%;
-            height: 20.5%;
-            display: flex;
-            flex-direction: column;
-            pointer-events: auto;
-            box-sizing: border-box;
-        }
+        /* 📜 掲示板・神社 */
+        .village-board { position: absolute; top: 68.5%; left: 5.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; pointer-events: auto; box-sizing: border-box; }
+        .board-title { font-size: 3.5vw; font-weight: bold; color: #8c7662; text-align: center; margin-bottom: 4px; line-height: 1.2; letter-spacing: 1px; }
+        .board-column { flex: 1; padding: 2px 10px 4px 10px; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; }
+        .log-item { margin-bottom: 5px; border-bottom: 1px dashed #eaddc3; display: flex; justify-content: space-between; }
+        .shrine-container { position: absolute; top: 68.5%; left: 51.5%; width: 43%; height: 20.5%; display: flex; flex-direction: column; pointer-events: auto; padding: 2% 3.5% 3.5% 3.5%; box-sizing: border-box; }
+        .shrine-title { font-size: 2.8vw; font-weight: bold; color: #5c4a3c; text-align: center; margin-bottom: 2%; }
+        .shrine-image-wrap { position: relative; width: 100%; flex-grow: 1; border-radius: 12px; overflow: hidden; border: 2px solid #fff; background-color: #fff; }
+        .shrine-img { width: 100%; height: 100%; object-fit: cover; }
+        .saisen-trigger { position: absolute; bottom: 5%; left: 35%; width: 30%; height: 25%; cursor: pointer; z-index: 20; }
 
-        .board-title {
-            font-size: 3.5vw;
-            font-weight: bold;
-            color: #8c7662;
-            text-align: center;
-            margin-bottom: 4px;
-            line-height: 1.2;
-            letter-spacing: 1px;
-        }
-
-        .board-column {
-            flex: 1;
-            background: transparent;
-            padding: 2px 10px 4px 10px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch; 
-            box-sizing: border-box;
-            font-size: 1.4vw;
-            color: #5c4a3c;
-            text-align: left;
-            line-height: 1.4;
-        }
-
-        .board-column::-webkit-scrollbar { width: 6px; }
-        .board-column::-webkit-scrollbar-thumb { background: #eaddc3; border-radius: 4px; }
-
-        .log-item {
-            margin-bottom: 5px;
-            border-bottom: 1px dashed #eaddc3;
-            padding-bottom: 3px;
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .log-text { word-break: break-all; }
-        .log-time { color: #b8a07c; font-size: 1.1vw; white-space: nowrap; }
-
-        /* ⛩️ もふ神神社エリア */
-        .shrine-container {
-            position: absolute;
-            top: 68.5%;
-            left: 51.5%;
-            width: 43%;
-            height: 20.5%;
-            display: flex;
-            flex-direction: column;
-            pointer-events: auto;
-            box-sizing: border-box;
-            padding: 2% 3.5% 3.5% 3.5%;
-        }
-
-        .shrine-title {
-            font-size: 2.8vw;
-            font-weight: bold;
-            color: #5c4a3c;
-            text-align: center;
-            margin-bottom: 2%;
-            line-height: 1.2;
-        }
-
-        .shrine-image-wrap {
-            position: relative;
-            width: 100%;
-            flex-grow: 1;
-            height: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(184, 160, 124, 0.15);
-            border: 2px solid #fff;
-            background-color: #fff;
-        }
-
-        .shrine-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .saisen-trigger {
-            position: absolute;
-            bottom: 5%;
-            left: 35%;
-            width: 30%;
-            height: 25%;
-            cursor: pointer;
-            z-index: 20;
-        }
-
-        @media (min-width: 800px) {
-            .board-title { font-size: 28px; }
-            .board-column { font-size: 11px; }
-            .log-time { font-size: 9px; }
-            .shrine-title { font-size: 22px; }
-        }
-
-        .invisible-link {
-            position: absolute;
-            display: block;
-            text-decoration: none;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .link-my-room { top: 44.5%; left: 5.6%; width: 17.0%; height: 23.0%; border-radius: 12px; }
-        .link-member-portal { top: 44.5%; left: 23.5%; width: 17.0%; height: 23.0%; border-radius: 16px; }
-        .link-news-board { top: 44.5%; left: 41.5%; width: 17.0%; height: 23.0%; border-radius: 16px; }
-        .link-new-works { top: 44.5%; left: 59.5%; width: 17.0%; height: 23.0%; border-radius: 16px; }
-        .link-support-us { top: 44.5%; left: 77.4%; width: 17.0%; height: 23.0%; border-radius: 16px; }
-
-        .link-member-room {
-            position: absolute;
-            top: 38.0%;
-            left: 65.3%;
-            width: 10.5%;
-            height: 7.5%;
-            border-top-left-radius: 50% 100%;
-            border-top-right-radius: 50% 100%;
-            z-index: 12;
-            overflow: hidden;
-        }
-
-        .door-glow-effect {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%);
-            background-size: 300% 300%;
-            background-position: -150% -150%;
-            pointer-events: none;
-            transition: all 0.5s ease;
-        }
-
-        .is-glowing .door-glow-effect {
-            animation: flashDoor 2.5s ease-in-out infinite;
-            box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8), 0 0 10px rgba(255, 223, 115, 0.6);
-            border: 2px solid rgba(255, 223, 115, 0.5);
-            box-sizing: border-box;
-        }
-
-        @keyframes flashDoor {
-            0% { background-position: -150% -150%; }
-            50% { background-position: 150% 150%; }
-            100% { background-position: -150% -150%; }
-        }
-
+        /* リンク・ギミック */
+        .invisible-link { position: absolute; display: block; cursor: pointer; z-index: 10; }
+        .link-my-room { top: 44.5%; left: 5.6%; width: 17.0%; height: 23.0%; }
+        .link-member-portal { top: 44.5%; left: 23.5%; width: 17.0%; height: 23.0%; }
+        .link-news-board { top: 44.5%; left: 41.5%; width: 17.0%; height: 23.0%; }
+        .link-new-works { top: 44.5%; left: 59.5%; width: 17.0%; height: 23.0%; }
+        .link-support-us { top: 44.5%; left: 77.4%; width: 17.0%; height: 23.0%; }
+        .link-member-room { position: absolute; top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; z-index: 12; border-radius: 50% / 100%; }
         .secret-bell-trigger { position: absolute; top: 22.1%; left: 86.1%; width: 7.0%; height: 7.6%; cursor: pointer; z-index: 15; }
         .secret-cat-trigger { position: absolute; top: 38.0%; left: 86.0%; width: 6.5%; height: 6.5%; cursor: pointer; z-index: 15; }
 
-        .white-box-hint {
-            position: absolute;
-            top: 78.3%; left: 27.0%; width: 44.0%; height: 3.5%; 
-            display: flex; align-items: center; justify-content: center;
-            pointer-events: none; z-index: 5; transform: translateY(23.4vw); 
-        }
-
-        .hint-text {
-            font-size: 1.6vw; color: #8c7662; font-weight: bold; text-align: center;
-            line-height: 1.45; animation: fadeInHint 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeInHint {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 0.9; transform: scale(1); }
-        }
-
-        @media (min-width: 800px) { .hint-text { font-size: 13px; } }
-
-        .magic-overlay {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(246, 238, 214, 0.94); border: 2px solid #b8a07c;
-            padding: 24px 48px; border-radius: 16px; box-shadow: 0 10px 35px rgba(140, 118, 98, 0.3);
-            z-index: 1000; display: none; pointer-events: none; opacity: 0; transition: opacity 1.2s ease-in-out;
-        }
-
-        .magic-text {
-            font-size: 21px; font-weight: bold; color: #5c4a3c;
-            text-align: center; line-height: 1.6; white-space: nowrap;
-        }
-
-        .floating-counter, .floating-meow, .floating-saisen {
-            position: absolute; font-size: 3.2vw; font-weight: bold; pointer-events: none;
-            z-index: 100; white-space: nowrap; line-height: 1; animation: floatUpAway 1.2s ease-out forwards;
-        }
-        .floating-counter { color: #dca842; }
-        .floating-meow { color: #9e7a6b; }
-        .floating-saisen { color: #e67e22; }
-
-        @keyframes floatUpAway {
-            0% { transform: translate(-50%, 0) scale(0.7); opacity: 0; }
-            100% { transform: translate(-50%, -80px) scale(1); opacity: 0; }
+        @media (min-width: 800px) {
+            .ticker-text { font-size: 20px; }
+            .board-title { font-size: 28px; }
+            .board-column { font-size: 11px; }
+            .shrine-title { font-size: 22px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper" id="main-wrapper">
+    <div class="wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
         <div class="top-message-ticker">
@@ -333,16 +118,16 @@
 
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
-            <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
+            <div class="digital-date" id="digi-date">2026.07.07 Tue</div>
         </div>
 
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
-            <div class="board-column" id="left-board">
-                <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
-                <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
-                <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
-                <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
+            <div class="board-column">
+                <div class="log-item"><span>🔔 もふ神留奈さんが模様替え</span><span>12:00</span></div>
+                <div class="log-item"><span>🎨 ギャラリー追加</span><span>11:30</span></div>
+                <div class="log-item"><span>💤 作業開始</span><span>10:15</span></div>
+                <div class="log-item"><span>📖 小説投稿</span><span>09:45</span></div>
             </div>
         </div>
 
@@ -350,7 +135,7 @@
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
                 <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="もふ神神社" class="shrine-img">
-                <div class="saisen-trigger" id="saisen-trigger" title="お賽銭を入れる"></div>
+                <div class="saisen-trigger" id="saisen-trigger"></div>
             </div>
         </div>
 
@@ -359,28 +144,17 @@
         <div class="invisible-link link-news-board" onclick="alert('📢 お知らせは準備中です')"></div>
         <div class="invisible-link link-new-works" onclick="alert('📢 新着作品は準備中です')"></div>
         <div class="invisible-link link-support-us" onclick="alert('📢 応援する機能は準備中です')"></div>
-
-        <a href="#" class="invisible-link link-member-room" id="member-door">
-            <div class="door-glow-effect"></div>
-        </a>
+        <a href="my-room.html" class="invisible-link link-member-room" id="member-door"></a>
 
         <div class="secret-bell-trigger" id="bell-trigger"></div>
         <div class="secret-cat-trigger" id="cat-trigger"></div>
-
-        <div class="white-box-hint">
-            <div class="hint-text" id="random-hint"></div>
-        </div>
-    </div>
-
-    <div class="magic-overlay" id="magic-overlay">
-        <div class="magic-text" id="magic-text">迷ってますか？</div>
     </div>
 
     <script>
+        // メッセージ
         const messages = ["✨ ルノラチル", "📢 メンバー募集中", "🎨 創作活動を楽しみましょう", "☕ ゆっくりしていってください"];
         let currentIndex = 0;
         const tickerEl = document.getElementById('ticker-msg');
-        
         function rotateTicker() {
             tickerEl.style.animation = 'none';
             tickerEl.offsetHeight; 
@@ -388,14 +162,9 @@
             tickerEl.innerText = messages[currentIndex];
             currentIndex = (currentIndex + 1) % messages.length;
         }
-        
-        rotateTicker();
         setInterval(rotateTicker, 6000);
 
-        const memberRooms = [{ name: "管理者（私）の部屋", url: "my-room.html" }];
-        const doorLink = document.getElementById('member-door');
-        doorLink.href = memberRooms[0].url;
-
+        // 時計
         function updateClock() {
             const now = new Date();
             const h = now.getHours(), m = now.getMinutes(), s = now.getSeconds();
@@ -403,13 +172,17 @@
             document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${m * 6 + s * 0.1}deg)`;
             document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
             document.getElementById('digi-time').textContent = `${String(h % 12 || 12).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${h >= 12 ? 'PM' : 'AM'}`;
-            document.getElementById('digi-date').textContent = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        document.getElementById('bell-trigger').addEventListener('click', () => { try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch(e) {} });
-        document.getElementById('cat-trigger').addEventListener('click', () => { try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch(e) {} });
+        // ギミック
+        document.getElementById('bell-trigger').addEventListener('click', () => { 
+            try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch(e) {} 
+        });
+        document.getElementById('cat-trigger').addEventListener('click', () => { 
+            try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch(e) {} 
+        });
         document.getElementById('saisen-trigger').addEventListener('click', () => { window.location.href = 'omikuji.html'; });
     </script>
 </body>
