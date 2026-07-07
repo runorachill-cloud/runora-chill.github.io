@@ -5,197 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunoraChill 公式ポータル</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            background-color: #f6eed6;
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            overflow-x: hidden;
-        }
-
+        /* 基本リセット */
+        html, body { margin: 0; padding: 0; width: 100%; background-color: #f6eed6; font-family: sans-serif; overflow-x: hidden; }
+        
+        /* ラッパー（基準点） */
         .wrapper {
             position: relative;
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            line-height: 0;
         }
 
-        .base-image {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .base-image { width: 100%; height: auto; display: block; }
 
-        /* 🕒 アナログ時計 */
-        .analog-clock {
-            position: absolute;
-            top: 23.45%;
-            left: 70.8%;
-            width: 16.5%;
-            aspect-ratio: 1 / 1;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
+        /* 配置要素共通設定 */
+        .absolute-pos { position: absolute; pointer-events: auto; }
 
-        .hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform-origin: bottom center;
-            border-radius: 4px;
-            transform: translateX(-50%);
-        }
-
-        .hour-hand { width: 4%; height: 28%; background-color: #2b2b2b; z-index: 3; }
-        .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
-        .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
-
-        /* 📱 デジタル時計 */
-        .digital-container {
-            position: absolute;
-            top: 34.5%;
-            left: 70.5%;
-            transform: translate(-50%, -50%);
-            width: 22%;
-            text-align: center;
-            color: #ffebad;
-            text-shadow: 0 0 6px rgba(243, 156, 18, 0.9);
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            line-height: 1.2;
-            pointer-events: none;
-        }
-        .digital-time { font-size: 2.1vw; }
-        .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
-        @media (min-width: 800px) { .digital-time { font-size: 17px; } .digital-date { font-size: 9px; } }
-
-        /* ✨ ヘッダーメッセージ（調整済） */
+        /* ヘッダーメッセージ（吹き出し用） */
         .header-message-zone {
             position: absolute;
-            top: -1.5%;
-            left: 55%;
-            width: 38%;
-            height: 9%;
+            top: 2%; /* 吹き出しの位置に合わせる */
+            left: 55.5%;
+            width: 37%;
+            height: 7%;
             display: flex;
             align-items: center;
             justify-content: center;
             pointer-events: none;
-            z-index: 20;
             color: #5c4a3c;
-            font-size: 2.3vw;
-            font-weight: 800;
+            font-size: 2.2vw;
+            font-weight: bold;
             text-align: center;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-            line-height: 1.25;
-            padding: 0 5px;
+            line-height: 1.2;
+            z-index: 10;
         }
-        @media (min-width: 800px) { .header-message-zone { font-size: 16px; } }
 
-        /* 📜 掲示板・神社エリア */
-        .village-board, .shrine-container {
+        /* 掲示板エリア（崩れ防止のため高さを固定せずフレキシブルに） */
+        .village-board {
             position: absolute;
             top: 68.5%;
+            left: 5.5%;
             width: 43%;
-            height: 20.5%;
+            height: 20%;
             display: flex;
             flex-direction: column;
-            pointer-events: auto;
+        }
+
+        /* 神社エリア */
+        .shrine-container {
+            position: absolute;
+            top: 68.5%;
+            left: 51.5%;
+            width: 43%;
+            height: 20%;
+            padding: 2%;
             box-sizing: border-box;
         }
-        .village-board { left: 5.5%; }
-        .shrine-container { left: 51.5%; padding: 2% 3.5% 3.5% 3.5%; }
-        .board-title, .shrine-title { font-weight: bold; color: #8c7662; text-align: center; line-height: 1.2; }
-        .board-title { font-size: 3.5vw; }
-        .shrine-title { font-size: 2.8vw; color: #5c4a3c; margin-bottom: 2%; }
 
-        .board-column { flex: 1; overflow-y: auto; font-size: 1.4vw; color: #5c4a3c; }
-        .log-item { border-bottom: 1px dashed #eaddc3; padding-bottom: 3px; display: flex; justify-content: space-between; }
-        
-        .shrine-image-wrap { position: relative; width: 100%; flex-grow: 1; border-radius: 12px; overflow: hidden; background-color: #fff; border: 2px solid #fff; }
-        .shrine-img { width: 100%; height: 100%; object-fit: cover; }
-        .saisen-trigger { position: absolute; bottom: 5%; left: 35%; width: 30%; height: 25%; cursor: pointer; }
-
-        /* リンク・エフェクト */
-        .invisible-link { position: absolute; display: block; cursor: pointer; z-index: 10; }
-        .link-my-room { top: 44.5%; left: 5.6%; width: 17.0%; height: 23.0%; }
-        .link-member-portal { top: 44.5%; left: 23.5%; width: 17.0%; height: 23.0%; }
-        .link-news-board { top: 44.5%; left: 41.5%; width: 17.0%; height: 23.0%; }
-        .link-new-works { top: 44.5%; left: 59.5%; width: 17.0%; height: 23.0%; }
-        .link-support-us { top: 44.5%; left: 77.4%; width: 17.0%; height: 23.0%; }
-        
-        .link-member-room { top: 38.0%; left: 65.3%; width: 10.5%; height: 7.5%; z-index: 12; }
-        .door-glow-effect { position: absolute; top:0; left:0; width: 100%; height: 100%; pointer-events: none; }
-        .is-glowing .door-glow-effect { animation: flashDoor 2.5s infinite; box-shadow: inset 0 0 15px rgba(255, 235, 173, 0.8); border: 2px solid rgba(255, 223, 115, 0.5); }
-        @keyframes flashDoor { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-
-        .secret-bell-trigger { position: absolute; top: 22.1%; left: 86.1%; width: 7.0%; height: 7.6%; cursor: pointer; z-index: 15; }
-        .secret-cat-trigger { position: absolute; top: 38.0%; left: 86.0%; width: 6.5%; height: 6.5%; cursor: pointer; z-index: 15; }
+        /* その他微調整用 */
+        @media (min-width: 800px) {
+            .header-message-zone { font-size: 15px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="wrapper" id="main-wrapper">
-        <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
-        <div class="header-message-zone" id="header-message"></div>
+        <img src="無題1_20260705103321.png" alt="背景" class="base-image">
 
-        <div class="analog-clock">
-            <div class="hand hour-hand" id="hour-hand"></div>
-            <div class="hand minute-hand" id="min-hand"></div>
-            <div class="hand second-hand" id="sec-hand"></div>
+        <div class="header-message-zone" id="header-message">ただいまメンバー募集中です！</div>
+
         </div>
-
-        <div class="digital-container">
-            <div class="digital-time" id="digi-time">00:00:00 PM</div>
-            <div class="digital-date" id="digi-date">2026.07.07 Tue</div>
-        </div>
-
-        <div class="village-board">
-            <div class="board-title">📢 最新情報</div>
-            <div class="board-column">
-                <div class="log-item"><span>🔔 もふ神留奈さんが模様替え</span><span>12:00</span></div>
-                <div class="log-item"><span>🎨 〇〇さんがギャラリー更新</span><span>11:30</span></div>
-            </div>
-        </div>
-
-        <div class="shrine-container">
-            <div class="shrine-title">⛩️ もふ神神社</div>
-            <div class="shrine-image-wrap">
-                <img src="AE6FE017-D49A-43A9-B908-5FB0955E87E8.png" alt="神社" class="shrine-img">
-                <div class="saisen-trigger" id="saisen-trigger"></div>
-            </div>
-        </div>
-
-        <a href="my-room.html" class="invisible-link link-my-room"></a>
-        <a href="#" class="invisible-link link-member-room" id="member-door"><div class="door-glow-effect"></div></a>
-        <div class="secret-bell-trigger" id="bell-trigger"></div>
-        <div class="secret-cat-trigger" id="cat-trigger"></div>
-    </div>
 
     <script>
-        // メッセージ切り替え
-        const msgs = ["ただいまメンバー募集中です！一緒に村を盛り上げませんか？", "ここには素敵な作品がたくさん待っています。ぜひ探してみてね。"];
+        // メッセージ切り替えロジック
+        const msgs = ["ただいまメンバー募集中です！", "素敵な作品がたくさんありますよ。"];
         const msgEl = document.getElementById('header-message');
         let idx = 0;
-        function rotate() {
+        setInterval(() => {
             msgEl.style.opacity = '0';
-            setTimeout(() => { msgEl.textContent = msgs[idx]; msgEl.style.opacity = '1'; idx = (idx + 1) % msgs.length; }, 1000);
-        }
-        rotate(); setInterval(rotate, 6000);
-
-        // 時計更新
-        function updateClock() {
-            const n = new Date();
-            const h = n.getHours(), m = n.getMinutes(), s = n.getSeconds();
-            document.getElementById('hour-hand').style.transform = `translateX(-50%) rotate(${(h % 12) * 30 + m * 0.5}deg)`;
-            document.getElementById('min-hand').style.transform = `translateX(-50%) rotate(${m * 6 + s * 0.1}deg)`;
-            document.getElementById('sec-hand').style.transform = `translateX(-50%) rotate(${s * 6}deg)`;
-            document.getElementById('digi-time').textContent = `${String(h % 12 || 12).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${h >= 12 ? 'PM' : 'AM'}`;
-        }
-        setInterval(updateClock, 1000);
+            setTimeout(() => {
+                idx = (idx + 1) % msgs.length;
+                msgEl.textContent = msgs[idx];
+                msgEl.style.opacity = '1';
+            }, 500);
+        }, 5000);
     </script>
 </body>
 </html>
