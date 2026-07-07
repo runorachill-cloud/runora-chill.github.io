@@ -402,10 +402,10 @@
             .floating-counter, .floating-meow, .floating-saisen { font-size: 26px; }
         }
 
-        /* ✨ ヘッダーメッセージエリア追加 */
+        /* ✨ ヘッダーメッセージエリア（文字を大きく強調） */
         .header-message-zone {
             position: absolute;
-            top: 2.5%;
+            top: 2.2%;
             left: 55%;
             width: 35%;
             height: 6%;
@@ -415,13 +415,14 @@
             pointer-events: none;
             z-index: 20;
             color: #5c4a3c;
-            font-size: 1.8vw;
-            font-weight: bold;
+            font-size: 2.4vw; /* 大きく調整 */
+            font-weight: 800;  /* 太く調整 */
             text-align: center;
             opacity: 0;
             transition: opacity 1s ease-in-out;
+            text-shadow: 0 0 2px rgba(255,255,255,0.8);
         }
-        @media (min-width: 800px) { .header-message-zone { font-size: 14px; } }
+        @media (min-width: 800px) { .header-message-zone { font-size: 19px; } }
     </style>
 </head>
 <body>
@@ -429,23 +430,19 @@
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
 
-        <!-- ✨ 追加: ローテーションメッセージエリア -->
         <div class="header-message-zone" id="header-message"></div>
 
-        <!-- アナログ時計 -->
         <div class="analog-clock">
             <div class="hand hour-hand" id="hour-hand"></div>
             <div class="hand minute-hand" id="min-hand"></div>
             <div class="hand second-hand" id="sec-hand"></div>
         </div>
 
-        <!-- デジタル時計 -->
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
             <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
         </div>
 
-        <!-- 📜 最新情報掲示板 -->
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
@@ -457,7 +454,6 @@
             </div>
         </div>
 
-        <!-- ⛩️ もふ神神社エリア -->
         <div class="shrine-container">
             <div class="shrine-title">⛩️ もふ神神社</div>
             <div class="shrine-image-wrap">
@@ -466,16 +462,13 @@
             </div>
         </div>
 
-        <!-- 各種ボタン・リンク -->
         <a href="my-room.html" class="invisible-link link-my-room" title="管理者（私）の部屋へ"></a>
         <a href="member-portal.html" class="invisible-link link-member-portal" title="メンバーの一覧を見る"></a>
         
-        <!-- お知らせ・新着作品・応援する扉リンク -->
         <div class="invisible-link link-news-board" onclick="alert('📢 お知らせは現在準備中です')" title="お知らせ（準備中）"></div>
         <div class="invisible-link link-new-works" onclick="alert('📢 新着作品は現在準備中です')" title="新着作品（準備中）"></div>
         <div class="invisible-link link-support-us" onclick="alert('📢 応援する機能は現在準備中です')" title="応援する（準備中）"></div>
 
-        <!-- 🚪 時計台の扉（管理者・メンバーの部屋へランダムリンク） -->
         <a href="#" class="invisible-link link-member-room" id="member-door" title="時計台の扉を開く">
             <div class="door-glow-effect"></div>
         </a>
@@ -483,13 +476,11 @@
         <div class="secret-bell-trigger" id="bell-trigger" title="鐘を鳴らす"></div>
         <div class="secret-cat-trigger" id="cat-trigger" title="猫を撫でる"></div>
 
-        <!-- 💬 一番下の白い看板の中にぴったり収める設定 -->
         <div class="white-box-hint">
             <div class="hint-text" id="random-hint">Loading...</div>
         </div>
     </div>
 
-    <!-- 🔮 突然真ん中に現れるメッセージボード -->
     <div class="magic-overlay" id="magic-overlay">
         <div class="magic-text" id="magic-text">迷ってますか？</div>
     </div>
@@ -628,7 +619,6 @@
             });
         }
 
-        // ✨ 追加: ヘッダーメッセージのローテーション処理
         const headerMsgs = [
             "ようこそ、RunoraChillへ",
             "今日は何をして過ごしますか？",
