@@ -28,7 +28,7 @@
             display: block;
         }
 
-        /* 📢 ページ上部メッセージティッカー */
+        /* 📢 ページ上部メッセージティッカー（改善版） */
         .top-message-ticker {
             position: absolute;
             top: 1.5%;
@@ -38,23 +38,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden; /* 重なり防止 */
             pointer-events: none;
             z-index: 10;
         }
 
         .ticker-text {
-            font-size: 3.5vw; /* 文字を大きくしました */
+            font-size: 3.2vw;
             font-weight: bold;
             color: #8c7662;
             text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
+            white-space: nowrap; /* 改行防止 */
             opacity: 0;
-            animation: tickerFade 5s infinite;
+            animation: tickerFade 6s infinite;
             text-align: center;
+            width: 100%;
         }
 
         @keyframes tickerFade {
-            0%, 100% { opacity: 0; }
-            15%, 85% { opacity: 1; }
+            0%, 10% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+            90%, 100% { opacity: 0; }
         }
 
         /* 🕒 アナログ時計 */
@@ -101,7 +105,7 @@
         .digital-date { font-size: 1.1vw; margin-top: 2%; color: #e1cea1; }
         
         @media (min-width: 800px) {
-            .ticker-text { font-size: 28px; } /* デスクトップ用も大きくしました */
+            .ticker-text { font-size: 24px; }
             .digital-time { font-size: 17px; }
             .digital-date { font-size: 9px; }
         }
@@ -373,20 +377,21 @@
     </div>
 
     <script>
-        // メッセージローテーション
         const messages = ["✨ ルノラチル", "📢 メンバー募集中", "🎨 創作活動を楽しみましょう", "☕ ゆっくりしていってください"];
         let currentIndex = 0;
         const tickerEl = document.getElementById('ticker-msg');
+        
         function rotateTicker() {
             tickerEl.style.animation = 'none';
-            tickerEl.offsetHeight;
-            tickerEl.style.animation = 'tickerFade 5s infinite';
+            tickerEl.offsetHeight; 
+            tickerEl.style.animation = 'tickerFade 6s infinite';
             tickerEl.innerText = messages[currentIndex];
             currentIndex = (currentIndex + 1) % messages.length;
         }
-        setInterval(rotateTicker, 5000);
+        
+        rotateTicker();
+        setInterval(rotateTicker, 6000);
 
-        // 時計等の機能
         const memberRooms = [{ name: "管理者（私）の部屋", url: "my-room.html" }];
         const doorLink = document.getElementById('member-door');
         doorLink.href = memberRooms[0].url;
@@ -403,7 +408,6 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // ギミック
         document.getElementById('bell-trigger').addEventListener('click', () => { try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch(e) {} });
         document.getElementById('cat-trigger').addEventListener('click', () => { try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch(e) {} });
         document.getElementById('saisen-trigger').addEventListener('click', () => { window.location.href = 'omikuji.html'; });
