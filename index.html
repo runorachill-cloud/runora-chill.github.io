@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunoraChill 公式ポータル</title>
     <style>
+        /* 既存のスタイルはそのまま維持します */
         html, body {
             margin: 0;
             padding: 0;
@@ -402,7 +403,7 @@
             .floating-counter, .floating-meow, .floating-saisen { font-size: 26px; }
         }
 
-        /* ✨ ヘッダーメッセージエリア（文字を大きく強調） */
+        /* ✨ ヘッダーメッセージエリア（文字を4倍サイズに拡大） */
         .header-message-zone {
             position: absolute;
             top: 2.2%;
@@ -415,14 +416,14 @@
             pointer-events: none;
             z-index: 20;
             color: #5c4a3c;
-            font-size: 2.4vw; /* 大きく調整 */
-            font-weight: 800;  /* 太く調整 */
+            font-size: 9.6vw; /* 元の2.4vwから4倍に拡大 */
+            font-weight: 900;  /* より太く */
             text-align: center;
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            text-shadow: 0 0 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.9);
         }
-        @media (min-width: 800px) { .header-message-zone { font-size: 19px; } }
+        @media (min-width: 800px) { .header-message-zone { font-size: 76px; } }
     </style>
 </head>
 <body>
