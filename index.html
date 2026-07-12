@@ -412,13 +412,22 @@
     </div>
 
     <script>
+        // ページ読み込み時にアクセス数をカウント
+        (function countVisitor() {
+            let totalVisitors = parseInt(localStorage.getItem('runora_total_visitors') || '0', 10) + 1;
+            localStorage.setItem('runora_total_visitors', totalVisitors);
+        })();
+
         // 管理者カウンター機能
         function showSecretCount() {
             const password = prompt("管理者用: パスワードを入力してください");
-            if (password === "admin1234") { 
+            if (password === "runa0051") { 
+                let visitors = localStorage.getItem('runora_total_visitors') || '0';
                 let saisen = localStorage.getItem('runora_saisen_count') || '0';
                 let bell = localStorage.getItem('runora_bell_count') || '0';
-                alert("【管理者用統計】\nお賽銭回数: " + saisen + "回\n鐘の回数: " + bell + "回");
+                alert("【管理者用統計】\n累計アクセス数: " + visitors + "回\nお賽銭回数: " + saisen + "回\n鐘の回数: " + bell + "回");
+            } else if (password !== null) {
+                alert("パスワードが違います");
             }
         }
 
