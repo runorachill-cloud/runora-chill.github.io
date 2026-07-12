@@ -28,6 +28,18 @@
             display: block;
         }
 
+        /* 王冠カウンター（管理者用） */
+        .crown-counter {
+            position: absolute;
+            top: 2.5%;
+            left: 7.5%;
+            width: 8%;
+            height: 6%;
+            z-index: 1000;
+            cursor: pointer;
+            background: transparent;
+        }
+
         .analog-clock {
             position: absolute;
             top: 23.45%;
@@ -345,6 +357,9 @@
 
     <div class="wrapper" id="main-wrapper">
         <img src="無題1_20260705103321.png" alt="RunoraChill ポータル" class="base-image">
+        
+        <!-- 王冠カウンター -->
+        <div class="crown-counter" onclick="showSecretCount()" title="管理者用カウンター"></div>
 
         <div class="header-message-zone" id="header-message"></div>
 
@@ -397,7 +412,16 @@
     </div>
 
     <script>
-        // 自動更新機能の追加
+        // 管理者カウンター機能
+        function showSecretCount() {
+            const password = prompt("管理者用: パスワードを入力してください");
+            if (password === "admin1234") { 
+                let saisen = localStorage.getItem('runora_saisen_count') || '0';
+                let bell = localStorage.getItem('runora_bell_count') || '0';
+                alert("【管理者用統計】\nお賽銭回数: " + saisen + "回\n鐘の回数: " + bell + "回");
+            }
+        }
+
         async function loadUpdates() {
             try {
                 const response = await fetch('updates.json?cache=' + new Date().getTime());
@@ -416,7 +440,6 @@
         }
         loadUpdates();
 
-        // 以下、既存のスクリプト
         const headerMsgs = ["ただいまメンバー募集中です！一緒に村を盛り上げませんか？", "ここには素敵な作品がたくさん待っています。ぜひ探してみてね。"];
         const msgEl = document.getElementById('header-message');
         let msgIndex = 0;
