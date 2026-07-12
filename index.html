@@ -28,7 +28,6 @@
             display: block;
         }
 
-        /* 🕒 アナログ時計 */
         .analog-clock {
             position: absolute;
             top: 23.45%;
@@ -52,7 +51,6 @@
         .minute-hand { width: 2.5%; height: 40%; background-color: #333333; z-index: 2; }
         .second-hand { width: 1.5%; height: 44%; background-color: #cda831; z-index: 4; }
 
-        /* 📱 デジタル時計と日付 */
         .digital-container {
             position: absolute;
             top: 34.5%;
@@ -76,7 +74,6 @@
             .digital-date { font-size: 9px; }
         }
 
-        /* 📜 最新情報掲示板 */
         .village-board {
             position: absolute;
             top: 68.5%;
@@ -127,7 +124,6 @@
         .log-text { word-break: break-all; }
         .log-time { color: #b8a07c; font-size: 1.1vw; white-space: nowrap; }
 
-        /* ⛩️ もふ神神社エリア */
         .shrine-container {
             position: absolute;
             top: 68.5%;
@@ -168,7 +164,6 @@
             object-fit: cover;
         }
 
-        /* 🪙 賽銭箱のクリックエリア */
         .saisen-trigger {
             position: absolute;
             bottom: 5%;
@@ -186,7 +181,6 @@
             .shrine-title { font-size: 22px; }
         }
 
-        /* 🔗 透明なリンク・ボタン共通 */
         .invisible-link {
             position: absolute;
             display: block;
@@ -323,11 +317,10 @@
 
         @media (min-width: 800px) { .floating-counter, .floating-meow, .floating-saisen { font-size: 26px; } }
 
-        /* ✨ ヘッダーメッセージ（さらに左へ微調整） */
         .header-message-zone {
             position: absolute;
             top: -2%;
-            left: 51%; /* さらに左へ調整 */
+            left: 51%;
             width: 38%;
             height: 9%;
             display: flex;
@@ -363,17 +356,13 @@
 
         <div class="digital-container">
             <div class="digital-time" id="digi-time">00:00:00 PM</div>
-            <div class="digital-date" id="digi-date">2026.01.01 Sun</div>
+            <div class="digital-date" id="digi-date">2026.07.12 Sun</div>
         </div>
 
         <div class="village-board">
             <div class="board-title">📢 最新情報</div>
             <div class="board-column" id="left-board">
-                <div class="log-item"><span class="log-text">🔔 もふ神留奈さんが部屋の模様替えをしました</span><span class="log-time">12:00</span></div>
-                <div class="log-item"><span class="log-text">🎨 〇〇さんがギャラリーに画像を追加しました</span><span class="log-time">11:30</span></div>
-                <div class="log-item"><span class="log-text">💤 〇〇さんが部屋で作業を始めたようです</span><span class="log-time">10:15</span></div>
-                <div class="log-item"><span class="log-text">📖 〇〇さんが新しい小説を投稿しました</span><span class="log-time">09:45</span></div>
-                <div class="log-item"><span class="log-text">📢 ポータルサイトが新しくアップデートされました！</span><span class="log-time">07/05</span></div>
+                <div class="log-item">読み込み中...</div>
             </div>
         </div>
 
@@ -408,10 +397,27 @@
     </div>
 
     <script>
-        const headerMsgs = [
-            "ただいまメンバー募集中です！一緒に村を盛り上げませんか？",
-            "ここには素敵な作品がたくさん待っています。ぜひ探してみてね。"
-        ];
+        // 自動更新機能の追加
+        async function loadUpdates() {
+            try {
+                const response = await fetch('updates.json?cache=' + new Date().getTime());
+                const data = await response.json();
+                const board = document.getElementById('left-board');
+                board.innerHTML = ''; 
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'log-item';
+                    div.innerHTML = `<span class="log-text">${item.text}</span><span class="log-time">${item.time}</span>`;
+                    board.appendChild(div);
+                });
+            } catch (error) {
+                document.getElementById('left-board').innerHTML = '<div class="log-item">情報を取得できませんでした</div>';
+            }
+        }
+        loadUpdates();
+
+        // 以下、既存のスクリプト
+        const headerMsgs = ["ただいまメンバー募集中です！一緒に村を盛り上げませんか？", "ここには素敵な作品がたくさん待っています。ぜひ探してみてね。"];
         const msgEl = document.getElementById('header-message');
         let msgIndex = 0;
         function rotateHeaderMsg() {
@@ -449,13 +455,7 @@
             }
         }, TRIGGER_TIME);
 
-        const hintMessages = [
-            "💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾",
-            "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️",
-            "💡 村にいる黒猫をタップすると<br>鳴いてくれる噂です……🐈",
-            "💡 優しい時間が流れる村を、<br>のんびり散歩してくださいね🌸",
-            "💡 神社の奥には、1日1回<br>運を占える自販機があるかも🪙"
-        ];
+        const hintMessages = ["💡 時計塔のまわりを探すと、<br>何かが聞こえるかも……？🐾", "💡 もふ神神社があります。<br>お賽銭を入れて祈りましょう⛩️", "💡 村にいる黒猫をタップすると<br>鳴いてくれる噂です……🐈", "💡 優しい時間が流れる村を、<br>のんびり散歩してくださいね🌸", "💡 神社の奥には、1日1回<br>運を占える自販機があるかも🪙"];
         const hintEl = document.getElementById('random-hint');
         if (hintEl) { hintEl.innerHTML = hintMessages[Math.floor(Math.random() * hintMessages.length)]; }
 
@@ -481,7 +481,6 @@
             bellTrig.addEventListener('click', (e) => {
                 let bellCount = parseInt(localStorage.getItem('runora_bell_count') || '0', 10) + 1;
                 localStorage.setItem('runora_bell_count', bellCount);
-                try { new Audio('https://assets.mixkit.co/active_storage/sfx/911/911-200.wav').play(); } catch (err) {}
                 const f = document.createElement('div'); f.className = 'floating-counter'; f.innerText = `🔔 ${bellCount}回目`;
                 const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
                 wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
@@ -490,7 +489,6 @@
         const catTrig = document.getElementById('cat-trigger');
         if (catTrig && wrapper) {
             catTrig.addEventListener('click', (e) => {
-                try { new Audio('https://assets.mixkit.co/active_storage/sfx/1110/1110-200.wav').play(); } catch (err) {}
                 const f = document.createElement('div'); f.className = 'floating-meow'; f.innerText = ['🐾 にゃ〜ん', '🐾 にゃお？', '🐾 ごろごろ…', '🐾 みゃ〜', '🐾 ぷるるっ'][Math.floor(Math.random()*5)];
                 const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
                 wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
@@ -501,7 +499,6 @@
             saisenTrig.addEventListener('click', (e) => {
                 let saisenCount = parseInt(localStorage.getItem('runora_saisen_count') || '0', 10) + 1;
                 localStorage.setItem('runora_saisen_count', saisenCount);
-                try { new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-200.wav').play(); } catch (err) {}
                 const f = document.createElement('div'); f.className = 'floating-saisen'; f.innerText = `🪙 お賽銭 ${saisenCount}回目`;
                 const r = wrapper.getBoundingClientRect(); f.style.left = `${((e.clientX - r.left)/r.width)*100}%`; f.style.top = `${((e.clientY - r.top)/r.height)*100}%`;
                 wrapper.appendChild(f); f.addEventListener('animationend', () => f.remove());
